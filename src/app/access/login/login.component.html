@@ -1,0 +1,19 @@
+<section>
+    <div class="box-component">
+        <div class="align-components">
+            <img src="../../../assets/Logo-upe-site.png" alt="" width="100px">
+        <form [formGroup]="loginForm" class="form-component">
+            <mat-form-field>
+                <mat-label>Nome:</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field> <br />
+            <mat-form-field>
+                <mat-label>Senha:</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field> <br />
+        </form>
+        <button mat-raised-button color="primary" type="submit">Entrar</button>
+       </div>
+    </div>
+</section>
+

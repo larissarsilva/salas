@@ -11,24 +11,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 import { LoginComponent } from './access/login/login.component';
+import { ComponentsModule } from "./components/components.module";
+import { SidenavComponent } from "./components/sidenav/sidenav.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        ComponentsModule,
+    ]
 })
 export class AppModule { }

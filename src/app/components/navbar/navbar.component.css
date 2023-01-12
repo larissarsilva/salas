@@ -1,0 +1,14 @@
+.navbar {
+    background-color: #D9D9D9;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.exit {
+    cursor: pointer;
+}

@@ -1,50 +1,52 @@
 <section>
     <mat-sidenav-container class="crud-container" autosize>
-        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true"  [ngStyle]="{'width': isExpanded ? '200px' : '80px'}">
-            <button mat-icon-button (click)="isExpanded = !isExpanded">
-                <mat-icon>menu</mat-icon>
-            </button>
+        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true"  [ngStyle]="{'width': isExpanded ? '200px' : '100px'}">
+            <div class="align-menu-bar">
+                <button mat-icon-button (click)="isExpanded = !isExpanded">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
             <mat-nav-list>
-                <mat-list-item [routerLink]="['horario']">
+                <mat-list-item  [routerLink]="['horario']" [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title card-sidenav">
                         <img src="../../assets/crud/professor.png" alt="" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">Horário</span>
+                        <span class="full-width" *ngIf="isExpanded || isShowing">HORÁRIO</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['professor']">
+                <mat-list-item [routerLink]="['professor']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="../../assets/crud/professor.png" alt="" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">Professores</span>
+                        <span class="full-width" *ngIf="isExpanded || isShowing"> PROFESSORES </span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['estudante']">
+                <mat-list-item [routerLink]="['estudante']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">Estudantes</span>
+                        <span class="full-width" *ngIf="isExpanded || isShowing">ESTUDANTES</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['curso']">
+                <mat-list-item [routerLink]="['curso']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">Cursos</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['disciplina']">
+                <mat-list-item [routerLink]="['disciplina']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">Disciplinas</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['sala']">
+                <mat-list-item [routerLink]="['sala']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">Salas</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['aviso']">
+                <mat-list-item [routerLink]="['aviso']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">Avisos</span>
+                        <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
                 </mat-list-item>
             </mat-nav-list>

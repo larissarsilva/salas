@@ -5,4 +5,5 @@ table {
 .status-card {
     border-radius: 10px;
     padding: 5px 15px;
+    width: 65px;
 }

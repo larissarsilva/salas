@@ -18,9 +18,7 @@ export class CrudComponent implements OnInit {
   }
 
   isExpanded = true;
-  showSubmenu: boolean = false;
   isShowing = false;
-  showSubSubMenu: boolean = false;
 
   mouseenter() {
     if (!this.isExpanded) {

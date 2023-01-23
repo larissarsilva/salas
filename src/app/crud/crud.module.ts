@@ -15,10 +15,14 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { SubjectComponent } from './subject/subject.component';
+import { CourseComponent } from './course/course.component';
+import { RoomComponent } from './room/room.component';
+import { WarningComponent } from './warning/warning.component';
 
 
 @NgModule({
-  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent],
+  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent, SubjectComponent, CourseComponent, RoomComponent, WarningComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,

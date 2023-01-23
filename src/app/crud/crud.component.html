@@ -1,6 +1,6 @@
 <section>
     <mat-sidenav-container class="crud-container" autosize>
-        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true">
+        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true"  [ngStyle]="{'width': isExpanded ? '200px' : '80px'}">
             <button mat-icon-button (click)="isExpanded = !isExpanded">
                 <mat-icon>menu</mat-icon>
             </button>
@@ -21,6 +21,30 @@
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">Estudantes</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['curso']">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Cursos</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['disciplina']">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Disciplinas</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['sala']">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Salas</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['aviso']">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Avisos</span>
                     </div>
                 </mat-list-item>
             </mat-nav-list>

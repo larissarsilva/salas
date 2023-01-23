@@ -1,0 +1,42 @@
+section {
+  height: 100%;
+}
+
+.icons-sidenav {
+  width: 40px ;
+}
+
+.align-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdc-list-item.mdc-list-item--with-one-line {
+  height: 80px;
+}
+
+.crud-container {
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+  }
+
+.content-sidenav {
+    user-select: none;
+    background-color: #123994;
+    padding-top: 80px;
+}
+
+.full-width {
+  width: 100%;
+}
+

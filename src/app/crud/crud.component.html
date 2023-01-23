@@ -1,1 +1,28 @@
-<p>crud works!</p>
+<section>
+    <mat-sidenav-container class="crud-container" autosize>
+        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true">
+            <button mat-icon-button (click)="isExpanded = !isExpanded">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <mat-nav-list>
+                <mat-list-item [routerLink]="['professor']">
+                    <div class="align-title">
+                        <img src="../../assets/crud/professor.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Professores</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['estudante']">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Estudantes</span>
+                    </div>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-sidenav>
+        
+        <div class="sidenav-content">
+            <router-outlet></router-outlet>
+        </div>
+    
+    </mat-sidenav-container>
+</section>

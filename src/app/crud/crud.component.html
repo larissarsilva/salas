@@ -5,6 +5,12 @@
                 <mat-icon>menu</mat-icon>
             </button>
             <mat-nav-list>
+                <mat-list-item [routerLink]="['horario']">
+                    <div class="align-title card-sidenav">
+                        <img src="../../assets/crud/professor.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">Horário</span>
+                    </div>
+                </mat-list-item>
                 <mat-list-item [routerLink]="['professor']">
                     <div class="align-title">
                         <img src="../../assets/crud/professor.png" alt="" class="icons-sidenav">

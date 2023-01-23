@@ -11,9 +11,14 @@ import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ScheduleComponent } from './schedule/schedule.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
-  declarations: [CrudComponent, ProfessorComponent, StudentComponent],
+  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,
@@ -22,7 +27,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+    MatCardModule,
+    MatInputModule
   ],
   providers: [CrudService],
 })

@@ -49,6 +49,12 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
                 </mat-list-item>
+                <mat-list-item [routerLink]="['aviso']"  [ngClass]="{'mini-nav': !isExpanded }">
+                    <div  class="align-title">
+                        <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
+                    </div>
+                </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
         

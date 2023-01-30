@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { CrudService } from './crud.service';
 
 @Component({
@@ -7,12 +8,22 @@ import { CrudService } from './crud.service';
   styleUrls: ['./crud.component.css']
 })
 export class CrudComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav | undefined;
   constructor(
     private courses: CrudService
   ) { }
 
   ngOnInit() {
-    this.courses.getCourses().subscribe(value => console.log('valor',value));
+    // this.courses.getCourses().subscribe(value => console.log('valor',value));
+  }
+
+  isExpanded = true;
+  isShowing = false;
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
   }
 
 }

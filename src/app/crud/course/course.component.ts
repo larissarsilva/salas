@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from '../crud.service';
 
 @Component({
   selector: 'app-course',
@@ -14,48 +15,20 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class CourseComponent implements OnInit {
-response = [
-    {
-      "name": "Engenharia da Computação",
-      "shift": 1,
-      "subjects": [
-        {
-          "name": "calculo numerico",
-          "code": "GHBP9765",
-          "hours": 15,
-          "group": "st",
-          "courses": null,
-          "professors": [],
-          "id": 1
-        },
-        {
-          "name": "LPI",
-          "code": "GHBP9765",
-          "hours": 30,
-          "group": "st",
-          "courses": null,
-          "professors": [],
-          "id": 1
-        }
-      ],
-      "id": 1
-    },
-    {
-      "name": "Engenharia Civil",
-      "shift": 0,
-      "subjects": [],
-      "id": 3
-    }
-  ];
-
+  expandedElement: any;
+  dataSource: any;
   columnsToDisplay = ['name', 'shift'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement = this.response;
 
-
- dataSource = this.response;
-
+  constructor(
+    private courses: CrudService
+  ) { }
+  
   ngOnInit() { 
+    this.courses.getCourses().subscribe(responseObject => {
+      this.dataSource = responseObject;
+    });
+    this.expandedElement = this.dataSource;
   }
 
 }

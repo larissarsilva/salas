@@ -11,9 +11,22 @@
       "professorsIds": [
         0
       ]
+    },
+    {
+      "name": "calculo numerico",
+      "code": "PVNJ4621",
+      "hours": 15,
+      "group": "st",
+      "coursesIds": [
+        0
+      ],
+      "professorsIds": [
+        0
+      ]
     }
   ],
-  "Professors": [{
+  "Professors": [
+    {
       "name": "Larissa Silva",
       "card": {
         "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
@@ -22,205 +35,208 @@
       "subjectsIds": [
         0
       ]
-    }],
-"Courses": [{
-    "name": "Engenharia da Computação",
-    "shift": 1,
-    "subjects": [
-      {
-        "name": "calculo numerico",
-        "code": "GHBP9765",
-        "hours": 15,
-        "group": "st",
-        "courses": null,
-        "professors": [],
-        "id": 1
-      }
-    ],
-    "id": 0
-  },
-  {
-    "name": "Engenharia de Produção",
-    "shift": 0,
-    "subjects": [],
-    "id": 1
-  },
-  {
-    "name": "Engenharia Civil",
-    "shift": 0,
-    "subjects": [],
-    "id": 2
-  }
-],
-"Room": [{
-    "id": 0,
-    "name": "K 09",
-    "block": 0,
-    "isAcessible": true,
-    "hasAirConditioner": true,
-    "hasFan": true,
-    "hasProjector": true,
-    "capacity": 30,
-    "keyId": 0,
-    "key": {
-      "id": 0,
-      "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+  ],
+  "Courses": [
+    {
+      "name": "Engenharia da Computação",
+      "shift": 1,
+      "subjects": [
+        {
+          "name": "calculo numerico",
+          "code": "GHBP9765",
+          "hours": 15,
+          "group": "st",
+          "courses": null,
+          "professors": [],
+          "id": 1
+        }
+      ],
+      "id": 0
     },
-    "available": true,
-    "note": "Esta sala não possue cadeira para canhoto"
-},
-{
-  "id": 1,
-  "name": "LIP 07",
-  "block": 0,
-  "isAcessible": false,
-  "hasAirConditioner": true,
-  "hasFan": true,
-  "hasProjector": false,
-  "capacity": 45,
-  "keyId": 0,
-  "key": {
-    "id": 0,
-    "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-  },
-  "available": true,
-  "note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-  "id": 0,
-  "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-},
-{
-"id": 0,
-"name": "LIP 07",
-"block": 0,
-"isAcessible": false,
-"hasAirConditioner": true,
-"hasFan": true,
-"hasProjector": false,
-"capacity": 45,
-"keyId": 0,
-"key": {
-"id": 0,
-"uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-},
-"available": true,
-"note": "Esta sala não possue nenhuma restrição"
-}]
-
+    {
+      "name": "Engenharia de Produção",
+      "shift": 0,
+      "subjects": [],
+      "id": 1
+    },
+    {
+      "name": "Engenharia Civil",
+      "shift": 0,
+      "subjects": [],
+      "id": 5
+    }
+  ],
+  "Room": [
+    {
+      "id": 0,
+      "name": "K 09",
+      "block": 0,
+      "isAcessible": true,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": true,
+      "capacity": 30,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue cadeira para canhoto"
+    },
+    {
+      "id": 1,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    },
+    {
+      "id": 0,
+      "name": "LIP 07",
+      "block": 0,
+      "isAcessible": false,
+      "hasAirConditioner": true,
+      "hasFan": true,
+      "hasProjector": false,
+      "capacity": 45,
+      "keyId": 0,
+      "key": {
+        "id": 0,
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "available": true,
+      "note": "Esta sala não possue nenhuma restrição"
+    }
+  ]
 }

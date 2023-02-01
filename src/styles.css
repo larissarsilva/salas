@@ -30,3 +30,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 8px;
     background-color: #363636;
 }
+
+.icons-crud {
+   width: 32px !important; 
+   height: 32px !important;
+}

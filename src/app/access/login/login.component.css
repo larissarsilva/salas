@@ -8,6 +8,7 @@ section {
 .box-component {
     /* border: 1px solid rgb(62, 62, 62); */
     width: 80%;
+    max-width: 400px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;

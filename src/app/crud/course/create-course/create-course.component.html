@@ -1,0 +1,40 @@
+<section>
+    <mat-card>
+        <form [formGroup]="coursesForm">
+           <div class="create-fields">
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Curso</mat-label>
+                        <input matInput formControlName="name"
+                        placeholder="Ex.: Engenharia da Computação">
+                        <mat-error *ngIf="coursesForm.controls['name'].hasError('required')">
+                            Campo <strong> obrigatório</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Turno</mat-label>
+                <mat-select formControlName="shift">
+                    <mat-option *ngFor="let shift of shifts" [value]="shift.value">
+                        <span [innerHTML]="shift.alias"></span>
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Matérias</mat-label>
+                        <input matInput formControlName="subjects"
+                        placeholder="Ex.: Cálculo 3">
+                    </mat-form-field>
+                </div>
+
+                <div class="create-cancel">
+                    <button mat-raised-button color="primary" type="submit" (click)="createCurse()">Criar</button>
+                    <button mat-raised-button color="warn" (click)="cancelCreate()">Cancelar</button>
+                </div>
+           </div>
+        </form>
+    </mat-card>
+</section>

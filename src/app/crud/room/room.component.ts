@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../crud.service';
+import { RoomService } from './room.service';
 
 @Component({
   selector: 'app-room',
@@ -9,7 +10,7 @@ import { CrudService } from '../crud.service';
 export class RoomComponent  implements OnInit {
   dataSource: any;
   constructor(
-    private rooms: CrudService
+    private roomService: RoomService
   ) { }
 
   displayedColumns: string[] = ['name', 'block', 'isAcessible', 
@@ -19,8 +20,16 @@ export class RoomComponent  implements OnInit {
   ELEMENT_DATA = [];
   
   ngOnInit() { 
-      this.rooms.getRoom().subscribe(responseObject => {
-        this.dataSource = responseObject;
+      this.roomService.getRoom().subscribe((response: any) => {
+        const statusCode = response['code'];
+        if (statusCode == 200) {
+          this.dataSource = response;
+        } else if(statusCode == 204) {
+          console.log('no content');
+        } 
+        else {
+          //implementar
+        }
       })
   }
 

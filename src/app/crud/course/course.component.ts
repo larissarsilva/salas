@@ -34,21 +34,26 @@ export class CourseComponent implements OnInit {
   }
 
   getCourses() {
-    this.courses.getCourses().subscribe(responseObject => {
-      this.dataSource = responseObject;
-      for (let index = 0; index < this.dataSource.length; index++) {
-        const element = this.dataSource[index];
-        element['index'] = index;
-        if(element['shift'] == 0) {
-          element['shift'] = 'MANHÃ'
-        } else if (element['shift'] == 1) {
-          element['shift'] = 'TARDE'
-        } else if (element['shift'] == 2) {
-          element['shift'] = 'NOITE'
+    this.courses.getCourses().subscribe((response:any) => {
+      const statusCode = response['code'];
+      if(statusCode == 200) {
+        this.dataSource = response['content'];
+        for (let index = 0; index < this.dataSource.length; index++) {
+          const element = this.dataSource[index];
+          element['index'] = index;
+          if(element['shift'] == 0) {
+            element['shift'] = 'MANHÃ'
+          } else if (element['shift'] == 1) {
+            element['shift'] = 'TARDE'
+          } else if (element['shift'] == 2) {
+            element['shift'] = 'NOITE'
+          }
         }
+        this.expandedElement = this.dataSource;
+      } else {
+        console.log("exibir erro");
       }
     });
-    this.expandedElement = this.dataSource;
   }
 
   createCourse() {
@@ -81,7 +86,7 @@ export class CourseComponent implements OnInit {
           )
         });
       }
-    })
+    });
   }
 
 }

@@ -26,10 +26,14 @@ import { CreateStudentComponent } from './modals/create-student/create-student.c
 import { CreateCourseComponent } from './course/create-course/create-course.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from './course/course.service';
+import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
+import { SubjectService } from './subject/subject.service';
+import { ProfessorService } from './professor/professor.service';
+import { RoomService } from './room/room.service';
 
 
 @NgModule({
-  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent, SubjectComponent, CourseComponent, RoomComponent, WarningComponent, CreateStudentComponent, CreateCourseComponent],
+  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent, SubjectComponent, CourseComponent, RoomComponent, WarningComponent, CreateStudentComponent, CreateCourseComponent, CreateSubjectComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,
@@ -45,8 +49,8 @@ import { CourseService } from './course/course.service';
     MatDialogModule,
     MatGridListModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [CrudService, CourseService],
+  providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService],
 })
 export class CrudModule { }

@@ -1,37 +1,55 @@
 {
   "Subjects": [
     {
+      "id": 0,
       "name": "calculo numerico",
       "code": "PVNJ4621",
       "hours": 15,
       "group": "st",
       "coursesIds": [
-        0
+        0,
+        1
       ],
       "professorsIds": [
         0
       ]
     },
     {
-      "name": "calculo numerico",
-      "code": "PVNJ4621",
-      "hours": 15,
-      "group": "st",
+      "name": "Sinais e Sistemaas",
+      "code": "MAT00001",
+      "hours": "60",
+      "group": "ST",
       "coursesIds": [
         0
       ],
-      "professorsIds": [
-        0
-      ]
+      "professorsId": null,
+      "id": 1
     }
   ],
   "Professors": [
     {
+      "id": 0,
       "name": "Larissa Silva",
       "card": {
         "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
       },
-      "courseId": 0,
+      "courseId": [
+        0,
+        1
+      ],
+      "subjectsIds": [
+        0
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Matheus Albert",
+      "card": {
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "courseId": [
+        1
+      ],
       "subjectsIds": [
         0
       ]
@@ -53,12 +71,6 @@
         }
       ],
       "id": 0
-    },
-    {
-      "name": "Engenharia de Produção",
-      "shift": 0,
-      "subjects": [],
-      "id": 1
     },
     {
       "name": "Engenharia Civil",

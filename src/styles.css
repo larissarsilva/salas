@@ -35,3 +35,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    width: 32px !important; 
    height: 32px !important;
 }
+
+.mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c79-2.mdc-text-field--filled {
+    border-radius: 0px;
+    background-color: transparent;
+}
+
+
+/* .mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c79-2.mdc-text-field--filled:hover {
+    border-radius: 0px;
+    background-color: transparent;
+} */
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fff;
+  }

@@ -17,6 +17,7 @@ export class CreateSubjectComponent implements OnInit {
 
 
   subjectsForm: FormGroup;
+  subjectId!: number;
   listCourses: any;
   listProfessors: any;
   listHours = [15, 30, 45, 60, 75, 90, 180];
@@ -45,20 +46,18 @@ export class CreateSubjectComponent implements OnInit {
       // preencher os campos do edit
       this.showCreateButton = false;
       this.fillFields();
-      console.log('this.subjectValues',this.subjectValues)
+      this.subjectId = this.subjectValues.id
     } else {
-      console.log(this.fieldType);
       this.showCreateButton = true;
     }
   }
 
   fillFields() {
     this.subjectsForm.patchValue(this.subjectValues)
-    console.log('form', this.subjectsForm)
   }
 
   editSubject() {
-    console.log('this.subjectsForm.value', this.subjectsForm.value)
+    this.subjectsForm.value['id'] = this.subjectId;
     this.subjectService.putSubject(this.subjectsForm.value).subscribe((response: any) => {
       // const statusCode = response['code'];
       this.clearFields();
@@ -117,6 +116,5 @@ export class CreateSubjectComponent implements OnInit {
   refreshSubjects() {
     this.hasNewSubject.emit(true);
   }
-
 
 }

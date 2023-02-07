@@ -17,13 +17,15 @@ import Swal from 'sweetalert2';
   ]
 })
 export class CourseComponent implements OnInit {
-  showCreateCouse: boolean = false;
+  showCreateCourse: boolean = false;
 
   // Table
   expandedElement: any;
   dataSource: any;
   columnsToDisplay = ['name', 'shift'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
+  fieldType!: string;
+  sendCourse: any;
 
   constructor(
     private courses: CrudService
@@ -57,11 +59,12 @@ export class CourseComponent implements OnInit {
   }
 
   createCourse() {
-    this.showCreateCouse = true;
+    this.showCreateCourse = true;
+    this.fieldType = 'create';
   }
 
   getEventValue(value: boolean) {
-    this.showCreateCouse = value;
+    this.showCreateCourse = value;
   }
 
   deleteCourse(id: number, name: string) {
@@ -87,6 +90,18 @@ export class CourseComponent implements OnInit {
         });
       }
     });
+  }
+
+  editCourse(course:any) {
+    this.fieldType = 'edit';
+    this.sendCourse = course;
+    this.showCreateCourse = true;
+  }
+
+  refreshGetCourse(value: boolean) {
+    if(value) {
+      this.getCourses();
+    }
   }
 
 }

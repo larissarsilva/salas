@@ -42,10 +42,10 @@
             </div>
         </form>
         <div class="create-cancel">
-            <button mat-raised-button *ngIf="showCreateButton" color="primary" type="submit" (click)="createCourse()">Criar</button>
+            <button mat-raised-button *ngIf="showCreateButton" color="primary" type="submit" (click)="createCourse()">ADICIONAR</button>
             <button mat-raised-button color="primary" type="submit" (click)="updateCourse()"
-            *ngIf="!showCreateButton">Salvar</button>
-            <button mat-raised-button color="warn" (click)="cancelCreate()">Cancelar</button>
+            *ngIf="!showCreateButton">SALVAR</button>
+            <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
         </div>
     </mat-card>
 </section>

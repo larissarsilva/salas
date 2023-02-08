@@ -20,21 +20,32 @@
                         <span [innerHTML]="shift.alias"></span>
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="coursesForm.controls['shift'].hasError('required')">
+                    Campo <strong> obrigatório</strong>
+                </mat-error>
                 </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Matérias</mat-label>
-                        <input matInput formControlName="subjects"
-                        placeholder="Ex.: Cálculo 3">
+                        <mat-select formControlName="subjectsIds" multiple>
+                            <mat-option *ngFor="let subject of listSubjects" [value]="subject.id">
+                               <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="coursesForm.controls['subjectsIds'].hasError('required')">
+                            Campo <strong> obrigatório</strong>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
-                <div class="create-cancel">
-                    <button mat-raised-button color="primary" type="submit" (click)="createCurse()">Criar</button>
-                    <button mat-raised-button color="warn" (click)="cancelCreate()">Cancelar</button>
-                </div>
-           </div>
+            </div>
         </form>
+        <div class="create-cancel">
+            <button mat-raised-button *ngIf="showCreateButton" color="primary" type="submit" (click)="createCourse()">ADICIONAR</button>
+            <button mat-raised-button color="primary" type="submit" (click)="updateCourse()"
+            *ngIf="!showCreateButton">SALVAR</button>
+            <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+        </div>
     </mat-card>
 </section>

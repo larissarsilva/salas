@@ -15,6 +15,7 @@ import { ComponentsModule } from "./components/components.module";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { AuthService } from './access/auth.service';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
         MatInputModule,
         ReactiveFormsModule,
         ComponentsModule,
+        HomeModule
     ]
 })
 export class AppModule { }

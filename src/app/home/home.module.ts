@@ -4,16 +4,18 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import {MatTableModule} from '@angular/material/table';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatTableModule
+    MatTableModule,
+    ComponentsModule
   ]
 })
 export class HomeModule { }

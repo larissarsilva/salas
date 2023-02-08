@@ -5,7 +5,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'home',loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
+  {path: '',loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
   {path: 'listagem',
     loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule),
     // canActivate: [AuthGuardService]

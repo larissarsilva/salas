@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Input, OnInit } from '@angular/core';
 import { SubjectService } from './subject.service';
 import { CourseService } from '../course/course.service';
-import { Subject } from '../crud';
+import { Subject } from '../crud.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./subject.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ]
@@ -37,11 +37,11 @@ export class SubjectComponent implements OnInit {
   ngOnInit(): void {
     this.getSubjects();
   }
-  
+
   getSubjects() {
-    this.subjectServices.getSubjects().subscribe((response:any) => {
+    this.subjectServices.getSubjects().subscribe((response: any) => {
       const statusCode = response['code'];
-      if(statusCode == 200) {
+      if (statusCode == 200) {
         this.dataSource = response['content'];
         this.expandedElement = this.dataSource;
       } else {
@@ -52,7 +52,7 @@ export class SubjectComponent implements OnInit {
   }
 
   refreshGetSubjects(value: any) {
-    if(value) {
+    if (value) {
       this.getSubjects();
     }
   }
@@ -101,8 +101,8 @@ export class SubjectComponent implements OnInit {
       this.listAllCourses = response;
       for (let index = 0; index < coursesId.length; index++) {
         const subjectId = coursesId[index];
-        const hasId = this.listAllCourses.findIndex((value: any) => value.id == subjectId );
-        if(hasId != -1) {
+        const hasId = this.listAllCourses.findIndex((value: any) => value.id == subjectId);
+        if (hasId != -1) {
           this.listCourses.push(this.listAllCourses[hasId])
         }
       }

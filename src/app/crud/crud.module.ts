@@ -7,17 +7,17 @@ import { CrudService } from './crud.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { StudentComponent } from './student/student.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ScheduleComponent } from './schedule/schedule.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { SubjectComponent } from './subject/subject.component';
 import { CourseComponent } from './course/course.component';
 import { RoomComponent } from './room/room.component';
@@ -30,10 +30,23 @@ import { CreateSubjectComponent } from './subject/create-subject/create-subject.
 import { SubjectService } from './subject/subject.service';
 import { ProfessorService } from './professor/professor.service';
 import { RoomService } from './room/room.service';
+import { CreateEditProfessorComponent } from './professor/create-edit-professor/create-edit-professor.component';
 
 
 @NgModule({
-  declarations: [CrudComponent, ProfessorComponent, StudentComponent, ScheduleComponent, SubjectComponent, CourseComponent, RoomComponent, WarningComponent, CreateStudentComponent, CreateCourseComponent, CreateSubjectComponent],
+  declarations: [
+    CrudComponent,
+    ProfessorComponent,
+    StudentComponent,
+    ScheduleComponent,
+    SubjectComponent,
+    CourseComponent,
+    RoomComponent,
+    WarningComponent, 
+    CreateStudentComponent, 
+    CreateCourseComponent, 
+    CreateSubjectComponent, 
+    CreateEditProfessorComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,

@@ -8,7 +8,7 @@ export class CourseService {
   URL = 'https://salaapi.azurewebsites.net/';
   // LOCAL_URL = 'http://localhost:3000/';
   LOCAL_URL = this.URL;
-  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc1NzIzMTU4LCJleHAiOjE2NzU3NTE5NTgsImlhdCI6MTY3NTcyMzE1OH0.XSQd58FVqzv4EfNuZwrpKMF_ZlDTR174stMe5FB43t4';
+  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc1ODk4Nzk3LCJleHAiOjE2NzU5Mjc1OTcsImlhdCI6MTY3NTg5ODc5N30.UDjKhmUtaGzTC44qAYj0dpG4cWa4HjHeTjyWFM-4C10';
 
   constructor( private http: HttpClient ) {}
 

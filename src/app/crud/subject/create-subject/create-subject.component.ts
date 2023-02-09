@@ -38,11 +38,11 @@ export class CreateSubjectComponent implements OnInit {
       professorsId: [null]
     });
   }
-  
+
   ngOnInit(): void {
     this.getCourses();
     this.getProfessors();
-    if(this.fieldType == 'edit') {
+    if (this.fieldType == 'edit') {
       // preencher os campos do edit
       this.showCreateButton = false;
       this.fillFields();
@@ -71,8 +71,8 @@ export class CreateSubjectComponent implements OnInit {
     });
   }
 
-  createSubject(){
-    if(this.subjectsForm.valid) {
+  createSubject() {
+    if (this.subjectsForm.valid) {
       this.subjectService.postSubject(this.subjectsForm.value).subscribe((response: any) => {
         const statusCode = response['code'];
         if (statusCode == 200) {
@@ -92,9 +92,9 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   getCourses() {
-    this.coursesService.getCourses().subscribe((response:any) => {
+    this.coursesService.getCourses().subscribe((response: any) => {
       const statusCode = response['code'];
-      if(statusCode == 200) {
+      if (statusCode == 200) {
         this.listCourses = response['content'];
       } else {
         //validar erro
@@ -103,7 +103,7 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   getProfessors() {
-    this.professorsService.getProfessor().subscribe(response => {
+    this.professorsService.getProfessors().subscribe(response => {
       this.listProfessors = response;
     });
   }

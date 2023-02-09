@@ -10,8 +10,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./course.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ]
@@ -30,20 +30,20 @@ export class CourseComponent implements OnInit {
   constructor(
     private courses: CrudService
   ) { }
-  
-  ngOnInit() { 
+
+  ngOnInit() {
     this.getCourses();
   }
 
   getCourses() {
-    this.courses.getCourses().subscribe((response:any) => {
+    this.courses.getCourses().subscribe((response: any) => {
       const statusCode = response['code'];
-      if(statusCode == 200) {
+      if (statusCode == 200) {
         this.dataSource = response['content'];
         for (let index = 0; index < this.dataSource.length; index++) {
           const element = this.dataSource[index];
           element['index'] = index;
-          if(element['shift'] == 0) {
+          if (element['shift'] == 0) {
             element['shift'] = 'MANHÃ'
           } else if (element['shift'] == 1) {
             element['shift'] = 'TARDE'
@@ -92,14 +92,14 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  editCourse(course:any) {
+  editCourse(course: any) {
     this.fieldType = 'edit';
     this.sendCourse = course;
     this.showCreateCourse = true;
   }
 
   refreshGetCourse(value: boolean) {
-    if(value) {
+    if (value) {
       this.getCourses();
     }
   }

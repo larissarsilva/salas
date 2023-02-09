@@ -6,19 +6,16 @@
     <div>
         <div [ngSwitch]="showCreateCourse">
             <span *ngSwitchCase="true">
-                <app-create-course
-                [fieldType]="fieldType"
-                [coursesValues]="sendCourse"
-                (hasNewCourse)="refreshGetCourse($event)"
-                (showCreateField)="getEventValue($event)"></app-create-course>
+                <app-create-course [fieldType]="fieldType" [coursesValues]="sendCourse"
+                    (hasNewCourse)="refreshGetCourse($event)"
+                    (showCreateField)="getEventValue($event)"></app-create-course>
             </span>
             <span *ngSwitchCase="false"></span>
         </div>
     </div> <br />
 
     <mat-card>
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-            class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 
             <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
                 <th mat-header-cell *matHeaderCellDef>
@@ -27,56 +24,57 @@
                         <span *ngSwitchCase="'shift'">TURNO</span>
                     </div>
                 </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <span [innerHTML]="element[column]"></span>                
+                <td mat-cell *matCellDef="let element">
+                    <span [innerHTML]="element[column]"></span>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="expand">
                 <th mat-header-cell *matHeaderCellDef aria-label="row actions">DETALHES</th>
                 <td mat-cell *matCellDef="let element">
-                <button mat-icon-button aria-label="expand row"
-                (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-                    <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-                    <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
-                </button>
+                    <button mat-icon-button aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="expandedDetail">
                 <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-                <div class="example-element-detail"
-                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                    <div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th> DISCIPLINA</th>
-                                    <th> CÓDIGO </th>
-                                    <th> CARGA HORÁRIA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let subject of element.subjects">
-                                    <td>{{subject.name}}</td>
-                                    <td> {{subject.code}} </td>
-                                    <td> {{subject.hours}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th> DISCIPLINA</th>
+                                        <th> CÓDIGO </th>
+                                        <th> CARGA HORÁRIA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let subject of element.subjects">
+                                        <td>{{subject.name}}</td>
+                                        <td> {{subject.code}} </td>
+                                        <td> {{subject.hours}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="actionsDetails">
-                <th mat-header-cell *matHeaderCellDef> AÇÕES  </th>
-                <td mat-cell *matCellDef="let element"> 
+                <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+                <td mat-cell *matCellDef="let element">
                     <div class="actions">
                         <button (click)="editCourse(element)" mat-mini-fab color="primary" class="icons-crud">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button (click)="deleteCourse(element.id, element.name)" mat-mini-fab color="warn" class="icons-crud">
+                        <button (click)="deleteCourse(element.id, element.name)" mat-mini-fab color="warn"
+                            class="icons-crud">
                             <mat-icon>close</mat-icon>
                         </button>
                     </div>
@@ -84,11 +82,10 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-                <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
-                    class="example-element-row"
-                    [class.example-expanded-row]="expandedElement === element">
-                    <!-- (click)="expandedElement = expandedElement === element ? null : element" -->
-                </tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element">
+                <!-- (click)="expandedElement = expandedElement === element ? null : element" -->
+            </tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
     </mat-card>

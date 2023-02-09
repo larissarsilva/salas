@@ -6,3 +6,10 @@ export interface Subject {
     coursesIds: any;
     professorsIds: any;
 }
+
+export interface Professors {
+    id: number;
+    name: string;
+    course: any;
+    subjects: any;
+}

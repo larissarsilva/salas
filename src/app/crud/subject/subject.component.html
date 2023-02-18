@@ -17,8 +17,11 @@
     </div>
     <mat-card>
         <mat-card-header>
-            <div class="searchField">
-                <input type="text" [(ngModel)]="filterSubject" autocomplete="off">
+            <div class="search-field">
+                <div class="search-icon">
+                    <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+                </div>
+                <input type="text" [(ngModel)]="filterSubject" placeholder="Ex.: Cálculo Númerico" autocomplete="off">
             </div>
         </mat-card-header>
 
@@ -74,11 +77,12 @@
                 <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
                 <td mat-cell *matCellDef="let element">
                     <div class="actions">
-                        <button (click)="editSubject(element)" mat-mini-fab color="primary" class="icons-crud">
+                        <button (click)="editSubject(element)" mat-mini-fab color="primary" class="icons-crud"
+                            matTooltip="Editar" matTooltipPosition="below">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button (click)="deleteSubject(element.id, element.name)" mat-mini-fab color="warn"
-                            class="icons-crud">
+                            class="icons-crud" matTooltip="Apagar" matTooltipPosition="below">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

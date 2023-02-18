@@ -15,7 +15,23 @@
     </div> <br />
 
     <mat-card>
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+        <mat-card-header>
+            <div class="search-field">
+                <div class="search-icon">
+                    <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+                </div>
+                <input type="text" [(ngModel)]="filterCourse" placeholder="Ex.: Cálculo Númerico" autocomplete="off">
+            </div>
+        </mat-card-header>
+
+        <div class="paginate">
+            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
+            </pagination-controls>
+        </div>
+
+        <table mat-table [dataSource]="dataSource | filter: filterCourse | paginate: {itemsPerPage: 10, currentPage: p}"
+            multiTemplateDataRows class="mat-elevation-z8">
 
             <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
                 <th mat-header-cell *matHeaderCellDef>
@@ -70,12 +86,13 @@
                 <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
                 <td mat-cell *matCellDef="let element">
                     <div class="actions">
-                        <button (click)="editCourse(element)" mat-mini-fab color="primary" class="icons-crud">
+                        <button (click)="editCourse(element)" mat-mini-fab color="primary" class="icons-crud"
+                            matTooltip="Editar" matTooltipPosition="below">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button (click)="deleteCourse(element.id, element.name)" mat-mini-fab color="warn"
-                            class="icons-crud">
-                            <mat-icon>close</mat-icon>
+                            class="icons-crud" matTooltip="Apagar" matTooltipPosition="below">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </div>
                 </td>
@@ -84,7 +101,6 @@
             <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
             <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
                 [class.example-expanded-row]="expandedElement === element">
-                <!-- (click)="expandedElement = expandedElement === element ? null : element" -->
             </tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>

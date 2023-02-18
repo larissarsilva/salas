@@ -24,8 +24,11 @@
 
     <mat-card>
         <mat-card-header>
-            <div class="searchField">
-                <input type="text" [(ngModel)]="filterRoom" autocomplete="off">
+            <div class="search-field">
+                <div class="search-icon">
+                    <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+                </div>
+                <input matInput type="text" [(ngModel)]="filterRoom" placeholder="Ex.: LIP 07" autocomplete="off">
             </div>
         </mat-card-header>
         <!-- <mat-card-header>

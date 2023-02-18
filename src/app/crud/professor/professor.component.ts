@@ -17,7 +17,8 @@ import { ProfessorService } from './professor.service';
   ]
 })
 export class ProfessorComponent implements OnInit {
-
+  filterProfessor = '';
+  p: number = 1;
   showCreateProfessor: boolean = false;
   fieldType!: string;
   sendProfessorValues: any;

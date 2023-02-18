@@ -21,12 +21,12 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing"> PROFESSORES </span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['estudante']"  [ngClass]="{'mini-nav': !isExpanded }">
+                <!-- <mat-list-item [routerLink]="['estudante']"  [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="../../assets/crud/student.png" alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">ESTUDANTES</span>
                     </div>
-                </mat-list-item>
+                </mat-list-item> -->
                 <mat-list-item [routerLink]="['curso']" routerLinkActive="active" #courseIsActive="routerLinkActive" 
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">

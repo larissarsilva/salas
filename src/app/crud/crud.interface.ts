@@ -30,3 +30,11 @@ export interface Room {
     available: boolean;
     note: string;
 }
+
+export interface Course {
+    id: number;
+    name: string;
+    shift: number;
+    subjects: Subject;
+    professors: Professors;
+}

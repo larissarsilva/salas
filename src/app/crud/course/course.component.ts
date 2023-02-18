@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../crud.service';
 import Swal from 'sweetalert2';
 import { CourseService } from './course.service';
+import { Course } from '../crud.interface';
 
 
 @Component({
@@ -18,11 +19,14 @@ import { CourseService } from './course.service';
   ]
 })
 export class CourseComponent implements OnInit {
+  filterCourse = '';
+  p: number = 1;
   showCreateCourse: boolean = false;
+  listCourses: any;
 
   // Table
   expandedElement: any;
-  dataSource: any;
+  dataSource: Course[] = [];
   columnsToDisplay = ['name', 'shift'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   fieldType!: string;
@@ -40,9 +44,10 @@ export class CourseComponent implements OnInit {
     this.coursesService.getCourses().subscribe((response: any) => {
       const statusCode = response['code'];
       if (statusCode == 200) {
-        this.dataSource = response['content'];
-        for (let index = 0; index < this.dataSource.length; index++) {
-          const element = this.dataSource[index];
+        this.listCourses = response['content'];
+        this.dataSource = this.listCourses;
+        for (let index = 0; index < this.listCourses.length; index++) {
+          const element = this.listCourses[index];
           element['index'] = index;
           if (element['shift'] == 0) {
             element['shift'] = 'MANHÃ'

@@ -1,5 +1,12 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .mat-drawer-inner-container::-webkit-scrollbar {
     width: 12px;
@@ -32,8 +39,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .icons-crud {
-   width: 32px !important; 
-   height: 32px !important;
+    width: 32px !important;
+    height: 32px !important;
 }
 
 .mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c79-2.mdc-text-field--filled {
@@ -49,4 +56,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: #fff;
-  }
+}
+
+
+.paginate {
+    display: flex;
+    justify-content: end;
+}

@@ -9,8 +9,10 @@ import { RoomService } from './room.service';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
+  p: number = 1;
   listRooms: Room[] = [];
   showCreateRoom: boolean = false; // Exibir o componente de criar sala
+  filterRoom = '';
 
   //Variáveis de comunicação de componente
   fieldType!: string; // Tipo do campo edit/create

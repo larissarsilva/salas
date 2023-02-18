@@ -1,3 +1,4 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrudComponent } from './crud.component';
@@ -13,6 +14,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +26,7 @@ import { RoomComponent } from './room/room.component';
 import { WarningComponent } from './warning/warning.component';
 import { CreateStudentComponent } from './modals/create-student/create-student.component';
 import { CreateCourseComponent } from './course/create-course/create-course.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from './course/course.service';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { SubjectService } from './subject/subject.service';
@@ -32,6 +34,7 @@ import { ProfessorService } from './professor/professor.service';
 import { RoomService } from './room/room.service';
 import { CreateEditProfessorComponent } from './professor/create-edit-professor/create-edit-professor.component';
 import { CreateEditRoomComponent } from './room/create-edit-room/create-edit-room.component';
+import { FilterPipe } from '../shared/pipes/filter.pipe';
 
 
 @NgModule({
@@ -43,15 +46,20 @@ import { CreateEditRoomComponent } from './room/create-edit-room/create-edit-roo
     SubjectComponent,
     CourseComponent,
     RoomComponent,
-    WarningComponent, 
-    CreateStudentComponent, 
-    CreateCourseComponent, 
-    CreateSubjectComponent, 
-    CreateEditProfessorComponent, CreateEditRoomComponent],
+    WarningComponent,
+    CreateStudentComponent,
+    CreateCourseComponent,
+    CreateSubjectComponent,
+    CreateEditProfessorComponent,
+    CreateEditRoomComponent,
+    FilterPipe
+  ],
   imports: [
+    NgxPaginationModule,
     CommonModule,
     CrudRoutingModule,
     HttpClientModule,
+    FormsModule,
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
@@ -63,6 +71,7 @@ import { CreateEditRoomComponent } from './room/create-edit-room/create-edit-roo
     MatDialogModule,
     MatGridListModule,
     MatSelectModule,
+    MatTooltipModule,
     ReactiveFormsModule,
   ],
   providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService],

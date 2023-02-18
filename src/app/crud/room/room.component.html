@@ -9,9 +9,19 @@
         </div>
     </div>
 
-    <div>
-        <button mat-raised-button>ADICIONAR</button>
-    </div> 
+
+    <div class="create-div">
+            <div *ngIf="!showCreateRoom">
+                <button mat-raised-button (click)="createRoom()">ADICIONAR</button>
+            </div>
+
+        <div *ngIf="showCreateRoom">
+            <create-edit-room [fieldType]="fieldType" [roomValues]="sendRoomValues"
+                (hasNewRoom)="refreshRoom($event)"
+                (showCreateField)="getShowCreateFieldValue($event)">
+            </create-edit-room>
+        </div>
+    </div>
 
     <br />
 
@@ -26,14 +36,14 @@
             </mat-form-field>
         </mat-card-header>
 
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="listRooms">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> SALA </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
     
             <ng-container matColumnDef="block">
-                <th mat-header-cell *matHeaderCellDef> BLOCK </th>
+                <th mat-header-cell *matHeaderCellDef> BLOCO </th>
                 <td mat-cell *matCellDef="let element"> {{element.block}} </td>
             </ng-container>
     
@@ -82,10 +92,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
             </ng-container>
     
-            <ng-container matColumnDef="key">
+            <!-- <ng-container matColumnDef="key">
                 <th mat-header-cell *matHeaderCellDef> CHAVE  </th>
                 <td mat-cell *matCellDef="let element"> {{element.key}} </td>
-            </ng-container>
+            </ng-container> -->
     
             <ng-container matColumnDef="available">
                 <th mat-header-cell *matHeaderCellDef> DISPONÍVEL  </th>
@@ -106,11 +116,13 @@
                 <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
                 <td mat-cell *matCellDef="let element"> 
                     <div class="actions">
-                        <button mat-mini-fab color="primary" style="width: 32px; height: 32px;">
+                        <button (click)="editRoom(element)" mat-mini-fab color="primary"
+                            class="icons-crud">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-mini-fab color="warn" style="width: 32px; height: 32px;">
-                            <mat-icon>close</mat-icon>
+                        <button (click)="deleteRoom(element.id, element.name)" mat-mini-fab
+                            color="warn" class="icons-crud">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </div>
                 </td>

@@ -12,7 +12,7 @@ import { ProfessorService } from '../professor.service';
 export class CreateEditProfessorComponent implements OnInit {
   @Input() fieldType: any;
   @Input() professorValues: any;
-  @Output() showCreateField = new EventEmitter()
+  @Output() showCreateField = new EventEmitter();
   @Output() hasNewProfessor = new EventEmitter();
 
   professorForm: FormGroup;
@@ -27,7 +27,7 @@ export class CreateEditProfessorComponent implements OnInit {
     private coursesService: CourseService,
     private professorsService: ProfessorService
   ) {
-    const uuid = "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    const uuid = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
     this.professorForm = this.formBuilder.group({
       name: [null, Validators.required],
       card: [{ 'uuid': uuid }],

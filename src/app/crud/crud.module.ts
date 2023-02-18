@@ -31,6 +31,7 @@ import { SubjectService } from './subject/subject.service';
 import { ProfessorService } from './professor/professor.service';
 import { RoomService } from './room/room.service';
 import { CreateEditProfessorComponent } from './professor/create-edit-professor/create-edit-professor.component';
+import { CreateEditRoomComponent } from './room/create-edit-room/create-edit-room.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { CreateEditProfessorComponent } from './professor/create-edit-professor/
     CreateStudentComponent, 
     CreateCourseComponent, 
     CreateSubjectComponent, 
-    CreateEditProfessorComponent],
+    CreateEditProfessorComponent, CreateEditRoomComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,

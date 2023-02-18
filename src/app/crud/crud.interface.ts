@@ -13,3 +13,20 @@ export interface Professors {
     course: any;
     subjects: any;
 }
+
+export interface Room {
+    id: number;
+    name: string;
+    block: number;
+    isAcessible: boolean;
+    hasAirConditioner: boolean;
+    hasFan: boolean;
+    hasProjector: boolean;
+    capacity: number;
+    key: any;
+    // key": {
+    //   "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    // },
+    available: boolean;
+    note: string;
+}

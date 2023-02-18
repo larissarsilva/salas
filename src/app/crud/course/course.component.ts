@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../crud.service';
 import Swal from 'sweetalert2';
+import { CourseService } from './course.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class CourseComponent implements OnInit {
   sendCourse: any;
 
   constructor(
-    private courses: CrudService
+    private coursesService: CourseService
   ) { }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class CourseComponent implements OnInit {
   }
 
   getCourses() {
-    this.courses.getCourses().subscribe((response: any) => {
+    this.coursesService.getCourses().subscribe((response: any) => {
       const statusCode = response['code'];
       if (statusCode == 200) {
         this.dataSource = response['content'];
@@ -79,7 +80,7 @@ export class CourseComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.courses.deleteCourse(id).subscribe(result => {
+        this.coursesService.deleteCourse(id).subscribe(result => {
           this.getCourses();
           console.log('result', result)
           Swal.fire(

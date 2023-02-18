@@ -8,7 +8,6 @@
         </div>
     </div>
 
-
     <div class="create-div">
         <div *ngIf="!showCreateRoom">
             <button mat-raised-button (click)="createRoom()">ADICIONAR</button>
@@ -25,7 +24,9 @@
 
     <mat-card>
         <mat-card-header>
-            <input type="text" [(ngModel)]="filterRoom" autocomplete="off">
+            <div class="searchField">
+                <input type="text" [(ngModel)]="filterRoom" autocomplete="off">
+            </div>
         </mat-card-header>
         <!-- <mat-card-header>
             <mat-form-field class="example-form-field">

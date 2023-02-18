@@ -18,9 +18,11 @@ import Swal from 'sweetalert2';
   ]
 })
 export class SubjectComponent implements OnInit {
+  p: number = 1;
+  filterSubject = '';
   showCreateSubject: boolean = false;
   expandedElement: any;
-  dataSource: any;
+  listSubject: Subject[] = [];
   columnsToDisplay = ['name', 'code', 'hours', 'group'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   listSubjects!: Subject[];
@@ -42,8 +44,8 @@ export class SubjectComponent implements OnInit {
     this.subjectServices.getSubjects().subscribe((response: any) => {
       const statusCode = response['code'];
       if (statusCode == 200) {
-        this.dataSource = response['content'];
-        this.expandedElement = this.dataSource;
+        this.listSubject = response.content;
+        this.expandedElement = this.listSubject;
       } else {
         // validação
       }

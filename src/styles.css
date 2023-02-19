@@ -87,6 +87,15 @@ mat-form-field {
     justify-content: end;
 }
 
+/*  CSS RELACIONADO À TABELA */
+.table-actions {
+    display: flex;
+}
+
+.delete-icon {
+    padding-left: 6px;
+}
+
 .create-edit {
     padding-right: 16px;
 }

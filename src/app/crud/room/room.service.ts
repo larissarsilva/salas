@@ -8,7 +8,7 @@ export class RoomService {
   URL = 'https://salaapi.azurewebsites.net/Rooms';
   // LOCAL_URL = 'http://localhost:3000/';
   LOCAL_URL = this.URL;
-  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc2NzM0MjY1LCJleHAiOjE2NzY3NjMwNjUsImlhdCI6MTY3NjczNDI2NX0.M5wURsW516okygFW-iH0PiID47qGlzXZMhZflXB0L5E';
+  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc2NzY4MTA0LCJleHAiOjE2NzY3OTY5MDQsImlhdCI6MTY3Njc2ODEwNH0.lbpZIJNbdIyxWOt7uN4axjvZvEmMJPFlj6g8EONtvCU'
 
   constructor(private http: HttpClient) { }
 

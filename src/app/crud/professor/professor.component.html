@@ -69,15 +69,17 @@
             <ng-container matColumnDef="actionsDetails">
                 <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
                 <td mat-cell *matCellDef="let element">
-                    <div class="actions">
+                    <div class="table-actions">
                         <button (click)="editProfessor(element)" mat-mini-fab color="primary" class="icons-crud"
                             matTooltip="Editar" matTooltipPosition="below">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button (click)="deleteProfessor(element.id, element.name)" mat-mini-fab color="warn"
-                            class="icons-crud" matTooltip="Apagar" matTooltipPosition="below">
-                            <mat-icon>delete</mat-icon>
-                        </button>
+                        <div class="delete-icon">
+                            <button (click)="deleteProfessor(element.id, element.name)" mat-mini-fab color="warn"
+                                class="icons-crud" matTooltip="Apagar" matTooltipPosition="below">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </td>
             </ng-container>

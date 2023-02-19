@@ -2,70 +2,83 @@
     <mat-card>
         <mat-card-content>
             <form [formGroup]="subjectsForm">
-                <br>
-                <div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Disciplina</mat-label>
-                        <input matInput type="text" formControlName="name" placeholder="Ex.: Introdução à Engenharia">
-                        <mat-error *ngIf="subjectsForm.controls['name'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Disciplina</mat-label>
+                            <input matInput type="text" formControlName="name"
+                                placeholder="Ex.: Introdução à Engenharia">
+                            <mat-error *ngIf="subjectsForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Código</mat-label>
-                        <input matInput type="text" formControlName="code" placeholder="Ex.: MATS0001">
-                        <mat-error *ngIf="subjectsForm.controls['code'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Código</mat-label>
+                            <input matInput type="text" formControlName="code" placeholder="Ex.: MATS0001">
+                            <mat-error *ngIf="subjectsForm.controls['code'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Carga Horária</mat-label>
-                        <mat-select formControlName="hours">
-                            <mat-option *ngFor="let hours of listHours" [value]="hours">
-                                <span [innerHTML]="hours"></span>
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="subjectsForm.controls['hours'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
+                    <div class="col-md-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Carga Horária</mat-label>
+                            <mat-select formControlName="hours">
+                                <mat-option *ngFor="let hours of listHours" [value]="hours">
+                                    <span [innerHTML]="hours"></span>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="subjectsForm.controls['hours'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
+                    <div class="col-md-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Grupo</mat-label>
+                            <input matInput type="text" formControlName="group" placeholder="Ex.: ST">
+                            <mat-error *ngIf="subjectsForm.controls['group'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Grupo</mat-label>
-                        <input matInput type="text" formControlName="group" placeholder="Ex.: ST">
-                        <mat-error *ngIf="subjectsForm.controls['group'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
+                    <div class="col-md-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cursos</mat-label>
+                            <mat-select formControlName="coursesIds" multiple>
+                                <mat-option *ngFor="let course of listCourses" [value]="course.id">
+                                    <span [innerHTML]="course.name"></span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Cursos</mat-label>
-                        <mat-select formControlName="coursesIds" multiple>
-                            <mat-option *ngFor="let course of listCourses" [value]="course.id">
-                                <span [innerHTML]="course.name"></span>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill">
-                        <mat-label>Professores</mat-label>
-                        <mat-select formControlName="coursesIds" multiple>
-                            <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
-                                <span [innerHTML]="professor.name"></span>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Professores</mat-label>
+                            <mat-select formControlName="coursesIds" multiple>
+                                <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
+                                    <span [innerHTML]="professor.name"></span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
+
             </form>
-            <div class="create-cancel">
-                <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
-                    (click)="createSubject()">CRIAR</button>
-                <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
-                    (click)="editSubject()">SALVARr</button>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createSubject()">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="editSubject()">SALVAR</button>
+                </div>
                 <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
             </div>
         </mat-card-content>

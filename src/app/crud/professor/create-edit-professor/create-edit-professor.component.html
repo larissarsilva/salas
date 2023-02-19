@@ -1,41 +1,51 @@
 <section>
-    <form [formGroup]="professorForm">
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Nome</mat-label>
-                <input matInput formControlName="name" placeholder="Ex.: Fulano da Silva">
-                <mat-error *ngIf="professorForm.controls['name'].hasError('required')">
-                    Campo <strong> obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Curso</mat-label>
-                <mat-select formControlName="courseId">
-                    <mat-option *ngFor="let course of listCourses" [value]="course.id">
-                        <span [innerHTML]="course.name"></span>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Matérias</mat-label>
-                <mat-select formControlName="subjectsIds" multiple>
-                    <mat-option *ngFor="let subject of listSubjects" [value]="subject.id">
-                        <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="professorForm.controls['subjectsIds'].hasError('required')">
-                    Campo <strong> obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </form>
-    <div class="create-cancel">
-        <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
-            (click)="createProfessor()">CRIAR</button>
-        <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
-            (click)="updateProfessor()">SALVAR</button>
-        <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
-    </div>
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="professorForm">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: Fulano da Silva">
+                            <mat-error *ngIf="professorForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Curso</mat-label>
+                            <mat-select formControlName="courseId">
+                                <mat-option *ngFor="let course of listCourses" [value]="course.id">
+                                    <span [innerHTML]="course.name"></span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Matérias</mat-label>
+                            <mat-select formControlName="subjectsIds" multiple>
+                                <mat-option *ngFor="let subject of listSubjects" [value]="subject.id">
+                                    <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="professorForm.controls['subjectsIds'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createProfessor()">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="updateProfessor()">SALVAR</button>
+                </div>
+                <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </section>

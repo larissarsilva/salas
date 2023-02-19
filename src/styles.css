@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 html,
 body {
     height: 100%;
@@ -43,19 +45,8 @@ body {
     height: 32px !important;
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c79-2.mdc-text-field--filled {
-    border-radius: 0px;
-    background-color: transparent;
-}
-
-
-/* .mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c79-2.mdc-text-field--filled:hover {
-    border-radius: 0px;
-    background-color: transparent;
-} */
-
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: #fff;
+mat-form-field {
+    width: 100%;
 }
 
 .paginate {
@@ -89,4 +80,18 @@ body {
     padding: 0px 6px;
     height: 100%;
     border-right: 1px solid #b3aeae;
+}
+
+.actions-field {
+    display: flex;
+    justify-content: end;
+}
+
+.create-edit {
+    padding-right: 16px;
+}
+
+.create-box {
+    margin-top: 16px;
+    background-color: #ffffff;
 }

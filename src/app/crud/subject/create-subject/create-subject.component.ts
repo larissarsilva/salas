@@ -54,6 +54,7 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   fillFields() {
+    // FAZER A VALIDAÇÃO PARA O CURSO ENTRAR NA EDIÇÃO
     this.subjectsForm.patchValue(this.subjectValues)
   }
 

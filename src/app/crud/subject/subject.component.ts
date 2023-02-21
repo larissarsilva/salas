@@ -43,13 +43,15 @@ export class SubjectComponent implements OnInit {
   getSubjects() {
     this.subjectServices.getSubjects().subscribe((response: any) => {
       const statusCode = response['code'];
-      if (statusCode == 200) {
-        this.listSubject = response.content;
-        this.expandedElement = this.listSubject;
-      } else {
-        // validação
+      switch (statusCode) {
+        case 200:
+          this.listSubject = response.content;
+          this.expandedElement = this.listSubject;
+          break;
+
+        default: console.log('erro');
+          break;
       }
-      // this.listSubjects = response;
     });
   }
 

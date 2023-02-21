@@ -103,16 +103,44 @@ export class CreateCourseComponent implements OnInit {
   getSubjects() {
     this.subjectServices.getSubjects().subscribe((response: any) => {
       const statusCode = response['code'];
-      if (statusCode == 200) {
-        this.listSubjects = response['content'];
-      } else {
-        // validação
+      switch (statusCode) {
+        case 200:
+          this.listSubjects = response['content'];
+          if (this.listSubjects.length == 0) {
+            this.disableSubjectField = true;
+          } else {
+            this.disableSubjectField = false;
+          }
+          break;
+
+        default: console.log('validação de erro');
+          break;
       }
     });
   }
 
 
   fillFields() {
+    console.log('this.coursesValues', this.coursesValues)
+    let shiftValue = this.coursesValues.shift.toLowerCase();
+    switch (shiftValue) {
+      case 'manhã':
+        shiftValue = 0;
+        break;
+
+      case 'tarde':
+        shiftValue = 1;
+        break;
+
+      case 'noite':
+        shiftValue = 2;
+        break;
+
+      default: shiftValue = 0;
+        break;
+    }
+    // VALIDAR OS IDS COM UM LAÇO PARA PASSAR OS SUBJECTS
+    this.coursesValues.shift = shiftValue;
     this.coursesForm.patchValue(this.coursesValues);
   }
 

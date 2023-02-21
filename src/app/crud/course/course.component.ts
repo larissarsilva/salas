@@ -75,7 +75,7 @@ export class CourseComponent implements OnInit {
 
   deleteCourse(id: number, name: string) {
     Swal.fire({
-      title: 'Tem certeza que gostaria de deletar?',
+      title: 'Tem certeza que gostaria de deletar ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
       showCancelButton: true,
@@ -87,10 +87,9 @@ export class CourseComponent implements OnInit {
       if (result.isConfirmed) {
         this.coursesService.deleteCourse(id).subscribe(result => {
           this.getCourses();
-          console.log('result', result)
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Sucesso!',
+            'Disciplina excluída',
             'success'
           )
         });

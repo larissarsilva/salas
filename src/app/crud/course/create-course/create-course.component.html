@@ -33,9 +33,6 @@
                                     <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="coursesForm.controls['subjectsIds'].hasError('required')">
-                                Campo <strong> obrigatório</strong>
-                            </mat-error>
                         </mat-form-field>
                     </div>
 

@@ -4,7 +4,7 @@
       "id": 0,
       "name": "calculo numerico",
       "code": "PVNJ4621",
-      "hours": 15,
+      "workload": 15,
       "group": "st",
       "coursesIds": [
         0,
@@ -17,7 +17,7 @@
     {
       "name": "Sinais e Sistemaas",
       "code": "MAT00001",
-      "hours": "60",
+      "workload": "60",
       "group": "ST",
       "coursesIds": [
         0
@@ -63,7 +63,7 @@
         {
           "name": "calculo numerico",
           "code": "GHBP9765",
-          "hours": 15,
+          "workload": 15,
           "group": "st",
           "courses": null,
           "professors": [],

@@ -23,7 +23,7 @@ export class SubjectComponent implements OnInit {
   showCreateSubject: boolean = false;
   expandedElement: any;
   listSubject: Subject[] = [];
-  columnsToDisplay = ['name', 'code', 'hours', 'group'];
+  columnsToDisplay = ['name', 'code', 'workload', 'group'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   listSubjects!: Subject[];
   listCourses: any;

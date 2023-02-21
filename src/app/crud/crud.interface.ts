@@ -1,7 +1,7 @@
 export interface Subject {
     id: number;
     name: string;
-    hours: number;
+    workload: number;
     group: string;
     coursesIds: any;
     professorsIds: any;

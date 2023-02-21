@@ -27,12 +27,12 @@
                     <div class="col-md-2">
                         <mat-form-field appearance="outline">
                             <mat-label>Carga Horária</mat-label>
-                            <mat-select formControlName="hours">
-                                <mat-option *ngFor="let hours of listHours" [value]="hours">
-                                    <span [innerHTML]="hours"></span>
+                            <mat-select formControlName="workload">
+                                <mat-option *ngFor="let workload of listworkload" [value]="workload">
+                                    <span [innerHTML]="workload"></span>
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="subjectsForm.controls['hours'].hasError('required')">
+                            <mat-error *ngIf="subjectsForm.controls['workload'].hasError('required')">
                                 Campo <strong> obrigatório</strong>
                             </mat-error>
                         </mat-form-field>
@@ -52,6 +52,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Cursos</mat-label>
                             <mat-select formControlName="coursesIds" multiple>
+                                <mat-option *ngIf="disableCourse" disabled> Nenhum curso cadastrado! </mat-option>
                                 <mat-option *ngFor="let course of listCourses" [value]="course.id">
                                     <span [innerHTML]="course.name"></span>
                                 </mat-option>
@@ -59,7 +60,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Professores</mat-label>
                             <mat-select formControlName="coursesIds" multiple>
@@ -68,7 +69,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div>
+                    </div> -->
                 </div>
 
             </form>

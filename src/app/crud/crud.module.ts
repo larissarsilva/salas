@@ -35,6 +35,9 @@ import { RoomService } from './room/room.service';
 import { CreateEditProfessorComponent } from './professor/create-edit-professor/create-edit-professor.component';
 import { CreateEditRoomComponent } from './room/create-edit-room/create-edit-room.component';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
+import { ScheduleService } from './schedule/schedule.service';
+import { CreateEditScheduleComponent } from './schedule/create-edit-schedule/create-edit-schedule.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -51,8 +54,9 @@ import { FilterPipe } from '../shared/pipes/filter.pipe';
     CreateCourseComponent,
     CreateSubjectComponent,
     CreateEditProfessorComponent,
+    CreateEditScheduleComponent,
     CreateEditRoomComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     NgxPaginationModule,
@@ -73,7 +77,8 @@ import { FilterPipe } from '../shared/pipes/filter.pipe';
     MatSelectModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    MatFormFieldModule
   ],
-  providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService],
+  providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService, ScheduleService],
 })
 export class CrudModule { }

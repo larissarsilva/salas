@@ -69,9 +69,9 @@ export class CreateEditRoomComponent implements OnInit {
   }
 
   updateRoom() {
+    this.roomForm.value['id'] = this.roomId;
     if (this.roomForm.valid) {
       const roomName = this.roomForm.value.name;
-      this.roomForm.value['id'] = this.roomId;
       Swal.fire({
         title: 'Tem certeza que gostaria de editar ' +  roomName + '?',
         text: "Essa ação não poderá ser desfeita",

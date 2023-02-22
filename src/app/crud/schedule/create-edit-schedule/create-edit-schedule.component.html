@@ -1,0 +1,88 @@
+<section class="create-box">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="classForm">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sala</mat-label>
+                            <mat-select formControlName="roomId">
+                                <mat-option *ngFor="let room of listRooms" [value]="room.id">{{room.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="classForm.controls['roomId'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Professor(es)</mat-label>
+                            <mat-select formControlName="professorsIds" multiple>
+                                <mat-option *ngFor="let professor of listProfessors"
+                                    [value]="professor.id">{{professor.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="classForm.controls['professorsIds'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Disciplina</mat-label>
+                            <mat-select formControlName="subjectId">
+                                <mat-option *ngFor="let subject of listSubjects"
+                                    [value]="subject.id">{{subject.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="classForm.controls['subjectId'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dia</mat-label>
+                            <mat-select formControlName="day">
+                                <mat-option *ngFor="let day of listDays" [value]="day.id">{{day.alias}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="classForm.controls['day'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Horário de Início</mat-label>
+                            <input matInput type="time" formControlName="startTime">
+                            <mat-error *ngIf="classForm.controls['startTime'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Horário de Término</mat-label>
+                            <input matInput type="time" formControlName="endTime" placeholder="Ex.: 10:30">
+                            <mat-error *ngIf="classForm.controls['endTime'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createClass()">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="updateClass()">SALVAR</button>
+                </div>
+                <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</section>

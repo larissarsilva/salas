@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { RoomService } from '../room/room.service';
+import { ScheduleService } from './schedule.service';
 
 @Component({
   selector: 'app-schedule',
@@ -7,26 +10,90 @@ import { Component, OnInit } from '@angular/core';
 })
 
 
-export class ScheduleComponent implements  OnInit {
-  displayedColumns: string[] = ['professor', 'booking', 'class', 'building', 'room', 'schedule', 'status' ];
+export class ScheduleComponent implements OnInit {
+  filterClass = '';
+  p: number = 1;
+  showCreateClass: boolean = false;
+  fieldType!: string;
+  sendClassValues!: any;
 
-  ELEMENT_DATA = [
-    {professor: 'Larissa Silva', booking: 'Eng. de Software Experimental', class: 'AM', building: 'B', room: 'LIP 07', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Cálculo 3', class: 'BM', building: 'H', room: 'LIP 05', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Cálculo 3', class: 'CT', building: 'L', room: '05', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Cálculo 2', class:'AM', building: 'B', room: '08', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Sinais e Sistemas', class: 'AM', building: 'B', room: '15', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Poli Júnior', class: 'AM', building: 'C', room: '01', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'Palestra Inovação', class: 'AM', building: 'A', room: 'LIP 03', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'CAEC', class: 'AM', building: 'O', room: '05', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'LPOO', class:'AM', building: 'F', room: '05', schedule: '08:30 - 10:00', status: 'reservado'},
-    {professor: 'Larissa Silva', booking: 'TCC', class: 'AM', building: 'N', room: '05', schedule: '08:30 - 10:00', status: 'reservado'},
-  ];
-  
-  dataSource = this.ELEMENT_DATA;
+  displayedColumns: string[] = ['professors', 'subject', 'room', 'day', 'startTime', 'endTime', 'action'];
+  ELEMENT_DATA = [];
+  // dataSource = this.ELEMENT_DATA;
+  listClasses: any;
+
+  constructor(
+    private roomService: RoomService,
+    private classesService: ScheduleService
+  ) { }
+
+
   ngOnInit() {
+    this.getClass();
   }
 
+  getClass() {
+    this.classesService.getClasses().subscribe((response: any) => {
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listClasses = response['content'];
+          break;
+
+        default:
+          break;
+      }
+      console.log('switch', response)
+    });
+  }
+
+  createClass() {
+    this.showCreateClass = true;
+    this.fieldType = 'create';
+  }
+
+  editClass(data: any) {
+    this.showCreateClass = true;
+    this.fieldType = 'edit';
+    this.sendClassValues = data;
+  }
+
+  deleteClass(classId: number) {
+    Swal.fire({
+      title: 'Tem certeza que gostaria de deletar ?',
+      text: "Essa ação não poderá ser desfeita",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.classesService.deleteClass(classId).subscribe((response: any) => {
+          const statusCode = response['code'];
+          switch (statusCode) {
+            case 200:
+              this.getClass();
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+  }
+
+  refreshClass(value: any) {
+    if (value) {
+      this.getClass();
+    }
+  }
+
+  getShowCreateFieldValue(value: any) {
+    this.showCreateClass = value;
+  }
 
 
 }

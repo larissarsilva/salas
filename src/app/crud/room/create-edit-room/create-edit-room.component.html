@@ -15,7 +15,11 @@
                     <div class="col-lg-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Bloco</mat-label>
-                            <input matInput formControlName="block" type="number" placeholder="Ex.: 0">
+                            <mat-select formControlName="block">
+                                <mat-option *ngFor="let block of listBlocks" [value]="block.id">
+                                    {{block.alias}}
+                                </mat-option>
+                            </mat-select>
                             <mat-error *ngIf="roomForm.controls['block'].hasError('required')">
                                 Campo <strong> obrigatório</strong>
                             </mat-error>

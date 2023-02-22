@@ -14,6 +14,20 @@ export class CreateEditRoomComponent implements OnInit {
   @Output() showCreateField = new EventEmitter();
   @Output() hasNewRoom = new EventEmitter();
 
+  listBlocks = [
+    { id: 0, alias: 'A' },
+    { id: 1, alias: 'B' },
+    { id: 2, alias: 'C' },
+    { id: 3, alias: 'D' },
+    { id: 4, alias: 'E' },
+    { id: 5, alias: 'F' },
+    { id: 6, alias: 'G' },
+    { id: 7, alias: 'H' },
+    { id: 8, alias: 'I' },
+    { id: 9, alias: 'J' },
+    { id: 10, alias: 'K' },
+  ];
+
   roomId!: number;
   showCreateButton: boolean = true;
   roomForm: FormGroup;

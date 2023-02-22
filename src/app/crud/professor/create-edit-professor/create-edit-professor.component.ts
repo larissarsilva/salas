@@ -20,6 +20,7 @@ export class CreateEditProfessorComponent implements OnInit {
   listCourses: any;
   showCreateButton: boolean = true;
   professorId!: number;
+  disableSubjectField: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +33,8 @@ export class CreateEditProfessorComponent implements OnInit {
       name: [null, Validators.required],
       card: [{ 'uuid': uuid }],
       courseId: [],
-      subjectsIds: [null]
+      subjectsIds: [null],
+      classes: [null]
     });
   }
 
@@ -67,8 +69,13 @@ export class CreateEditProfessorComponent implements OnInit {
   }
 
   updateProfessor() {
+    const hasSubjectsIds = this.professorForm.value['subjectsIds'];
+    if (hasSubjectsIds == null || this.disableSubjectField) {
+      this.professorForm.removeControl('subjectsIds');
+    }
+    console.log('update', this.professorForm)
+    this.professorForm.value['id'] = this.professorId;
     if (this.professorForm.valid) {
-      this.professorForm.value['id'] = this.professorId;
       this.professorsService.putProfessor(this.professorForm.value).subscribe((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
@@ -82,6 +89,8 @@ export class CreateEditProfessorComponent implements OnInit {
         }
         console.log('response', response)
       });
+    } else {
+      console.log('validar mensagem de erro');
     }
   }
 
@@ -121,15 +130,22 @@ export class CreateEditProfessorComponent implements OnInit {
   }
 
   fillFields() {
+    // MAIS AJUSTES
+    // remover classes como provisório
+    this.professorForm.removeControl('classes');
+    console.log('valores do professor', this.professorValues)
     this.professorForm.patchValue(this.professorValues);
-    this.professorForm.get('courseId')?.setValue(this.professorValues.course.id);
-    const subjects = this.professorValues.subjects;
-    let subjectsIds = [];
-    for (let index = 0; index < subjects.length; index++) {
-      const subjectId = subjects[index].id;
-      subjectsIds.push(subjectId);
-    }
-    this.professorForm.get('subjectsIds')?.setValue(subjectsIds);
+    // this.professorForm.get('courseId')?.setValue(this.professorValues.course.id);
+    // const subjects = this.professorValues.subjects;
+    // let subjectsIds = [];
+    // if (subjects != undefined) {
+    //   for (let index = 0; index < subjects.length; index++) {
+    //     const subjectId = subjects[index].id;
+    //     subjectsIds.push(subjectId);
+    //   }
+    //   this.professorForm.get('subjectsIds')?.setValue(subjectsIds);
+    // }
+    console.log('valores finais', this.professorForm.value)
   }
 
   refreshProfessor() {

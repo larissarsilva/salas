@@ -19,7 +19,6 @@ export class ScheduleComponent implements OnInit {
 
   displayedColumns: string[] = ['professors', 'subject', 'room', 'day', 'startTime', 'endTime', 'action'];
   ELEMENT_DATA = [];
-  // dataSource = this.ELEMENT_DATA;
   listClasses: any;
 
   constructor(
@@ -71,6 +70,33 @@ export class ScheduleComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.classesService.deleteClass(classId).subscribe((response: any) => {
+          const statusCode = response['code'];
+          switch (statusCode) {
+            case 200:
+              this.getClass();
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+  }
+  
+  deleteAllClasses() {
+    Swal.fire({
+      title: 'Tem certeza que gostaria de deletar todos os registros ?',
+      text: "Essa ação não poderá ser desfeita",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.classesService.deleteAllClasses().subscribe((response: any) => {
           const statusCode = response['code'];
           switch (statusCode) {
             case 200:

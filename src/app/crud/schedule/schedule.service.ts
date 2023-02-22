@@ -28,6 +28,11 @@ export class ScheduleService {
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
 
+  deleteAllClasses() {
+    return this.http.delete(this.LOCAL_URL,
+      { headers: new HttpHeaders().set('Authorization', this.token) })
+  }
+
   editClass(data: any) {
     return this.http.put(this.LOCAL_URL, data,
       { headers: new HttpHeaders().set('Authorization', this.token) })

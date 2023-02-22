@@ -7,3 +7,10 @@ table {
     padding: 5px 15px;
     width: 65px;
 }
+
+.align-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}

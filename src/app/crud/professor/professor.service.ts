@@ -1,17 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { envorinment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfessorService {
 
-  LOCAL_URL = 'https://salaapi.azurewebsites.net/Professors';
-  // LOCAL_URL = 'http://localhost:3000/Professors';
-
-  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc3MDE2MTc4LCJleHAiOjE2NzcwNDQ5NzgsImlhdCI6MTY3NzAxNjE3OH0.GAGSwVdemPnk97140pGb10Skq4gl8X1HRY2zzahbxik'
+  LOCAL_URL = envorinment.apiURL + 'Professors';
+  token: any;
 
   constructor(private http: HttpClient) {
+    this.token = 'bearer' + window.localStorage.getItem('token');
   }
 
   getProfessors() {

@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'listagem',
     loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule),
-    // canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService]
   },
 ];
 

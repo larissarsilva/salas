@@ -10,7 +10,7 @@ import { User } from './login.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm = this.fb.group({
-    name: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   });
 
@@ -20,17 +20,31 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService) {
-      this.user.name = 'larissa';
-      this.user.password = 'silva';
-      this.user.type = 1;
+      this.user.email = 'user@example.com';
+      this.user.password = 'string';
   }
 
   ngOnInit(): void {
-
   }
+
 
   login() {
-    console.log('usuario', this.user)
     this.authService.login(this.user);
   }
+
+  // Verifica se a autenticação foi feita
+  // login() {
+  //   this.authService.login(this.user).subscribe((response: any) => {
+  //     const statusCode = response['code'];
+  //     console.log('logado?', response)
+  //     switch (statusCode) {
+  //       case 200:
+  //         this.authService.isLogged = true;
+  //         break;
+      
+  //       default:
+  //         break;
+  //     }
+  //   });
+  // }
 }

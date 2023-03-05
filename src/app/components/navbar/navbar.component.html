@@ -3,8 +3,14 @@
         <div class="upe-logo">
             <img src="../../../assets/upe-logo.png" alt="logo UPE" width="84" height="50">
         </div>
-        <div class="exit" (click)="logout()">
+        <div [ngSwitch]="isLogged">
+            <div *ngSwitchCase="true" class="exit" (click)="redirectToLogin()">
                 <img src="../../../assets/logout.png" alt="Deslogar" width="40">
+            </div>
+            <div *ngSwitchDefault class="exit" (click)="redirectToLogin()">
+                <img src="../../../assets/crud/user.png" alt="Deslogar" width="40">
+            </div>
         </div>
+
     </div>
 </section>

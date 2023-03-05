@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/access/auth.service';
 
@@ -9,14 +9,14 @@ import { AuthService } from 'src/app/access/auth.service';
 })
 export class NavbarComponent {
 
+  @Input() isLogged: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService  ) {}
 
-    
-  logout(){
-
+  redirectToLogin(){
     this.router.navigate(['/login']);
   }
 }

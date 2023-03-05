@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   title = 'SAL@';
 
   showMenu: boolean = false;
+  isAuthenticated: boolean = false;
   // O AuthService tem escorpo global
   constructor(private authService: AuthService) {
   }
@@ -18,5 +19,11 @@ export class AppComponent implements OnInit {
     this.authService.showNavbarEmitter.subscribe(
       value => this.showMenu = value
     );
+
+    this.authService.isLogged.subscribe(
+      value => this.isAuthenticated = value
+    );
+
+
   }
 }

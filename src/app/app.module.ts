@@ -16,13 +16,15 @@ import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { AuthService } from './access/auth.service';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { HomeModule } from './home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
     ],
-    providers: [AuthService, AuthGuardService],
+    providers: [AuthService, AuthGuardService, httpInterceptorProviders],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
@@ -35,7 +37,8 @@ import { HomeModule } from './home/home.module';
         MatInputModule,
         ReactiveFormsModule,
         ComponentsModule,
-        HomeModule
+        HomeModule,
+        HttpClientModule
     ]
 })
 export class AppModule { }

@@ -1,38 +1,36 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { envorinment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
-  URL = 'https://salaapi.azurewebsites.net/';
-  // LOCAL_URL = 'http://localhost:3000/';
-  LOCAL_URL = this.URL;
-
-  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc3MDE2MTc4LCJleHAiOjE2NzcwNDQ5NzgsImlhdCI6MTY3NzAxNjE3OH0.GAGSwVdemPnk97140pGb10Skq4gl8X1HRY2zzahbxik'
+  LOCAL_URL = envorinment.apiURL + 'Subjects';
+  token: string;
 
   constructor(private http: HttpClient) {
+    this.token = 'bearer' + window.localStorage.getItem('token');
   }
 
   getSubjects() {
-    return this.http.get(this.LOCAL_URL + 'Subjects',
+    return this.http.get(this.LOCAL_URL,
       { headers: new HttpHeaders().set('Authorization', this.token) });
   }
 
   deleteSubject(id: number) {
-    return this.http.delete(this.LOCAL_URL + 'Subjects/' + id,
+    return this.http.delete(this.LOCAL_URL + '/' + id,
       { headers: new HttpHeaders().set('Authorization', this.token) });
   }
 
   postSubject(data: any) {
-    return this.http.post(this.LOCAL_URL + 'Subjects', data,
+    return this.http.post(this.LOCAL_URL, data,
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
 
   putSubject(data: any) {
-    return this.http.put(this.LOCAL_URL + 'Subjects', data,
+    return this.http.put(this.LOCAL_URL, data,
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
-
 
 }

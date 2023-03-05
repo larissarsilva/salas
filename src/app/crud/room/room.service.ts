@@ -1,16 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { envorinment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-  URL = 'https://salaapi.azurewebsites.net/Rooms';
-  // LOCAL_URL = 'http://localhost:3000/';
-  LOCAL_URL = this.URL;
-  token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc3MDE2MTc4LCJleHAiOjE2NzcwNDQ5NzgsImlhdCI6MTY3NzAxNjE3OH0.GAGSwVdemPnk97140pGb10Skq4gl8X1HRY2zzahbxik'
+  LOCAL_URL = envorinment.apiURL + 'Rooms';
+  token: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.token = 'bearer' + window.localStorage.getItem('token');
+   }
 
   getRoom() {
     return this.http.get(this.LOCAL_URL,

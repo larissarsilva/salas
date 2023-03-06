@@ -38,6 +38,8 @@ import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { ScheduleService } from './schedule/schedule.service';
 import { CreateEditScheduleComponent } from './schedule/create-edit-schedule/create-edit-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { PdfListCreateComponent } from './schedule/pdf-list-create/pdf-list-create.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -57,6 +59,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CreateEditScheduleComponent,
     CreateEditRoomComponent,
     FilterPipe,
+    PdfListCreateComponent,
   ],
   imports: [
     NgxPaginationModule,
@@ -77,7 +80,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSelectModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCheckboxModule
   ],
   providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService, ScheduleService],
 })

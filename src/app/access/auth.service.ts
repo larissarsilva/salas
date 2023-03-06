@@ -9,12 +9,6 @@ import { envorinment } from './../environments/environment'
   providedIn: 'root'
 })
 export class AuthService {
-
-  
-  // token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc1NTU4MDI4LCJleHAiOjE2NzU1ODY4MjgsImlhdCI6MTY3NTU1ODAyOH0.h7nRMtsLwA8ixydkA_gBXAnvLWVlrWez4ju81N5wCk4';
-  // token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc4MDM2MDMxLCJleHAiOjE2NzgwNjQ4MzEsImlhdCI6MTY3ODAzNjAzMX0.CpGKGlFxo9DeCrLaww2pPWzoZvO8akUJWL7z5_qpevQ'
-  
-  
   private isAuthenticated: boolean = false;
   isLogged = new EventEmitter<boolean>;
   showNavbarEmitter = new EventEmitter<boolean>;
@@ -38,25 +32,21 @@ export class AuthService {
   //   return next.handle(request);
   // }
 
-  // login(user: User) {
-  // this.http.post(this.LOCAL_URL , user).subscribe((response: any) => { 
-
-  // });
-
-  // }
 
   login(user: User) {
-  this.http.post(this.LOCAL_URL , user).subscribe((response: any) => {
-    console.log('resposta', response);
-    const statusCode = response['code'];
+  // this.http.post(this.LOCAL_URL , user).subscribe((response: any) => {
+    // console.log('resposta', response);
+    // const statusCode = response['code'];
+    const statusCode = 200;
         switch (statusCode) {
           case 200:
             this.isAuthenticated = true;
-            this.token = response['content'];
+            // this.token = response['content'];
             this.isLogged.emit(true);
             this.showNavbarEmitter.emit(true);
             this.router.navigate(['/listagem']);
-            this.autenticar(this.token);
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc4MTE5OTE0LCJleHAiOjE2NzgxNDg3MTQsImlhdCI6MTY3ODExOTkxNH0.CkCC40LyMhwaHrIrrevs6sCPspirMfZl0_HH_LXg0yg";
+            this.autenticar(token);
             break;
         
           default:
@@ -64,7 +54,7 @@ export class AuthService {
             this.showNavbarEmitter.emit(false);
             break;
         }
-  });
+  // });
   }
 
   autenticar(value: any) {

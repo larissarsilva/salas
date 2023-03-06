@@ -38,3 +38,15 @@ export interface Course {
     subjects: Subject;
     professors: Professors;
 }
+
+export interface pdfClass {
+    id: number;
+    day: number;
+    startTime: string;
+    endTime: string;
+    roomName: string;
+    subjectCode: string;
+    subjectGroup: string;
+    professors: any;
+    isSelected: boolean;
+}

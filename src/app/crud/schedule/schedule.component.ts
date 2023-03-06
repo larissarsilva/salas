@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { RoomService } from '../room/room.service';
+import { PdfListCreateComponent } from './pdf-list-create/pdf-list-create.component';
 import { ScheduleService } from './schedule.service';
 
 @Component({
@@ -20,10 +22,13 @@ export class ScheduleComponent implements OnInit {
   displayedColumns: string[] = ['professors', 'subject', 'room', 'day', 'startTime', 'endTime', 'action'];
   ELEMENT_DATA = [];
   listClasses: any;
+  selectedFile: any;
+  listPDFContent: any;
 
   constructor(
     private roomService: RoomService,
-    private classesService: ScheduleService
+    private classesService: ScheduleService,
+    public dialog: MatDialog
   ) { }
 
 
@@ -121,5 +126,28 @@ export class ScheduleComponent implements OnInit {
     this.showCreateClass = value;
   }
 
+  onFileSelect(event: any) {
+    this.selectedFile = event.target.files[0];
+    const formdata = new FormData();
+    formdata.append('file', this.selectedFile);
+    this.classesService.uploadPDF(formdata).subscribe(async (response: any) => {
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listPDFContent = await response['content'];
+          this.openModal(this.listPDFContent)
+          console.log('resposta', this.listPDFContent);
+          break;
+      
+        default:
+          break;
+      }
+    });
+  }
 
+  openModal(pdfContent: any) {
+      const dialogRef = this.dialog.open(PdfListCreateComponent, {
+        data: {pdfData: pdfContent},
+      });
+  }
 }

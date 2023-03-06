@@ -12,6 +12,16 @@
   <div class="create-div">
     <div *ngIf="!showCreateClass">
       <button mat-raised-button (click)="createClass()">ADICIONAR</button>
+
+      <input type="file" class="file-upload" #uploadPDF (change)="onFileSelect($event)" style="display: none;">
+
+      <div class="example-button-container" (click)="uploadPDF.click()">
+        <button mat-mini-fab color="warn" aria-label="Enviar PDF">
+          <mat-icon>upload_file</mat-icon>
+        </button>
+      </div>
+
+
     </div>
 
     <div *ngIf="showCreateClass">

@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { pdfClass } from '../../crud.interface';
+import { pdfClass, Professors } from '../../crud.interface';
+import { ProfessorService } from '../../professor/professor.service';
+import { ScheduleService } from '../schedule.service';
 
 export interface DialogData {
   pdfData: any;
@@ -15,8 +17,11 @@ export interface DialogData {
 
 export class PdfListCreateComponent implements OnInit {
   allClasses: pdfClass[] = [];
+  listProfessors: Professors[] = [];
   classesForm!: FormGroup;
-
+  enableSave: boolean = false;
+  teste: any;
+  showEdit: boolean = true;
 
   listDays = [
     { id: 0, alias: 'Segunda' },
@@ -26,11 +31,11 @@ export class PdfListCreateComponent implements OnInit {
     { id: 4, alias: 'Sexta' },
     { id: 5, alias: 'Sábado' }
   ];
-  formSize: any;
-  // multipleForm: FormGroup[];
 
   constructor(
     private formBuilder: FormBuilder,
+    private classesService: ScheduleService,
+    private professorService: ProfessorService,
     public dialogRef: MatDialogRef<PdfListCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
@@ -43,10 +48,11 @@ export class PdfListCreateComponent implements OnInit {
     ngOnInit() {
       this.fillFields();
       this.addClasses();
+      this.getProfessor();
     }
 
-    closeModal() {
-      this.dialogRef.close();
+    closeModal(refreshClass: boolean) {
+      this.dialogRef.close(refreshClass);
     }
 
     async addClasses() {
@@ -59,13 +65,15 @@ export class PdfListCreateComponent implements OnInit {
         const day = getClass['day'];
         const startTime = getClass['startTime'];
         const endTime = getClass['endTime'];
+        const professors = getClass['professors'];
         const classForm = this.formBuilder.group({
-          roomName: [roomName, Validators.required],
-          subjectCode: [subjectCode, Validators.required],
-          subjectGroup: [subjectGroup, Validators.required],
-          day: [day, Validators.required],
-          startTime: [startTime, Validators.required],
-          endTime: [endTime, Validators.required],
+          roomName: [{value: roomName, disabled: true}, Validators.required],
+          professors:[{value: professors, disabled: true}, Validators.required],
+          subjectCode: [{value: subjectCode, disabled: true}, Validators.required],
+          subjectGroup: [{value: subjectGroup, disabled: true}, Validators.required],
+          day: [{value: day, disabled: true}, Validators.required],
+          startTime: [{value: startTime, disabled: true}, Validators.required],
+          endTime: [{value: endTime, disabled: true}, Validators.required],
         });
         this.classes.push(classForm);
         this.allClasses[index].isSelected = false;
@@ -88,6 +96,74 @@ export class PdfListCreateComponent implements OnInit {
       // this.classesForm.patchValue(this.allClasses);
       // console.log('depois de preencher', this.classesForm)
       // this.multipleForm.patchValue(this.allClasses);
+    }
+
+    onChange(event: boolean, row:any) {
+      this.allClasses[row].isSelected = event;
+      this.countSelectedClass();
+    }
+
+    // Verifica se tem pelo menos um checkbox selecionado para liberar a opção de salvar
+    countSelectedClass() {
+      const hasSelectedClass = this.allClasses.findIndex(value => value.isSelected === true);
+      console.log('hasSelectedClass', hasSelectedClass)
+      if(hasSelectedClass != -1) {
+        this.enableSave = true;
+      } else {
+        this.enableSave = false;
+      }
+    }
+
+    createSelectedClasses() {
+      let onlySelectedClasses = [];
+      for (let index = 0; index < 2; index++) {
+        const isSelected = this.allClasses[index].isSelected;
+        if(isSelected) {
+          onlySelectedClasses.push(this.allClasses[index])         
+        }
+      }
+      this.classesService.multipleClasses(onlySelectedClasses).subscribe((response: any) => {
+        const statusCode = response['code'];
+        switch (statusCode) {
+          case 200:
+            this.closeModal(true)
+            break;
+        
+          default:
+            break;
+        }
+      });
+    }
+
+    getProfessor() {
+      this.professorService.getProfessors().subscribe((response: any) => {
+        const statusCode = response['code'];
+        switch (statusCode) {
+          case 200:
+            this.listProfessors = response['content'];
+            break;
+  
+          default:
+            break;
+        }
+      })
+    }
+
+    confirmEdit(row: number, classForm: any) {
+      this.classes.controls[row] = classForm;
+      this.classes.controls[row].disable();
+      this.showEdit = true;
+      console.log('formulario', this.classes.controls)
+    }
+
+    enableEdit(row: number) {
+      this.classes.controls[row].enable();
+      this.showEdit = false;
+    }
+
+    cancelEdit(row: number) {
+      this.classes.controls[row].disable();
+      this.showEdit = true;
     }
 
 }

@@ -43,4 +43,9 @@ export class ScheduleService {
     return this.http.post(this.PDF_URL, data,
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
+
+  multipleClasses(data:any) {
+    return this.http.post(this.LOCAL_URL + '/batch', data,
+      { headers: new HttpHeaders().set('Authorization', this.token) })
+  }
 }

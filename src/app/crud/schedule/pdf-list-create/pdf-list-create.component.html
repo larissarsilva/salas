@@ -10,7 +10,7 @@
                             <mat-icon>close</mat-icon>
                             </button>
                         </div>
-                        <button mat-raised-button color="primary" (click)="selectAll()">SELECIONAR TUDO</button>
+                        <!-- <button mat-raised-button color="primary" (click)="selectAll()">SELECIONAR TUDO</button> -->
                     </div>
                 </div>
             </mat-card-header>
@@ -20,16 +20,31 @@
                             <div *ngFor="let classForm of classes.controls; let index = index">
                                 <div [formGroupName]="index">
                                   <div class="row">
-                                    <div class="col-lg-2">
-                                        <mat-checkbox [checked]="allClasses[index].isSelected" class="example-margin">Selecionar</mat-checkbox>
-                                    </div>
+                                    <!-- <div class="col-lg-2">
+                                        <mat-checkbox
+                                        (change)="onChange($event.checked, index)"
+                                        [checked]="allClasses[index].isSelected" 
+                                        class="example-margin">Selecionar</mat-checkbox>
+                                    </div> -->
                                     <div class="col-lg-3">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Sala</mat-label>
-                                            <input matInput formControlName="roomName">
+                                            <input #roomName matInput formControlName="roomName">
                                             <!-- <mat-error *ngIf="pdfForm.controls['roomId'].hasError('required')">
                                                 Campo <strong> obrigatório</strong>
                                             </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Professor(es)</mat-label>
+                                            <input matInput formControlName="professors" />
+                                            <!-- <mat-select formControlName="professors" multiple>
+                                                <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
+                                                   <span [innerHTML]="professor.name"></span>
+                                                </mat-option>
+                                            </mat-select> -->
                                         </mat-form-field>
                                     </div>
     
@@ -85,6 +100,23 @@
                                             </mat-error> -->
                                         </mat-form-field>
                                     </div>
+                                    <div class="col-lg-2">
+                                    <button *ngIf="showEdit" mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
+                                    (click)="enableEdit(index)"    
+                                    matTooltipPosition="below">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                      <button *ngIf="!showEdit" 
+                                        (click)="confirmEdit(index, classForm)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Criar"
+                                        matTooltipPosition="below">
+                                        <mat-icon>check</mat-icon>
+                                      </button>
+                                      <button *ngIf="!showEdit" (click)="cancelEdit(index)"
+                                       mat-mini-fab color="warn" class="icons-crud" matTooltip="Criar"
+                                        matTooltipPosition="below">
+                                        <mat-icon>cancel</mat-icon>
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                             </div>
@@ -96,7 +128,9 @@
     </div>
     <div>
         <button mat-button>
-            <button mat-raised-button color="primary">SALVAR</button>
+            <button mat-raised-button color="primary" 
+            (click)="createSelectedClasses()" 
+            >SALVAR</button>
         </button>
     </div>
 </section>

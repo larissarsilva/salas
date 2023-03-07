@@ -149,5 +149,11 @@ export class ScheduleComponent implements OnInit {
       const dialogRef = this.dialog.open(PdfListCreateComponent, {
         data: {pdfData: pdfContent},
       });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          this.getClass();
+        }
+      });
   }
 }

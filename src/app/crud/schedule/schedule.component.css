@@ -14,3 +14,12 @@ table {
     align-items: center;
     width: 100%;
 }
+
+.align-create-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.align-create-buttons > button {
+    margin-right: 16px;
+}

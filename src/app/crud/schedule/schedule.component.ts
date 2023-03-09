@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
 import { RoomService } from '../room/room.service';
 import { PdfListCreateComponent } from './pdf-list-create/pdf-list-create.component';
@@ -27,6 +28,7 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
     private roomService: RoomService,
+    private ngxService: NgxUiLoaderService,
     private classesService: ScheduleService,
     public dialog: MatDialog
   ) { }
@@ -127,6 +129,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   onFileSelect(event: any) {
+    this.ngxService.start('openModal');
     this.selectedFile = event.target.files[0];
     const formdata = new FormData();
     formdata.append('file', this.selectedFile);
@@ -136,7 +139,7 @@ export class ScheduleComponent implements OnInit {
         case 200:
           this.listPDFContent = await response['content'];
           this.openModal(this.listPDFContent)
-          console.log('resposta', this.listPDFContent);
+          this.ngxService.stop('openModal');
           break;
       
         default:
@@ -149,8 +152,8 @@ export class ScheduleComponent implements OnInit {
       const dialogRef = this.dialog.open(PdfListCreateComponent, {
         data: {pdfData: pdfContent},
       });
-
       dialogRef.afterClosed().subscribe(result => {
+        console.log('resultado', result)
         if(result) {
           this.getClass();
         }

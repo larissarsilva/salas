@@ -40,6 +40,7 @@ import { CreateEditScheduleComponent } from './schedule/create-edit-schedule/cre
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PdfListCreateComponent } from './schedule/pdf-list-create/pdf-list-create.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatTooltipModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgxUiLoaderModule
   ],
   providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService, ScheduleService],
 })

@@ -1,4 +1,5 @@
 <section>
+  <ngx-ui-loader></ngx-ui-loader>
   <!-- <mat-card-header>
       <mat-form-field class="example-form-field">
         <mat-label>Pesquisar</mat-label>
@@ -10,18 +11,16 @@
     </mat-card-header> -->
 
   <div class="create-div">
-    <div *ngIf="!showCreateClass">
+    <div *ngIf="!showCreateClass" class="align-create-buttons">
       <button mat-raised-button (click)="createClass()">ADICIONAR</button>
-
-      <input type="file" class="file-upload" #uploadPDF (change)="onFileSelect($event)" style="display: none;">
-
-      <div class="example-button-container" (click)="uploadPDF.click()">
-        <button mat-mini-fab color="warn" aria-label="Enviar PDF">
-          <mat-icon>upload_file</mat-icon>
-        </button>
+      <div>
+        <input type="file" accept=".pdf" class="file-upload" #uploadPDF (change)="onFileSelect($event)" style="display: none;">
+        <div matTooltip="Adicionar PDF" matTooltipPosition="below" class="example-button-container" (click)="uploadPDF.click()">
+          <button mat-mini-fab color="warn" aria-label="Enviar PDF">
+            <mat-icon>upload_file</mat-icon>
+          </button>
+        </div>
       </div>
-
-
     </div>
 
     <div *ngIf="showCreateClass">

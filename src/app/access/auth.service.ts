@@ -45,7 +45,7 @@ export class AuthService {
             this.isLogged.emit(true);
             this.showNavbarEmitter.emit(true);
             this.router.navigate(['/listagem']);
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc4MTQ5MTU2LCJleHAiOjE2NzgxNzc5NTYsImlhdCI6MTY3ODE0OTE1Nn0.coxyDoWukfwq9OzaTL-oEFcQ0YqqWh1JtW2YFwiZCSI";
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc4MzIyODA4LCJleHAiOjE2NzgzNTE2MDgsImlhdCI6MTY3ODMyMjgwOH0.PA56zS-4jfjHBqkfHqm1IF1SbxpdqMYD5dBi7IGD5ts";
             this.autenticar(token);
             break;
         

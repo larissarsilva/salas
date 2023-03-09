@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="content-size">
                     <form [formGroup]="classesForm">
                         <div formArrayName="classes">
                             <div *ngFor="let classForm of classes.controls; let index = index">
@@ -101,18 +101,20 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-lg-2">
-                                    <button *ngIf="showEdit" mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
+                                    <button *ngIf="!classForm.enabled"  mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
                                     (click)="enableEdit(index)"    
                                     matTooltipPosition="below">
                                         <mat-icon>edit</mat-icon>
                                     </button>
-                                      <button *ngIf="!showEdit" 
-                                        (click)="confirmEdit(index, classForm)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Criar"
+
+                                      <button *ngIf="classForm.enabled" 
+                                        (click)="confirmEdit(index, classForm)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Atualizar"
                                         matTooltipPosition="below">
                                         <mat-icon>check</mat-icon>
                                       </button>
-                                      <button *ngIf="!showEdit" (click)="cancelEdit(index)"
-                                       mat-mini-fab color="warn" class="icons-crud" matTooltip="Criar"
+
+                                      <button *ngIf="classForm.enabled"  (click)="cancelEdit(index)"
+                                       mat-mini-fab color="warn" class="icons-crud" matTooltip="Cancelar edição"
                                         matTooltipPosition="below">
                                         <mat-icon>cancel</mat-icon>
                                       </button>
@@ -126,11 +128,8 @@
     
         </mat-card>
     </div>
-    <div>
-        <button mat-button>
+    <div class="save-button">
             <button mat-raised-button color="primary" 
-            (click)="createSelectedClasses()" 
-            >SALVAR</button>
-        </button>
+            (click)="createSelectedClasses()" [disabled]="!showEdit">SALVAR</button>
     </div>
 </section>

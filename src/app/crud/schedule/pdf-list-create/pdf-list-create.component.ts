@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { pdfClass, Professors } from '../../crud.interface';
 import { ProfessorService } from '../../professor/professor.service';
 import { ScheduleService } from '../schedule.service';
@@ -36,6 +37,7 @@ export class PdfListCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private classesService: ScheduleService,
     private professorService: ProfessorService,
+    private ngxService: NgxUiLoaderService,
     public dialogRef: MatDialogRef<PdfListCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
@@ -115,14 +117,14 @@ export class PdfListCreateComponent implements OnInit {
     }
 
     createSelectedClasses() {
-      let onlySelectedClasses = [];
-      for (let index = 0; index < 2; index++) {
-        const isSelected = this.allClasses[index].isSelected;
-        if(isSelected) {
-          onlySelectedClasses.push(this.allClasses[index])         
-        }
+      this.ngxService.start('createClass');
+      let classList = [];
+      for (let index = 0; index < this.classes.controls.length; index++) {
+        const element = this.classes.controls[index].value
+        classList.push(element)
       }
-      this.classesService.multipleClasses(onlySelectedClasses).subscribe((response: any) => {
+      this.classesService.multipleClasses(classList).subscribe((response: any) => {
+        this.ngxService.stop('createClass');
         const statusCode = response['code'];
         switch (statusCode) {
           case 200:
@@ -153,7 +155,6 @@ export class PdfListCreateComponent implements OnInit {
       this.classes.controls[row] = classForm;
       this.classes.controls[row].disable();
       this.showEdit = true;
-      console.log('formulario', this.classes.controls)
     }
 
     enableEdit(row: number) {
@@ -164,6 +165,7 @@ export class PdfListCreateComponent implements OnInit {
     cancelEdit(row: number) {
       this.classes.controls[row].disable();
       this.showEdit = true;
+      // ajustar o cancelar
     }
 
 }

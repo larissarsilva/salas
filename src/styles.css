@@ -84,7 +84,7 @@ mat-form-field {
 
 .actions-field {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 /*  CSS RELACIONADO À TABELA */
@@ -103,4 +103,14 @@ mat-form-field {
 .create-box {
     margin-top: 16px;
     background-color: #ffffff;
+}
+
+.sidenav-content {
+    padding: 70px 0px !important;
+}
+
+.card-position {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
 }

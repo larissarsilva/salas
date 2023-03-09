@@ -1,7 +1,5 @@
 .card-size {
     min-width: 400px;
-    min-height: 400px;
-    max-height: 800px;
 }
 
 mat-card-header {
@@ -18,4 +16,16 @@ mat-card-header {
     display: flex;
     flex-direction: column;
     align-items: end;
+}
+
+.content-size {
+    overflow: auto;
+    height: 570px;
+}
+
+.save-button {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }

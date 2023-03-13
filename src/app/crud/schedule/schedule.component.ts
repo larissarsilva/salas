@@ -39,8 +39,10 @@ export class ScheduleComponent implements OnInit {
   }
 
   getClass() {
+    this.ngxService.start('getClasses');
     this.classesService.getClasses().subscribe((response: any) => {
       const statusCode = response['code'];
+      this.ngxService.stop('getClasses');
       switch (statusCode) {
         case 200:
           this.listClasses = response['content'];
@@ -49,7 +51,6 @@ export class ScheduleComponent implements OnInit {
         default:
           break;
       }
-      console.log('switch', response)
     });
   }
 
@@ -76,7 +77,9 @@ export class ScheduleComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ngxService.start('deleteClass');
         this.classesService.deleteClass(classId).subscribe((response: any) => {
+          this.ngxService.stop('deleteClass');
           const statusCode = response['code'];
           switch (statusCode) {
             case 200:
@@ -103,7 +106,9 @@ export class ScheduleComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ngxService.start('deleteAlClasses');
         this.classesService.deleteAllClasses().subscribe((response: any) => {
+          this.ngxService.stop('deleteAlClasses');
           const statusCode = response['code'];
           switch (statusCode) {
             case 200:

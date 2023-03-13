@@ -17,6 +17,7 @@ export class NavbarComponent {
     private accountService: AccountService  ) {}
 
   redirectToLogin(){
+    // fazer a parte de logout -> remover token e a navbar
     this.router.navigate(['/login']);
   }
 }

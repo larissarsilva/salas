@@ -18,6 +18,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
         ReactiveFormsModule,
         ComponentsModule,
         HomeModule,
-        HttpClientModule
+        HttpClientModule,
+        NgxUiLoaderModule
     ]
 })
 export class AppModule { }

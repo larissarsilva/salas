@@ -16,8 +16,7 @@ export class AccountService {
   showNavbarEmitter = new EventEmitter<boolean>;
   LOCAL_URL = envorinment.apiURL + 'Authentications';
   token!: string;
-
-
+  
   constructor(
     private router: Router,
     private http: HttpClient
@@ -27,7 +26,6 @@ export class AccountService {
   async login(user: User) {
   this.http.post(this.LOCAL_URL , user).subscribe((response: any) => {
     const statusCode = response['code'];
-    // const statusCode = 200;
         switch (statusCode) {
           case 200:
             this.isAuthenticated = true;
@@ -35,7 +33,6 @@ export class AccountService {
             this.isLogged.emit(true);
             this.showNavbarEmitter.emit(true);
             this.router.navigate(['/listagem']);
-            // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMSIsInVuaXF1ZV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNjc4MzIyODA4LCJleHAiOjE2NzgzNTE2MDgsImlhdCI6MTY3ODMyMjgwOH0.PA56zS-4jfjHBqkfHqm1IF1SbxpdqMYD5dBi7IGD5ts";
             this.autenticar(this.token);
             break;
         
@@ -93,11 +90,13 @@ export class AccountService {
   isUserLoggedIn() {
     const token = this.getAuthorizationToken();
     if (!token) {
+      this.showNavbarEmitter.emit(false);
       return false;
     } else if (this.isTokenExpired(token)) {
+      this.showNavbarEmitter.emit(false);
       return false;
     }
-
+    this.showNavbarEmitter.emit(true);
     return true;
   }
 

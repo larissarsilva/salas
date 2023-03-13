@@ -13,18 +13,6 @@ export class AuthGuardService implements CanActivate{
     private router: Router
   ) { }
 
-  // canActivate(
-  //   route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean { 
-
-  //   if(this.accountService.authenticatedUser()) {
-  //     return true;
-  //   }
-  
-  //   // Se o usuário não estiver autenticado, vai redirecionar para tela de login
-  //   this.router.navigate(['/login']);
-  //   return false;
-  // }
-
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.accountService.isUserLoggedIn()) {
       return true;
@@ -33,6 +21,5 @@ export class AuthGuardService implements CanActivate{
       return false;
     }
   }
-
 
 }

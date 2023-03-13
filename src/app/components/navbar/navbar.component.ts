@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/access/auth.service';
+import { AccountService } from 'src/app/access/account.service';
 
 @Component({
   selector: 'navbar',
@@ -14,7 +14,7 @@ export class NavbarComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService  ) {}
+    private accountService: AccountService  ) {}
 
   redirectToLogin(){
     this.router.navigate(['/login']);

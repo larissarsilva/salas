@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './access/login/login.component';
 import { ComponentsModule } from "./components/components.module";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
-import { AuthService } from './access/auth.service';
+import { AccountService } from './access/account.service';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +24,7 @@ import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
         AppComponent,
         LoginComponent,
     ],
-    providers: [AuthService, AuthGuardService, httpInterceptorProviders],
+    providers: [AccountService, AuthGuardService, httpInterceptorProviders],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

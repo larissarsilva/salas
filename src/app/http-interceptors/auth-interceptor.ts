@@ -2,30 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../access/auth.service';
+import { AccountService } from '../access/account.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
-    private accountService: AuthService
+    private accountService: AccountService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     const token = this.accountService.getAuth();
     let request: HttpRequest<any> = req;
-    // && !this.accountService.isTokenExpired(token)
-    if (token) {
-      // O request é imutavel, ou seja, não é possível mudar nada
-      // Faço o clone para conseguir mudar as propriedades
-      // Passo o token de autenticação no header
+    if (token && !this.accountService.isTokenExpired(token)) {
       request = req.clone({
         headers: req.headers.set('Authorization', `bearer ${token}`)
       });
     }
 
-    // retorno o request com o erro tratado
     return next.handle(request)
       .pipe(
         catchError(this.handleError)

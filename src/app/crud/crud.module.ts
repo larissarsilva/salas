@@ -41,6 +41,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { PdfListCreateComponent } from './schedule/pdf-list-create/pdf-list-create.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { ClassesInProgressComponent } from './classes-in-progress/classes-in-progress.component';
+import { CreateEditInProgressComponent } from './classes-in-progress/create-edit-in-progress/create-edit-in-progress.component';
 
 
 @NgModule({
@@ -61,6 +63,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     CreateEditRoomComponent,
     FilterPipe,
     PdfListCreateComponent,
+    ClassesInProgressComponent,
+    CreateEditInProgressComponent,
   ],
   imports: [
     NgxPaginationModule,

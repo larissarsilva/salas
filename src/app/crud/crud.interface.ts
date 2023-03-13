@@ -50,3 +50,16 @@ export interface pdfClass {
     professors: any;
     isSelected: boolean;
 }
+
+export interface classInProgress {
+    id: number;
+    classId: number;
+    roomName: string;
+    roomBlock: number;
+    subjectCode: string;
+    subjectName: string;
+    subjectGroup: string;
+    responsibleProfessorName: string;
+    note: string;
+  }
+

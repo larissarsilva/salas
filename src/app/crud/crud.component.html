@@ -7,6 +7,14 @@
                 </button>
             </div>
             <mat-nav-list>
+                <mat-list-item [routerLink]="['aulas']" routerLinkActive="active" #alertIsActive="routerLinkActive" 
+                [ngClass]="{'mini-nav': !isExpanded }">
+                    <div  class="align-title">
+                        <img src="{{!alertIsActive.isActive ? '../../assets/crud/alert.png' : '../../assets/crud/alert-selected.png'}}"
+                        alt="Avisos" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">AULAS</span>
+                    </div>
+                </mat-list-item>
                 <mat-list-item  [routerLink]="['horario']" routerLinkActive="active" #isActive="routerLinkActive"
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title card-sidenav">
@@ -51,14 +59,14 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">SALAS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['aviso']" routerLinkActive="active" #alertIsActive="routerLinkActive" 
+                <!-- <mat-list-item [routerLink]="['aviso']" routerLinkActive="active" #alertIsActive="routerLinkActive" 
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="{{!alertIsActive.isActive ? '../../assets/crud/alert.png' : '../../assets/crud/alert-selected.png'}}"
                         alt="Avisos" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
-                </mat-list-item>
+                </mat-list-item> -->
                 <mat-list-item [routerLink]="['aviso']"  routerLinkActive="active" #userIsActive="routerLinkActive" 
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">

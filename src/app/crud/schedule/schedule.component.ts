@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
-import { RoomService } from '../room/room.service';
 import { PdfListCreateComponent } from './pdf-list-create/pdf-list-create.component';
 import { ScheduleService } from './schedule.service';
 
@@ -27,7 +26,6 @@ export class ScheduleComponent implements OnInit {
   listPDFContent: any;
 
   constructor(
-    private roomService: RoomService,
     private ngxService: NgxUiLoaderService,
     private classesService: ScheduleService,
     public dialog: MatDialog

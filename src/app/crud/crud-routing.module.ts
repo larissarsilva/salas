@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClassesInProgressComponent } from './classes-in-progress/classes-in-progress.component';
 import { CourseComponent } from './course/course.component';
 import { CrudComponent } from './crud.component';
 import { ProfessorComponent } from './professor/professor.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
       redirectTo: 'horario',
       pathMatch: 'full'
     },
+    {path: 'aulas', component: ClassesInProgressComponent},
     {path: 'horario', component: ScheduleComponent},
     {path: 'professor', component: ProfessorComponent},
     {path: 'estudante', component: StudentComponent},

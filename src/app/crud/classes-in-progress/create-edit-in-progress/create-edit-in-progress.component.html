@@ -7,9 +7,20 @@
                     class="col-lg-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Aula</mat-label>
-                            <mat-select formControlName="classId">
+                            <mat-select formControlName="classId" 
+                            [formControl]="bankCtrl" 
+                            #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search 
+                                    [formControl]="bankFilterCtrl"
+                                    placeholderLabel="Pesquisar professor"
+                                    noEntriesFoundLabel="Professor não encontrado!"
+                                    >
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
                                 <mat-option (click)="getSelectedClass(class)" 
-                                *ngFor="let class of listAllClasses" [value]="class.id">
+                                *ngFor="let class of filteredBanks | async" [value]="class">
                                 <!-- <div *ngIf="class.professors.length > 1">
                                         <div *ngFor="let professor of class.professors">
                                             <span>

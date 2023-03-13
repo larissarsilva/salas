@@ -51,6 +51,17 @@ export interface pdfClass {
     isSelected: boolean;
 }
 
+export interface Class {
+    id: number;
+    roomId: number;
+    professors: any;
+    subject: any;
+    subjectId: number;
+    day: number;
+    startTime: string;
+    endTime: string;
+  }
+
 export interface classInProgress {
     id: number;
     classId: number;

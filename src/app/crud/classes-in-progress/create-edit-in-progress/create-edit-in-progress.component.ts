@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Professors, Room } from '../../crud.interface';
+import { ReplaySubject, Subject, take, takeUntil } from 'rxjs';
+import { Class, classInProgress, Professors, Room } from '../../crud.interface';
 import { ProfessorService } from '../../professor/professor.service';
 import { RoomService } from '../../room/room.service';
 import { ScheduleService } from '../../schedule/schedule.service';
@@ -12,7 +14,7 @@ import { ClassesInProgressService } from '../classes-in-progress.service';
   templateUrl: './create-edit-in-progress.component.html',
   styleUrls: ['./create-edit-in-progress.component.css']
 })
-export class CreateEditInProgressComponent implements OnInit {
+export class CreateEditInProgressComponent implements OnInit, AfterViewInit, OnDestroy {
   classInProgressForm: FormGroup;
   showCreateButton: boolean = true;
   classId!: number;
@@ -25,6 +27,19 @@ export class CreateEditInProgressComponent implements OnInit {
   @Output() showCreateField = new EventEmitter();
   @Output() hasNewClassInProgress = new EventEmitter();
   showExtraFields: boolean = false;
+
+  // Filtrar seleção
+    // protected banks: classInProgress[] = [];
+
+    public bankCtrl: FormControl = new FormControl();
+  
+    public bankFilterCtrl: FormControl  = new FormControl();
+  
+    public filteredBanks: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  
+    @ViewChild('singleSelect') singleSelect!: MatSelect;
+  
+    protected _onDestroy = new Subject<void>();
 
 
   constructor(
@@ -63,6 +78,15 @@ export class CreateEditInProgressComponent implements OnInit {
         break;
     }
   }  
+
+  ngAfterViewInit() {
+    // this.setInitialValue();
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
   createClassInProgress() {
     if (this.classInProgressForm.valid) { 
@@ -104,6 +128,15 @@ export class CreateEditInProgressComponent implements OnInit {
       switch (statusCode) {
         case 200:
           this.listAllClasses = response['content'];
+          
+          this.filteredBanks.next(this.listAllClasses.slice());
+
+          this.bankFilterCtrl.valueChanges
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => {
+              this.filterBanks();
+            });
+
           break;
 
         default:
@@ -140,6 +173,32 @@ export class CreateEditInProgressComponent implements OnInit {
 
   refreshClass() {
     this.hasNewClassInProgress.emit(true);
+  }
+
+  protected setInitialValue() {
+    this.filteredBanks
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe((value: any) => {
+        this.singleSelect.compareWith = (a: any, b: any) => a && b && a.id === b.id;
+      });
+  }
+
+  protected filterBanks() {
+    if (!this.listAllClasses) {
+      return;
+    }
+    let search = this.bankFilterCtrl.value;
+    if (!search) {
+      this.filteredBanks.next(this.listAllClasses.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredBanks.next(
+      this.listAllClasses.filter((value:any) => {
+        value.subject.name.toLowerCase().indexOf(search) > -1
+      })
+    );
   }
 
 }

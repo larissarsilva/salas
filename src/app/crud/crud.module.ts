@@ -1,5 +1,5 @@
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrudComponent } from './crud.component';
 import { CrudRoutingModule } from './crud-routing.module';
@@ -26,7 +26,7 @@ import { RoomComponent } from './room/room.component';
 import { WarningComponent } from './warning/warning.component';
 import { CreateStudentComponent } from './modals/create-student/create-student.component';
 import { CreateCourseComponent } from './course/create-course/create-course.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from './course/course.service';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { SubjectService } from './subject/subject.service';
@@ -43,6 +43,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ClassesInProgressComponent } from './classes-in-progress/classes-in-progress.component';
 import { CreateEditInProgressComponent } from './classes-in-progress/create-edit-in-progress/create-edit-in-progress.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -87,8 +88,21 @@ import { CreateEditInProgressComponent } from './classes-in-progress/create-edit
     ReactiveFormsModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    NgxMatSelectSearchModule
   ],
-  providers: [CrudService, CourseService, SubjectService, ProfessorService, RoomService, ScheduleService],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CreateEditInProgressComponent),
+      multi: true,
+    },
+    CrudService,
+    CourseService,
+    SubjectService,
+    ProfessorService,
+    RoomService,
+    ScheduleService
+  ],
 })
 export class CrudModule { }

@@ -19,6 +19,7 @@ import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
         ComponentsModule,
         HomeModule,
         HttpClientModule,
-        NgxUiLoaderModule
+        NgxUiLoaderModule,
+        MatSelectModule
     ]
 })
 export class AppModule { }

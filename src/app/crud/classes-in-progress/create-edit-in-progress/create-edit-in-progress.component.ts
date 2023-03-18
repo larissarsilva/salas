@@ -110,14 +110,15 @@ export class CreateEditInProgressComponent implements OnInit, AfterViewInit, OnD
   }
 
   getSelectedClass(classValue: any) {
-    this.showExtraFields = true;
-    console.log('clicou', classValue)
-    this.classInProgressForm.controls['roomId'].setValue(classValue.room.id);
-    this.classInProgressForm.controls['roomName'].setValue(classValue.room.name);
-    this.classInProgressForm.controls['subjectName'].setValue(classValue.subject.name);
-    this.classInProgressForm.controls['subjectCode'].setValue(classValue.subject.code);
-    this.classInProgressForm.controls['subjectGroup'].setValue(classValue.subject.group);
-    this.listProfessors = classValue.professors;
+    console.log('pegou', classValue)
+    // this.showExtraFields = true;
+    // console.log('clicou', classValue)
+    // this.classInProgressForm.controls['roomId'].setValue(classValue.room.id);
+    // this.classInProgressForm.controls['roomName'].setValue(classValue.room.name);
+    // this.classInProgressForm.controls['subjectName'].setValue(classValue.subject.name);
+    // this.classInProgressForm.controls['subjectCode'].setValue(classValue.subject.code);
+    // this.classInProgressForm.controls['subjectGroup'].setValue(classValue.subject.group);
+    // this.listProfessors = classValue.professors;
   }
 
   getClass() {

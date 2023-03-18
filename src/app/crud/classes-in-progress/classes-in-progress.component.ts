@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { classInProgress } from '../crud.interface';
 import { ClassesInProgressService } from './classes-in-progress.service';
+import { CreateEditInProgressComponent } from './create-edit-in-progress/create-edit-in-progress.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-classes-in-progress',
@@ -28,6 +31,7 @@ export class ClassesInProgressComponent implements OnInit {
   constructor(
     private classesServices: ClassesInProgressService,
     private ngxService: NgxUiLoaderService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -62,8 +66,31 @@ export class ClassesInProgressComponent implements OnInit {
     this.sendClassInProgressValues = data;
   }
 
-  deleteClassInProgress(classId: number) {
-    
+  deleteClassInProgress(classId: number, values: any) {
+    Swal.fire({
+      title: 'Tem certeza que gostaria de deletar a reserva: ' + values.subjectName + ' ?',
+      text: "Essa ação não poderá ser desfeita",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.classesServices.deleteClassInProgress(classId).subscribe((response: any) => {
+          const statusCode = response['code'];
+          switch (statusCode) {
+            case 200:
+              this.getClassesInProgress();
+              break;
+          
+            default:
+              break;
+          }
+        });
+      }
+    });
   }
 
   refreshClassInProgress(value: any) {
@@ -75,4 +102,16 @@ export class ClassesInProgressComponent implements OnInit {
   getShowCreateFieldValue(value: any) {
     this.showCreateClass = value;
   }
+
+  openModal() {
+    const dialogRef = this.dialog.open(CreateEditInProgressComponent, {
+    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('resultado', result)
+    //   if(result) {
+    //     this.getClass();
+    //   }
+    // });
+}
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
 import { Room } from '../crud.interface';
 import { RoomService } from './room.service';
@@ -18,26 +19,26 @@ export class RoomComponent implements OnInit {
   fieldType!: string; // Tipo do campo edit/create
   sendRoomValues!: string; // Enviar para o componente de editar sala
 
+  ELEMENT_DATA = [];
   // 'key'
   displayedColumns: string[] = ['name', 'block', 'isAcessible',
     'hasAirConditioner', 'hasFan', 'hasProjector', 'capacity',
     'available', 'note', 'action'];
 
-
   constructor(
-    private roomService: RoomService
+    private roomService: RoomService,
+    private ngxService: NgxUiLoaderService,
   ) { }
 
-
-
-  ELEMENT_DATA = [];
 
   ngOnInit() {
     this.getRoom();
   }
 
   getRoom() {
+    this.ngxService.start('getRoom');
     this.roomService.getRoom().subscribe((response: any) => {
+      this.ngxService.stop('getRoom');
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
@@ -65,7 +66,7 @@ export class RoomComponent implements OnInit {
 
   deleteRoom(roomId: number, name: string) {
     Swal.fire({
-      title: 'Tem certeza que gostaria de deletar ' + name + '?',
+      title: 'Tem certeza que gostaria de deletar a sala: ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
       showCancelButton: true,
@@ -75,11 +76,18 @@ export class RoomComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ngxService.start('deleteRoom');
         this.roomService.deleteRoom(roomId).subscribe((response: any) => {
           const statusCode = response['code'];
+          this.ngxService.stop('deleteRoom');
           switch (statusCode) {
             case 200:
               this.getRoom();
+              Swal.fire(
+                'Sucesso!',
+                'Sala excluída',
+                'success'
+              );
               break;
 
             default:

@@ -4,6 +4,7 @@ import { CrudService } from '../crud.service';
 import Swal from 'sweetalert2';
 import { CourseService } from './course.service';
 import { Course } from '../crud.interface';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class CourseComponent implements OnInit {
   sendCourse: any;
 
   constructor(
-    private coursesService: CourseService
+    private coursesService: CourseService,
+    private ngxService: NgxUiLoaderService,
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,9 @@ export class CourseComponent implements OnInit {
   }
 
   getCourses() {
+    this.ngxService.start('getCourse');
     this.coursesService.getCourses().subscribe((response: any) => {
+      this.ngxService.stop('getCourse');
       const statusCode = response['code'];
       if (statusCode == 200) {
         this.listCourses = response['content'];
@@ -75,7 +79,7 @@ export class CourseComponent implements OnInit {
 
   deleteCourse(id: number, name: string) {
     Swal.fire({
-      title: 'Tem certeza que gostaria de deletar ' + name + '?',
+      title: 'Tem certeza que gostaria de deletar o curso:' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
       showCancelButton: true,
@@ -85,13 +89,23 @@ export class CourseComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.coursesService.deleteCourse(id).subscribe(result => {
-          this.getCourses();
-          Swal.fire(
-            'Sucesso!',
-            'Disciplina excluída',
-            'success'
-          )
+        this.ngxService.start('deleteCourse');
+        this.coursesService.deleteCourse(id).subscribe((response: any) => {
+          const statusCode = response['code'];
+          this.ngxService.stop('deleteCourse');
+          switch (statusCode) {
+            case 200:
+              this.getCourses();  
+              Swal.fire(
+              'Sucesso!',
+              'Curso excluído',
+              'success'
+              );
+              break;
+          
+            default:
+              break;
+          }
         });
       }
     });

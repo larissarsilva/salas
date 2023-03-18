@@ -4,6 +4,7 @@ import { SubjectService } from './subject.service';
 import { CourseService } from '../course/course.service';
 import { Subject } from '../crud.interface';
 import Swal from 'sweetalert2';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-subject',
@@ -33,7 +34,8 @@ export class SubjectComponent implements OnInit {
 
   constructor(
     private subjectServices: SubjectService,
-    private courseServices: CourseService
+    private courseServices: CourseService,
+    private ngxService: NgxUiLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,9 @@ export class SubjectComponent implements OnInit {
   }
 
   getSubjects() {
+    this.ngxService.start('getSubject');
     this.subjectServices.getSubjects().subscribe((response: any) => {
+      this.ngxService.stop('getSubject');
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
@@ -75,7 +79,7 @@ export class SubjectComponent implements OnInit {
 
   deleteSubject(subjectId: number, name: string) {
     Swal.fire({
-      title: 'Tem certeza que gostaria de deletar: ' + name + '?',
+      title: 'Tem certeza que gostaria de deletar a disciplina: ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
       showCancelButton: true,
@@ -85,14 +89,24 @@ export class SubjectComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.subjectServices.deleteSubject(subjectId).subscribe(response => {
-          this.getSubjects();
-          console.log('result', result)
-          Swal.fire(
-            'Sucesso!',
-            'Disciplina excluída',
-            'success'
-          )
+        this.ngxService.start('deleteSubject');
+        this.subjectServices.deleteSubject(subjectId).subscribe((response: any) => {
+          const statusCode = response['code'];
+          this.ngxService.stop('deleteSubject');
+          switch (statusCode) {
+            case 200:
+              this.getSubjects();
+              Swal.fire(
+              'Sucesso!',
+              'Disciplina excluída',
+              'success'
+            );
+              break;
+          
+            default:
+              break;
+          }
+
         });
       }
     });

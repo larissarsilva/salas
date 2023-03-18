@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
 import { Professors } from '../crud.interface';
 import { ProfessorService } from './professor.service';
@@ -30,7 +31,8 @@ export class ProfessorComponent implements OnInit {
   listProfessors: Professors[] = [];
 
   constructor(
-    private professorService: ProfessorService
+    private professorService: ProfessorService,
+    private ngxService: NgxUiLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,9 @@ export class ProfessorComponent implements OnInit {
   }
 
   getProfessor() {
+    this.ngxService.start('getProfessors');
     this.professorService.getProfessors().subscribe((response: any) => {
+      this.ngxService.stop('getProfessors');
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
@@ -64,7 +68,7 @@ export class ProfessorComponent implements OnInit {
 
   deleteProfessor(professorId: number, name: string) {
     Swal.fire({
-      title: 'Tem certeza que gostaria de deletar ' + name + '?',
+      title: 'Tem certeza que gostaria de deletar o/a Professor(a): ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
       showCancelButton: true,
@@ -74,11 +78,18 @@ export class ProfessorComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ngxService.start('deleteProfessors');
         this.professorService.deleteProfessor(professorId).subscribe((response: any) => {
           const statusCode = response['code'];
+          this.ngxService.stop('deleteProfessors');
           switch (statusCode) {
             case 200:
               this.getProfessor();
+              Swal.fire(
+                'Sucesso!',
+                'Professor(a) excluído(a)',
+                'success'
+              );
               break;
     
             default:

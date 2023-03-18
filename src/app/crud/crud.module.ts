@@ -44,6 +44,7 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ClassesInProgressComponent } from './classes-in-progress/classes-in-progress.component';
 import { CreateEditInProgressComponent } from './classes-in-progress/create-edit-in-progress/create-edit-in-progress.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { CardTitleComponent } from '../components/card-title/card-title.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     PdfListCreateComponent,
     ClassesInProgressComponent,
     CreateEditInProgressComponent,
+    CardTitleComponent
   ],
   imports: [
     NgxPaginationModule,

@@ -1,4 +1,6 @@
 <section>
+  <app-card-title title="horário" icon="clock"></app-card-title>
+  <div class="card-position">
   <!-- <mat-card-header>
       <mat-form-field class="example-form-field">
         <mat-label>Pesquisar</mat-label>
@@ -9,229 +11,231 @@
       </mat-form-field>
     </mat-card-header> -->
 
-  <div class="create-div" *ngIf="!isClass">
-    <div *ngIf="!showCreateClass" class="align-create-buttons">
-      <button mat-raised-button (click)="createClass()">ADICIONAR</button>
-      <div>
-        <input type="file" accept=".pdf" class="file-upload" #uploadPDF (change)="onFileSelect($event)" style="display: none;">
-        <div matTooltip="Adicionar PDF" matTooltipPosition="below" class="example-button-container" (click)="uploadPDF.click()">
-          <button mat-mini-fab color="warn" aria-label="Enviar PDF">
-            <mat-icon>upload_file</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="showCreateClass">
-      <app-create-edit-schedule [fieldType]="fieldType" [classValues]="sendClassValues"
-        (hasNewClass)="refreshClass($event)" (showCreateField)="getShowCreateFieldValue($event)">
-      </app-create-edit-schedule>
-    </div>
-  </div>
-  <br />
-  <mat-card>
-
-    <mat-card-header>
-      <div class="align-card-header">
-        <div class="search-field">
-          <div class="search-icon">
-            <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+    <div class="create-div" *ngIf="!isClass">
+      <div *ngIf="!showCreateClass" class="align-create-buttons">
+        <button mat-raised-button (click)="createClass()">ADICIONAR</button>
+        <div>
+          <input type="file" accept=".pdf" class="file-upload" #uploadPDF (change)="onFileSelect($event)" style="display: none;">
+          <div matTooltip="Adicionar PDF" matTooltipPosition="below" class="example-button-container" (click)="uploadPDF.click()">
+            <button mat-mini-fab color="warn" aria-label="Enviar PDF">
+              <mat-icon>upload_file</mat-icon>
+            </button>
           </div>
-          <input matInput type="text" [(ngModel)]="filterClass" placeholder="Ex.: Cálculo 3" autocomplete="off">
-        </div>
-        <div class="delete-all" *ngIf="!isClass">
-          <button mat-raised-button color="warn" (click)="deleteAllClasses()">DELETAR TUDO</button>
         </div>
       </div>
-    </mat-card-header>
-
+  
+      <div *ngIf="showCreateClass">
+        <app-create-edit-schedule [fieldType]="fieldType" [classValues]="sendClassValues"
+          (hasNewClass)="refreshClass($event)" (showCreateField)="getShowCreateFieldValue($event)">
+        </app-create-edit-schedule>
+      </div>
+    </div>
     <br />
-
-    <div class="paginate">
-      <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
-      </pagination-controls>
-    </div>
-
-    <mat-card-content>
-      <table mat-table  multiTemplateDataRows 
-      [dataSource]="listClasses  | filter: filterClass | paginate: {itemsPerPage: 10, currentPage: p}">
-        <ng-container matColumnDef="professors">
-          <th mat-header-cell *matHeaderCellDef> PROFESSOR(A) /<br /> RESPONSÁVEL </th>
-          <td mat-cell *matCellDef="let element"> {{element.professors[0].name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="subjectCode">
-          <th mat-header-cell *matHeaderCellDef> CÓDIGO </th>
-          <td mat-cell *matCellDef="let element"> {{element.subject.code}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="subject">
-          <th mat-header-cell *matHeaderCellDef> DISCIPLINA </th>
-          <td mat-cell *matCellDef="let element"> {{element.subject.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="subjectGroup">
-          <th mat-header-cell *matHeaderCellDef> TURMA </th>
-          <td mat-cell *matCellDef="let element"> {{element.subject.group}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="room">
-          <th mat-header-cell *matHeaderCellDef> SALA </th>
-          <td mat-cell *matCellDef="let element"> {{element.room.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="day">
-          <th mat-header-cell *matHeaderCellDef> DIA </th>
-          <td mat-cell *matCellDef="let element"> 
-            <span *ngIf="element.day == 0"> Segunda </span>
-            <span *ngIf="element.day == 1"> Terça </span>
-            <span *ngIf="element.day == 2"> Quarta </span>
-            <span *ngIf="element.day == 3"> Quinta </span>
-            <span *ngIf="element.day == 4"> Sexta </span>
-            <span *ngIf="element.day == 5"> Sábado </span>
-        </td>
-        </ng-container>
-
-        <ng-container matColumnDef="startTime">
-          <th mat-header-cell *matHeaderCellDef> HORÁRIO INÍCIO</th>
-          <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="endTime">
-          <th mat-header-cell *matHeaderCellDef> HORÁRIO FIM </th>
-          <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="expand">
-              <th mat-header-cell *matHeaderCellDef aria-label="row actions">DETALHES</th>
-              <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button aria-label="expand row"
-                      (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation();getClassValues(element)">
-                      <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-                      <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
-                  </button>
-              </td>
-        </ng-container>
-
-          <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-                <div class="example-element-detail"
-                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                    <div>
-                      <form [formGroup]="classInProgressForm">
-                        <div class="row">
-                          <div class="col-lg-3">
-                            <mat-form-field appearance="outline" *ngIf="!isInProgress">
-                              <mat-label>Professor(a) Responsável</mat-label>
-                              <mat-select formControlName="responsibleProfessorId">
-                                <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
-                                  <span [innerHTML]="professor.name"></span>
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline"  *ngIf="isInProgress">
-                              <mat-label>Professor(a) Responsável</mat-label>
-                              <input matInput formControlName="responsibleProfessorId" type="text">
-                          </mat-form-field>
-
-                          </div>
-
-                          <!-- <div class="col-lg-3">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Disciplina</mat-label>
-                                <input matInput formControlName="subjectName" type="text">
-                            </mat-form-field>
-                          </div> -->
-
-                          <!-- <div class="col-lg-2">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Código</mat-label>
-                                <input matInput formControlName="subjectCode" type="text">
-                            </mat-form-field>
-                          </div>
-
-                          <div class="col-lg-1">
-                            <mat-form-field appearance="outline">
-                                <mat-label>TURMA</mat-label>
-                                <input matInput formControlName="subjectGroup" type="text">
-                            </mat-form-field>
-                          </div> -->
-    
-                          <!-- <div class="col-lg-1">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Sala</mat-label>
-                                <input matInput formControlName="roomName" type="text">
-                            </mat-form-field>
-                          </div> -->
-
-                          <div class="col-lg-3">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Observação</mat-label>
-                                <textarea matInput formControlName="note" placeholder=""> </textarea>
-                            </mat-form-field>
-                          </div>
-
-                          <div class="col-lg-2">
-                            <mat-form-field appearance="outline">
-                                <mat-label>STATUS</mat-label>
-                                <input matInput formControlName="classStatus" type="text">
-                            </mat-form-field>
-                          </div>
-
-                        </div>
-                        <div class="addClass">
-                          <button mat-raised-button color="warn"  (click)="cancelClassInProgress()">CANCELAR</button>
-                          <button mat-raised-button color="primary" type="submit" (click)="createClassInProgress()"
-                          [disabled]="!classInProgressForm.valid">ADICIONAR</button>
-                        </div>
-                      </form>
-                    </div>
-                </div>
-            </td>
-        </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
-            <td mat-cell *matCellDef="let element">
-              <div class="table-actions">
-                <!-- <div>
-                  <button (click)="editClass(element)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
-                    matTooltipPosition="below">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                </div> -->
-                <div>
-
-                </div>
-                <div class="delete-icon" *ngIf="!isClass">
-                  <button (click)="deleteClass(element.id)" mat-mini-fab color="warn" class="icons-crud"
-                    matTooltip="Apagar" matTooltipPosition="below">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-
-              </div>
-            </td>
+    <mat-card>
+  
+      <mat-card-header>
+        <div class="align-card-header">
+          <div class="search-field">
+            <div class="search-icon">
+              <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+            </div>
+            <input matInput type="text" [(ngModel)]="filterClass" placeholder="Ex.: Cálculo 3" autocomplete="off">
+          </div>
+          <div class="delete-all" *ngIf="!isClass">
+            <button mat-raised-button color="warn" (click)="deleteAllClasses()">DELETAR TUDO</button>
+          </div>
+        </div>
+      </mat-card-header>
+  
+      <br />
+  
+      <div class="paginate">
+        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
+        </pagination-controls>
+      </div>
+  
+      <mat-card-content>
+        <table mat-table  multiTemplateDataRows 
+        [dataSource]="listClasses  | filter: filterClass | paginate: {itemsPerPage: 10, currentPage: p}">
+          <ng-container matColumnDef="professors">
+            <th mat-header-cell *matHeaderCellDef> PROFESSOR(A) /<br /> RESPONSÁVEL </th>
+            <td mat-cell *matCellDef="let element"> {{element.professors[0].name}} </td>
           </ng-container>
-
-          <div *ngIf="!isClass">
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </div>
-
-          <div *ngIf="isClass">
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
-                    [class.example-expanded-row]="expandedElement === element">
-            </tr>
-            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-          </div>
-
-      </table>
-    </mat-card-content>
-  </mat-card>
-
+  
+          <ng-container matColumnDef="subjectCode">
+            <th mat-header-cell *matHeaderCellDef> CÓDIGO </th>
+            <td mat-cell *matCellDef="let element"> {{element.subject.code}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="subject">
+            <th mat-header-cell *matHeaderCellDef> DISCIPLINA </th>
+            <td mat-cell *matCellDef="let element"> {{element.subject.name}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="subjectGroup">
+            <th mat-header-cell *matHeaderCellDef> TURMA </th>
+            <td mat-cell *matCellDef="let element"> {{element.subject.group}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="room">
+            <th mat-header-cell *matHeaderCellDef> SALA </th>
+            <td mat-cell *matCellDef="let element"> {{element.room.name}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="day">
+            <th mat-header-cell *matHeaderCellDef> DIA </th>
+            <td mat-cell *matCellDef="let element"> 
+              <span *ngIf="element.day == 0"> Segunda </span>
+              <span *ngIf="element.day == 1"> Terça </span>
+              <span *ngIf="element.day == 2"> Quarta </span>
+              <span *ngIf="element.day == 3"> Quinta </span>
+              <span *ngIf="element.day == 4"> Sexta </span>
+              <span *ngIf="element.day == 5"> Sábado </span>
+          </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="startTime">
+            <th mat-header-cell *matHeaderCellDef> HORÁRIO INÍCIO</th>
+            <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="endTime">
+            <th mat-header-cell *matHeaderCellDef> HORÁRIO FIM </th>
+            <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">DETALHES</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation();getClassValues(element)">
+                        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                    </button>
+                </td>
+          </ng-container>
+  
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                  <div class="example-element-detail"
+                      [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div>
+                        <form [formGroup]="classInProgressForm">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <mat-form-field appearance="outline" *ngIf="!isInProgress">
+                                <mat-label>Professor(a) Responsável</mat-label>
+                                <mat-select formControlName="responsibleProfessorId">
+                                  <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
+                                    <span [innerHTML]="professor.name"></span>
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+  
+                              <mat-form-field appearance="outline"  *ngIf="isInProgress">
+                                <mat-label>Professor(a) Responsável</mat-label>
+                                <input matInput formControlName="responsibleProfessorId" type="text">
+                            </mat-form-field>
+  
+                            </div>
+  
+                            <!-- <div class="col-lg-3">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>Disciplina</mat-label>
+                                  <input matInput formControlName="subjectName" type="text">
+                              </mat-form-field>
+                            </div> -->
+  
+                            <!-- <div class="col-lg-2">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>Código</mat-label>
+                                  <input matInput formControlName="subjectCode" type="text">
+                              </mat-form-field>
+                            </div>
+  
+                            <div class="col-lg-1">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>TURMA</mat-label>
+                                  <input matInput formControlName="subjectGroup" type="text">
+                              </mat-form-field>
+                            </div> -->
+      
+                            <!-- <div class="col-lg-1">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>Sala</mat-label>
+                                  <input matInput formControlName="roomName" type="text">
+                              </mat-form-field>
+                            </div> -->
+  
+                            <div class="col-lg-3">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>Observação</mat-label>
+                                  <textarea matInput formControlName="note" placeholder=""> </textarea>
+                              </mat-form-field>
+                            </div>
+  
+                            <div class="col-lg-2">
+                              <mat-form-field appearance="outline">
+                                  <mat-label>STATUS</mat-label>
+                                  <input matInput formControlName="classStatus" type="text">
+                              </mat-form-field>
+                            </div>
+  
+                          </div>
+                          <div class="addClass">
+                            <button mat-raised-button color="warn"  (click)="cancelClassInProgress()">CANCELAR</button>
+                            <button mat-raised-button color="primary" type="submit" (click)="createClassInProgress()"
+                            [disabled]="!classInProgressForm.valid">ADICIONAR</button>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+              </td>
+          </ng-container>
+  
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="table-actions">
+                  <!-- <div>
+                    <button (click)="editClass(element)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
+                      matTooltipPosition="below">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </div> -->
+                  <div>
+  
+                  </div>
+                  <div class="delete-icon" *ngIf="!isClass">
+                    <button (click)="deleteClass(element.id)" mat-mini-fab color="warn" class="icons-crud"
+                      matTooltip="Apagar" matTooltipPosition="below">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+  
+                </div>
+              </td>
+            </ng-container>
+  
+            <div *ngIf="!isClass">
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </div>
+  
+            <div *ngIf="isClass">
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+              <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                      [class.example-expanded-row]="expandedElement === element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+            </div>
+  
+        </table>
+      </mat-card-content>
+    </mat-card>
+  
+  
+  </div>
 
 
 </section>

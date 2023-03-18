@@ -7,18 +7,18 @@
                 </button>
             </div>
             <mat-nav-list>
-                <mat-list-item [routerLink]="['aulas']" routerLinkActive="active" #alertIsActive="routerLinkActive" 
+                <mat-list-item [routerLink]="['aulas']" routerLinkActive="active" #classIsActive="routerLinkActive" 
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
-                        <img src="{{!alertIsActive.isActive ? '../../assets/crud/alert.png' : '../../assets/crud/alert-selected.png'}}"
-                        alt="Avisos" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">AULAS</span>
+                        <img src="{{!classIsActive.isActive ? '../../assets/crud/calendar.png' : '../../assets/crud/calendar.png'}}"
+                        alt="Aulas" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">AGENDAMENTO</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item  [routerLink]="['horario']" routerLinkActive="active" #isActive="routerLinkActive"
+                <mat-list-item  [routerLink]="['horario']" routerLinkActive="active" #scheduleIsActive="routerLinkActive"
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title card-sidenav">
-                        <img src="{{!isActive.isActive ? '../../assets/crud/clock.png' :'../../assets/crud/clock-selected.png'}}" 
+                        <img src="{{!scheduleIsActive.isActive ? '../../assets/crud/clock.png' :'../../assets/crud/clock-selected.png'}}" 
                         alt="Horário" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">HORÁRIO</span>
                     </div>

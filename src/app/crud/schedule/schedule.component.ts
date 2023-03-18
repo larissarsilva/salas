@@ -58,11 +58,6 @@ export class ScheduleComponent implements OnInit {
       classId: [null, Validators.required],
       responsibleProfessorId: [null, Validators.required],
       roomId: [null, Validators.required],
-      roomName: [{value: '', disabled: true}],
-      subjectName: [{value: '', disabled: true}],
-      subjectCode: [{value: '', disabled: true}],
-      subjectGroup: [{value: '', disabled: true}],
-      classStatus: [{value: '', disabled: true}],
       note: [null]
     });
   }
@@ -75,6 +70,7 @@ export class ScheduleComponent implements OnInit {
     } else if (this.isClass == true) {
       this.getClassesInProgress();
       this.displayedColumns.pop();
+      this.displayedColumns.splice(8,0,'status');
       this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
     }
   }
@@ -101,13 +97,11 @@ export class ScheduleComponent implements OnInit {
       const element =  this.listClasses[index].id;
       const status = this.listClassesInProgress.findIndex((value: any) => value.classId === element );
       if (status != -1) {
-        this.listClasses['status'] = 'OCUPADA'
+        this.listClasses[index]['status'] = 'OCUPADA';
       } else {
-        this.listClasses['status'] = 'LIVRE'
+        this.listClasses[index]['status'] = 'LIVRE';
       }
-      console.log(' this.listClasses',  this.listClasses);
     }
-    
   }
 
   createClass() {
@@ -242,13 +236,8 @@ export class ScheduleComponent implements OnInit {
 
   //pega os dados da aula e exibe nos inputs
   getClassValues(classValue: any) {
-    console.log('clicou', classValue)
     this.classInProgressForm.controls['classId'].setValue(classValue.id);
     this.classInProgressForm.controls['roomId'].setValue(classValue.room.id);
-    // this.classInProgressForm.controls['roomName'].setValue(classValue.room.name);
-    // this.classInProgressForm.controls['subjectName'].setValue(classValue.subject.name);
-    // this.classInProgressForm.controls['subjectCode'].setValue(classValue.subject.code);
-    // this.classInProgressForm.controls['subjectGroup'].setValue(classValue.subject.group);
     this.listProfessors = classValue.professors;
     this.isInProgress = this.listClassesInProgress.find((value: any) => value.classId === classValue.id);
     if(this.isInProgress) {

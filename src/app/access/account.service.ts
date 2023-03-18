@@ -90,12 +90,15 @@ export class AccountService {
   isUserLoggedIn() {
     const token = this.getAuthorizationToken();
     if (!token) {
+      this.isLogged.emit(false);
       this.showNavbarEmitter.emit(false);
       return false;
     } else if (this.isTokenExpired(token)) {
+      this.isLogged.emit(false);
       this.showNavbarEmitter.emit(false);
       return false;
     }
+    this.isLogged.emit(true);
     this.showNavbarEmitter.emit(true);
     return true;
   }

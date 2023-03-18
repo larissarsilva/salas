@@ -93,6 +93,9 @@ import { CardTitleComponent } from '../components/card-title/card-title.componen
     NgxUiLoaderModule,
     NgxMatSelectSearchModule
   ],
+  exports: [
+    ClassesInProgressComponent
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

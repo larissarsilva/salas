@@ -5,18 +5,7 @@
         <div class="align-create-buttons">
             <button mat-raised-button (click)="openModal()">ADICIONAR</button>
         </div>
-        <!-- <div class="create-div">
-            <div *ngIf="!showCreateClass" class="align-create-buttons">
-                <button mat-raised-button (click)="createClassInProgress()">ADICIONAR</button>
-    
-            </div>
-        
-            <div *ngIf="showCreateClass">
-                <app-create-edit-in-progress [fieldType]="fieldType" [classInProgressValues]="sendClassInProgressValues"
-                    (hasNewClassInProgress)="refreshClassInProgress($event)" (showCreateField)="getShowCreateFieldValue($event)">
-                </app-create-edit-in-progress>
-            </div>
-        </div> -->
+
         <br />
         <mat-card>
             <mat-card-content>
@@ -63,7 +52,7 @@
                       <div class="table-actions">
                         <div class="delete-icon">
                           <button (click)="deleteClassInProgress(element.id, element)" mat-mini-fab color="warn" class="icons-crud"
-                            matTooltip="Liberar Sala" matTooltipPosition="below">
+                            matTooltip="LIBERAR SALA" matTooltipPosition="below">
                             <mat-icon>delete</mat-icon>
                           </button>
                         </div>

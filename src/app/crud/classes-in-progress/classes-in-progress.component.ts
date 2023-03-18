@@ -5,6 +5,7 @@ import { classInProgress } from '../crud.interface';
 import { ClassesInProgressService } from './classes-in-progress.service';
 import { CreateEditInProgressComponent } from './create-edit-in-progress/create-edit-in-progress.component';
 import Swal from 'sweetalert2';
+import { AccountService } from 'src/app/access/account.service';
 
 @Component({
   selector: 'app-classes-in-progress',
@@ -27,15 +28,21 @@ export class ClassesInProgressComponent implements OnInit {
   fieldType!: string;
   sendClassInProgressValues!: any;
 
+  isAuthenticated: boolean = false //Verifica se o usuário está logado
 
   constructor(
     private classesServices: ClassesInProgressService,
     private ngxService: NgxUiLoaderService,
+    private accountService: AccountService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.getClassesInProgress();
+    // Autenticação
+    this.accountService.isLogged.subscribe((value: any) => {
+      console.log('ta logado?', value)
+    });
   }
 
   getClassesInProgress() {

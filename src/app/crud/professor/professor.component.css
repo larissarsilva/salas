@@ -18,3 +18,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     overflow: hidden;
     display: flex;
 }
+
+.align-text {
+    text-align: center;
+}

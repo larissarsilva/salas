@@ -26,7 +26,7 @@ export class ProfessorComponent implements OnInit {
   // Table
   expandedElement: any;
   // dataSource: any;
-  columnsToDisplay = ['name'];
+  columnsToDisplay = ['name', 'course'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   listProfessors: Professors[] = [];
   professorDetails: any;

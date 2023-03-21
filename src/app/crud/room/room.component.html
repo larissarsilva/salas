@@ -24,16 +24,7 @@
                     <input matInput type="text" [(ngModel)]="filterRoom" placeholder="Ex.: LIP 07" autocomplete="off">
                 </div>
             </mat-card-header>
-            <!-- <mat-card-header>
-                <mat-form-field class="example-form-field">
-                    <mat-label>Pesquisar</mat-label>
-                    <input matInput type="text">
-                    <button matSuffix mat-icon-button aria-label="Clear">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-form-field>
-            </mat-card-header> -->
-    
+
             <div class="paginate">
                 <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
                 </pagination-controls>

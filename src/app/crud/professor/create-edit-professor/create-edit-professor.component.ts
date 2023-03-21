@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
 import { SubjectService } from '../../subject/subject.service';
 import { ProfessorService } from '../professor.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'create-edit-professor',
@@ -33,7 +34,6 @@ export class CreateEditProfessorComponent implements OnInit {
       name: [null, Validators.required],
       card: [{ 'uuid': uuid }],
       courseId: [],
-      subjectsIds: [null],
       classes: [null]
     });
   }
@@ -69,25 +69,33 @@ export class CreateEditProfessorComponent implements OnInit {
   }
 
   updateProfessor() {
-    const hasSubjectsIds = this.professorForm.value['subjectsIds'];
-    if (hasSubjectsIds == null || this.disableSubjectField) {
-      this.professorForm.removeControl('subjectsIds');
-    }
-    console.log('update', this.professorForm)
     this.professorForm.value['id'] = this.professorId;
     if (this.professorForm.valid) {
-      this.professorsService.putProfessor(this.professorForm.value).subscribe((response: any) => {
-        const statusCode = response['code'];
-        switch (statusCode) {
-          case 200:
-            this.refreshProfessor();
-            this.cancelCreate();
-            break;
+      const professorName = this.professorForm.controls['name'].value;
+      Swal.fire({
+        title: 'Tem certeza que gostaria de editar o/a Professor(a): ' +  professorName + '?',
+        text: "Essa ação não poderá ser desfeita",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) { 
+        this.professorsService.putProfessor(this.professorForm.value).subscribe((response: any) => {
+          const statusCode = response['code'];
+          switch (statusCode) {
+            case 200:
+              this.refreshProfessor();
+              this.cancelCreate();
+              break;
 
-          default:
-            break;
+            default:
+              break;
+          }
+          });
         }
-        console.log('response', response)
       });
     } else {
       console.log('validar mensagem de erro');
@@ -130,22 +138,10 @@ export class CreateEditProfessorComponent implements OnInit {
   }
 
   fillFields() {
-    // MAIS AJUSTES
-    // remover classes como provisório
+    const coursesId =  this.professorValues.course.id;
+    this.professorForm.controls['courseId'].setValue(coursesId)
     this.professorForm.removeControl('classes');
-    console.log('valores do professor', this.professorValues)
     this.professorForm.patchValue(this.professorValues);
-    // this.professorForm.get('courseId')?.setValue(this.professorValues.course.id);
-    // const subjects = this.professorValues.subjects;
-    // let subjectsIds = [];
-    // if (subjects != undefined) {
-    //   for (let index = 0; index < subjects.length; index++) {
-    //     const subjectId = subjects[index].id;
-    //     subjectsIds.push(subjectId);
-    //   }
-    //   this.professorForm.get('subjectsIds')?.setValue(subjectsIds);
-    // }
-    console.log('valores finais', this.professorForm.value)
   }
 
   refreshProfessor() {

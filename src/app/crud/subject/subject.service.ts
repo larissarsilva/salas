@@ -33,4 +33,9 @@ export class SubjectService {
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
 
+  getSubjectDetails(id: number) {
+    return this.http.get(this.LOCAL_URL + '/' + id,
+      { headers: new HttpHeaders().set('Authorization', this.token) });
+  }
+
 }

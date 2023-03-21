@@ -42,8 +42,8 @@
                         <div [ngSwitch]="column">
                             <span *ngSwitchCase="'name'">DISCIPLINA</span>
                             <span *ngSwitchCase="'code'">CÓDIGO</span>
+                            <span *ngSwitchCase="'group'">TURMA</span>
                             <span *ngSwitchCase="'workload'">CARGA HORÁRIA</span>
-                            <span *ngSwitchCase="'group'">GRUPO</span>
     
                         </div>
                     </th>
@@ -56,7 +56,7 @@
                     <th mat-header-cell *matHeaderCellDef aria-label="row actions">DETALHES</th>
                     <td mat-cell *matCellDef="let element">
                         <button mat-icon-button aria-label="expand row"
-                            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation(); getCourseById(element)">
+                            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation(); getSubjectDetails(element.id)">
                             <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
                             <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
                         </button>
@@ -67,11 +67,33 @@
                     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
                         <div class="example-element-detail"
                             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                            <div> Cursos:
+                            
+                            <mat-list>
+                                <mat-list-item><h3>CURSO(S):</h3></mat-list-item>
+                                <mat-list-item *ngFor="let course of listSubjectDetails.courses">
+                                    <span *ngIf="listSubjectDetails.courses.length > 0" [innerHTML]="course.name"></span>
+                                </mat-list-item>
+                                <!-- <mat-list-item *ngIf="listSubjectDetails.courses.length == 0">
+                                    <span>
+                                        Disciplina sem curso cadastrado!
+                                    </span>
+                                </mat-list-item> -->
+                            </mat-list>
+                            <!-- <table class="table">
+                                <thead>
+                                    <tr scope="col">CURSO(S)</tr>
+                                </thead>
+                                <tbody>
+                                    <td *ngFor="let course of element.courses">
+                                        {{course.name}}
+                                    </td>
+                                </tbody>
+                            </table> -->
+                            <!-- <div> Cursos:
                                 <mat-list role="list" *ngFor="let course of listCourses">
                                     <mat-list-item role="listitem">{{course.name}}</mat-list-item>
                                 </mat-list>
-                            </div>
+                            </div> -->
                         </div>
                     </td>
                 </ng-container>

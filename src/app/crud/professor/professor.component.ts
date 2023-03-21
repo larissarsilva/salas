@@ -29,6 +29,7 @@ export class ProfessorComponent implements OnInit {
   columnsToDisplay = ['name'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   listProfessors: Professors[] = [];
+  professorDetails: any;
 
   constructor(
     private professorService: ProfessorService,
@@ -52,7 +53,7 @@ export class ProfessorComponent implements OnInit {
         default:
           break;
       }
-    })
+    });
   }
 
   createProfessor() {
@@ -96,6 +97,23 @@ export class ProfessorComponent implements OnInit {
               break;
           }
         });
+      }
+    });
+  }
+
+  getProfessorDetails(professorId: number) {
+    this.ngxService.start('getProfessorDetail');
+    this.professorService.getProfessorDetails(professorId).subscribe((response: any) => {
+      this.ngxService.stop('getProfessorDetail');
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.professorDetails = response['content'];
+          console.log('this.professorDetails', this.professorDetails)
+          break;
+
+        default:
+          break;
       }
     });
   }

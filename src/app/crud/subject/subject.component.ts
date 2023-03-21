@@ -24,13 +24,14 @@ export class SubjectComponent implements OnInit {
   showCreateSubject: boolean = false;
   expandedElement: any;
   listSubject: Subject[] = [];
-  columnsToDisplay = ['name', 'code', 'workload', 'group'];
+  columnsToDisplay = ['name', 'code', 'group', 'workload'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   listSubjects!: Subject[];
   listCourses: any;
   listAllCourses: any;
   fieldType!: string;
   sendSubject: any;
+  listSubjectDetails: any;
 
   constructor(
     private subjectServices: SubjectService,
@@ -40,6 +41,7 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSubjects();
+    this.listSubjectDetails = [];
   }
 
   getSubjects() {
@@ -72,6 +74,7 @@ export class SubjectComponent implements OnInit {
 
 
   editSubject(subject: any) {
+    console.log("editar", subject)
     this.showCreateSubject = true;
     this.fieldType = 'edit';
     this.sendSubject = subject;
@@ -108,6 +111,23 @@ export class SubjectComponent implements OnInit {
           }
 
         });
+      }
+    });
+  }
+
+  getSubjectDetails(subjectId: number) {
+    this.ngxService.start('getSubjectDetails');
+    this.subjectServices.getSubjectDetails(subjectId).subscribe((response: any) => {
+      this.ngxService.stop('getSubjectDetails');
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listSubjectDetails = response.content;
+          console.log('this.listSubjectDetails', this.listSubjectDetails)
+          break;
+
+        default: console.log('erro');
+          break;
       }
     });
   }

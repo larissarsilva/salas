@@ -33,4 +33,10 @@ export class ProfessorService {
     return this.http.put(this.LOCAL_URL, data,
       { headers: new HttpHeaders().set('Authorization', this.token) })
   }
+
+  getProfessorDetails(id: number) {
+    return this.http.get(this.LOCAL_URL + '/' + id ,
+      { headers: new HttpHeaders().set('Authorization', this.token) });
+  }
+
 }

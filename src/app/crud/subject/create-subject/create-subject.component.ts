@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
 import { ProfessorService } from '../../professor/professor.service';
@@ -9,7 +9,7 @@ import { SubjectService } from '../subject.service';
   templateUrl: './create-subject.component.html',
   styleUrls: ['./create-subject.component.css']
 })
-export class CreateSubjectComponent implements OnInit {
+export class CreateSubjectComponent implements OnInit,  AfterViewInit {
   @Output() hasNewSubject = new EventEmitter();
   @Output() showCreateField = new EventEmitter();
   @Input() fieldType: any;
@@ -35,7 +35,7 @@ export class CreateSubjectComponent implements OnInit {
       code: [null, Validators.required],
       workload: [null, Validators.required],
       group: [null, Validators.required],
-      coursesIds: [],
+      coursesIds: [null],
       // professorsId: [null]
     });
   }
@@ -53,6 +53,10 @@ export class CreateSubjectComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    console.log('tipo', this.fieldType)
+  }
+
   fillFields() {
     // FAZER A VALIDAÇÃO PARA O CURSO ENTRAR NA EDIÇÃO
     this.subjectsForm.patchValue(this.subjectValues)
@@ -60,9 +64,9 @@ export class CreateSubjectComponent implements OnInit {
 
   editSubject() {
     const hasCoursesId = this.subjectsForm.value['coursesId']
-    if (hasCoursesId == null || this.disableCourse) {
-      this.subjectsForm.removeControl('coursesIds');
-    }
+    // if (hasCoursesId == null || this.disableCourse) {
+    //   this.subjectsForm.removeControl('coursesIds');
+    // }
     this.subjectsForm.value['id'] = this.subjectId;
     if (this.subjectsForm.valid) {
       this.subjectService.putSubject(this.subjectsForm.value).subscribe((response: any) => {
@@ -84,10 +88,11 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   createSubject() {
+    console.log('id do curso',  this.subjectsForm)
     const hasCoursesId = this.subjectsForm.value['coursesId']
-    if (hasCoursesId == null || this.disableCourse) {
-      this.subjectsForm.removeControl('coursesIds');
-    }
+    // if (hasCoursesId == null || this.disableCourse) {
+    //   this.subjectsForm.removeControl('coursesIds');
+    // }
     if (this.subjectsForm.valid) {
       console.log('validado', this.subjectsForm)
       this.subjectService.postSubject(this.subjectsForm.value).subscribe((response: any) => {

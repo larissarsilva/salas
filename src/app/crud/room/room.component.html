@@ -35,10 +35,23 @@
                     <th mat-header-cell *matHeaderCellDef> SALA </th>
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
-    
+
                 <ng-container matColumnDef="block">
                     <th mat-header-cell *matHeaderCellDef> BLOCO </th>
-                    <td mat-cell *matCellDef="let element"> {{element.block}} </td>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.block">
+                            <span *ngSwitchCase="0"> A </span>
+                            <span *ngSwitchCase="1"> B </span>
+                            <span *ngSwitchCase="2"> C </span>
+                            <span *ngSwitchCase="3"> D </span>
+                            <span *ngSwitchCase="4"> E </span>
+                            <span *ngSwitchCase="5"> F </span>
+                            <span *ngSwitchCase="6"> G </span>
+                            <span *ngSwitchCase="7"> H </span>
+                            <span *ngSwitchCase="8"> I </span>
+                            <span *ngSwitchCase="9"> J </span>
+                            <span  *ngSwitchDefault> K </span>
+                        </div>
                 </ng-container>
     
                 <ng-container matColumnDef="isAcessible">

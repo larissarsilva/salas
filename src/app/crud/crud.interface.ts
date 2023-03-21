@@ -1,4 +1,4 @@
-export interface Subject {
+export interface SubjectClass {
     id: number;
     name: string;
     workload: number;
@@ -35,7 +35,7 @@ export interface Course {
     id: number;
     name: string;
     shift: number;
-    subjects: Subject;
+    subjects: SubjectClass;
     professors: Professors;
 }
 

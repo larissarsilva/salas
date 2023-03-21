@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Professors, Room, Subject } from '../../crud.interface';
+import { Professors, Room, SubjectClass } from '../../crud.interface';
 import { ProfessorService } from '../../professor/professor.service';
 import { RoomService } from '../../room/room.service';
 import { SubjectService } from '../../subject/subject.service';
@@ -21,7 +21,7 @@ export class CreateEditScheduleComponent implements OnInit {
   classId!: number;
 
   listProfessors: Professors[] = [];
-  listSubjects: Subject[] = [];
+  listSubjects: SubjectClass[] = [];
   listRooms: Room[] = [];
   showClassButton!: boolean;
 

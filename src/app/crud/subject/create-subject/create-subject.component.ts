@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
 import { ProfessorService } from '../../professor/professor.service';
@@ -9,7 +9,7 @@ import { SubjectService } from '../subject.service';
   templateUrl: './create-subject.component.html',
   styleUrls: ['./create-subject.component.css']
 })
-export class CreateSubjectComponent implements OnInit,  AfterViewInit {
+export class CreateSubjectComponent implements OnInit {
   @Output() hasNewSubject = new EventEmitter();
   @Output() showCreateField = new EventEmitter();
   @Input() fieldType: any;
@@ -51,10 +51,6 @@ export class CreateSubjectComponent implements OnInit,  AfterViewInit {
     } else {
       this.showCreateButton = true;
     }
-  }
-
-  ngAfterViewInit() {
-    console.log('tipo', this.fieldType)
   }
 
   fillFields() {

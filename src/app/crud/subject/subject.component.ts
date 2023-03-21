@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Input, OnInit } from '@angular/core';
 import { SubjectService } from './subject.service';
 import { CourseService } from '../course/course.service';
-import { Subject } from '../crud.interface';
+import { SubjectClass } from '../crud.interface';
 import Swal from 'sweetalert2';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -23,10 +23,10 @@ export class SubjectComponent implements OnInit {
   filterSubject = '';
   showCreateSubject: boolean = false;
   expandedElement: any;
-  listSubject: Subject[] = [];
+  listSubject: SubjectClass[] = [];
   columnsToDisplay = ['name', 'code', 'group', 'workload'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
-  listSubjects!: Subject[];
+  listSubjects!: SubjectClass[];
   listCourses: any;
   listAllCourses: any;
   fieldType!: string;
@@ -74,7 +74,6 @@ export class SubjectComponent implements OnInit {
 
 
   editSubject(subject: any) {
-    console.log("editar", subject)
     this.showCreateSubject = true;
     this.fieldType = 'edit';
     this.sendSubject = subject;

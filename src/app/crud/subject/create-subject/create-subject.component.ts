@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
-import { ProfessorService } from '../../professor/professor.service';
 import { SubjectService } from '../subject.service';
 
 @Component({
@@ -28,7 +27,6 @@ export class CreateSubjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private coursesService: CourseService,
-    private professorsService: ProfessorService
   ) {
     this.subjectsForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -42,7 +40,6 @@ export class CreateSubjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCourses();
-    // this.getProfessors();
     if (this.fieldType == 'edit') {
       // preencher os campos do edit
       this.showCreateButton = false;
@@ -54,15 +51,12 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   fillFields() {
-    // FAZER A VALIDAÇÃO PARA O CURSO ENTRAR NA EDIÇÃO
+    const coursesIds = this.subjectValues.courses.map((value: any) => value.id);
+    this.subjectsForm.controls['coursesIds'].setValue(coursesIds);
     this.subjectsForm.patchValue(this.subjectValues)
   }
 
   editSubject() {
-    const hasCoursesId = this.subjectsForm.value['coursesId']
-    // if (hasCoursesId == null || this.disableCourse) {
-    //   this.subjectsForm.removeControl('coursesIds');
-    // }
     this.subjectsForm.value['id'] = this.subjectId;
     if (this.subjectsForm.valid) {
       this.subjectService.putSubject(this.subjectsForm.value).subscribe((response: any) => {
@@ -84,13 +78,7 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   createSubject() {
-    console.log('id do curso',  this.subjectsForm)
-    const hasCoursesId = this.subjectsForm.value['coursesId']
-    // if (hasCoursesId == null || this.disableCourse) {
-    //   this.subjectsForm.removeControl('coursesIds');
-    // }
     if (this.subjectsForm.valid) {
-      console.log('validado', this.subjectsForm)
       this.subjectService.postSubject(this.subjectsForm.value).subscribe((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
@@ -128,11 +116,6 @@ export class CreateSubjectComponent implements OnInit {
     });
   }
 
-  // getProfessors() {
-  //   this.professorsService.getProfessors().subscribe(response => {
-  //     this.listProfessors = response;
-  //   });
-  // }
 
   clearFields() {
     this.subjectsForm.reset();

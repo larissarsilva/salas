@@ -18,3 +18,15 @@
     overflow: hidden;
     display: flex;
   }
+
+.details-table {
+    table-layout: fixed;
+    margin-bottom: 8px;
+  }
+
+  .details-table-td{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  

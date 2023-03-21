@@ -24,7 +24,8 @@ export class CourseComponent implements OnInit {
   p: number = 1;
   showCreateCourse: boolean = false;
   listCourses: any;
-
+  listCourseDetails: any;
+  
   // Table
   expandedElement: any;
   dataSource: Course[] = [];
@@ -64,6 +65,23 @@ export class CourseComponent implements OnInit {
         this.expandedElement = this.dataSource;
       } else {
         console.log("exibir erro");
+      }
+    });
+  }
+
+  getCourseDetails(courseId: number) {
+    this.ngxService.start('getCourseDetails');
+    this.coursesService.getCourseById(courseId).subscribe((response: any) => {
+      this.ngxService.stop('getCourseDetails');
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listCourseDetails = response.content;
+          console.log('detalhes do curso', this.listCourseDetails.subjects)
+          break;
+
+        default: console.log('erro');
+          break;
       }
     });
   }

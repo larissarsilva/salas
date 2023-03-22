@@ -23,6 +23,7 @@ export class ProfessorComponent implements OnInit {
   showCreateProfessor: boolean = false;
   fieldType!: string;
   sendProfessorValues: any;
+  disableButtons: boolean = false;
   // Table
   expandedElement: any;
   // dataSource: any;
@@ -59,9 +60,11 @@ export class ProfessorComponent implements OnInit {
   createProfessor() {
     this.showCreateProfessor = true;
     this.fieldType = 'create';
+    this.disableButtons = true;
   }
 
   editProfessor(data: any) {
+    this.disableButtons = true;
     this.fieldType = 'edit';
     this.sendProfessorValues = data;
     this.showCreateProfessor = true;
@@ -120,6 +123,7 @@ export class ProfessorComponent implements OnInit {
 
   getCreateFieldValue(value: any) {
     this.showCreateProfessor = value;
+    this.disableButtons = value;
   }
 
   refreshProfessor(value: boolean) {

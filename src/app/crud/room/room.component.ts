@@ -14,6 +14,7 @@ export class RoomComponent implements OnInit {
   listRooms: Room[] = [];
   showCreateRoom: boolean = false; // Exibir o componente de criar sala
   filterRoom = '';
+  disableButtons: boolean = false;
 
   //Variáveis de comunicação de componente
   fieldType!: string; // Tipo do campo edit/create
@@ -54,11 +55,13 @@ export class RoomComponent implements OnInit {
   }
 
   createRoom() {
+    this.disableButtons = true;
     this.showCreateRoom = true;
     this.fieldType = 'create';
   }
 
   editRoom(data: any) {
+    this.disableButtons = true;
     this.showCreateRoom = true;
     this.fieldType = 'edit';
     this.sendRoomValues = data;
@@ -106,8 +109,9 @@ export class RoomComponent implements OnInit {
   }
 
   // Oculta o campo de criação/edição
-  getShowCreateFieldValue(value: any) {
+  getShowCreateFieldValue(value: boolean) {
     this.showCreateRoom = value;
+    this.disableButtons = value;
   }
 
 

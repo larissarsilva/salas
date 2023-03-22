@@ -125,13 +125,13 @@
                         <div class="table-actions">
                             <div>
                                 <button (click)="editRoom(element)" mat-mini-fab color="primary" class="icons-crud"
-                                    matTooltip="Editar" matTooltipPosition="below">
+                                    matTooltip="Editar" matTooltipPosition="below" [disabled]="this.disableButtons">
                                     <mat-icon>edit</mat-icon>
                                 </button>
                             </div>
                             <div class="delete-icon">
                                 <button (click)="deleteRoom(element.id, element.name)" mat-mini-fab color="warn"
-                                    class="icons-crud" matTooltip="Apagar" matTooltipPosition="below">
+                                    class="icons-crud" matTooltip="Apagar" matTooltipPosition="below" [disabled]="this.disableButtons">
                                     <mat-icon>delete</mat-icon>
                                 </button>
                             </div>

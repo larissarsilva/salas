@@ -32,6 +32,7 @@ export class SubjectComponent implements OnInit {
   fieldType!: string;
   sendSubject: any;
   listSubjectDetails: any;
+  disableButtons: boolean = false;
 
   constructor(
     private subjectServices: SubjectService,
@@ -68,12 +69,14 @@ export class SubjectComponent implements OnInit {
   }
 
   createSubject() {
+    this.disableButtons = true;
     this.showCreateSubject = true;
     this.fieldType = 'create';
   }
 
 
   editSubject(subject: any) {
+    this.disableButtons = true;
     this.showCreateSubject = true;
     this.fieldType = 'edit';
     this.sendSubject = subject;
@@ -148,6 +151,7 @@ export class SubjectComponent implements OnInit {
 
   cancelCreate(value: boolean) {
     this.showCreateSubject = value;
+    this.disableButtons = value;
   }
 
 

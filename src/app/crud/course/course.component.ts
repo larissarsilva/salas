@@ -25,6 +25,7 @@ export class CourseComponent implements OnInit {
   showCreateCourse: boolean = false;
   listCourses: any;
   listCourseDetails: any;
+  disableButtons: boolean = false;
   
   // Table
   expandedElement: any;
@@ -77,7 +78,6 @@ export class CourseComponent implements OnInit {
       switch (statusCode) {
         case 200:
           this.listCourseDetails = response.content;
-          console.log('detalhes do curso', this.listCourseDetails.subjects)
           break;
 
         default: console.log('erro');
@@ -87,12 +87,14 @@ export class CourseComponent implements OnInit {
   }
 
   createCourse() {
+    this.disableButtons = true;
     this.showCreateCourse = true;
     this.fieldType = 'create';
   }
 
   getEventValue(value: boolean) {
     this.showCreateCourse = value;
+    this.disableButtons = value;
   }
 
   deleteCourse(id: number, name: string) {
@@ -130,6 +132,7 @@ export class CourseComponent implements OnInit {
   }
 
   editCourse(course: any) {
+    this.disableButtons = true;
     this.fieldType = 'edit';
     this.sendCourse = course;
     this.showCreateCourse = true;

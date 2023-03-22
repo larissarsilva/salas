@@ -8,6 +8,7 @@ import { ScheduleService } from '../schedule.service';
 
 export interface DialogData {
   pdfData: any;
+  pdfName: string;
 }
 
 @Component({
@@ -21,8 +22,8 @@ export class PdfListCreateComponent implements OnInit {
   listProfessors: Professors[] = [];
   classesForm!: FormGroup;
   enableSave: boolean = false;
-  teste: any;
   showEdit: boolean = true;
+  pdfName: string;
 
   listDays = [
     { id: 0, alias: 'Segunda' },
@@ -42,6 +43,7 @@ export class PdfListCreateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
       this.allClasses = this.data.pdfData;
+      this.pdfName = this.data.pdfName;
       this.classesForm = this.formBuilder.group({
         classes: this.formBuilder.array([])
     });

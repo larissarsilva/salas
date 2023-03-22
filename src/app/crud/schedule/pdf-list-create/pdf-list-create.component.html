@@ -2,15 +2,23 @@
     <div class="card-size">
         <mat-card>
             <mat-card-header>
-                <div class="align-header">
-                    <mat-card-title>CADASTRAR</mat-card-title>
-                    <div class="align-header-buttons">
-                        <div class="example-button-container" (click)="closeModal">
-                            <button mat-mini-fab color="warn">
-                            <mat-icon>close</mat-icon>
-                            </button>
+                <div class="align-card-header">
+                    <div class="align-header">
+                        <mat-card-title>CADASTRAR</mat-card-title>
+                        <div class="align-header-buttons">
+                            <div class="example-button-container" (click)="closeModal">
+                                <button mat-mini-fab color="warn">
+                                <mat-icon>close</mat-icon>
+                                </button>
+                            </div>
                         </div>
-                        <!-- <button mat-raised-button color="primary" (click)="selectAll()">SELECIONAR TUDO</button> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" disabled [value]="pdfName">
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
             </mat-card-header>
@@ -19,7 +27,7 @@
                         <div formArrayName="classes">
                             <div *ngFor="let classForm of classes.controls; let index = index">
                                 <div [formGroupName]="index">
-                                  <div class="row">
+                                  <div class="row" style="margin-top:10px">
                                     <!-- <div class="col-lg-2">
                                         <mat-checkbox
                                         (change)="onChange($event.checked, index)"

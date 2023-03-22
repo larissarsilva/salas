@@ -29,3 +29,9 @@ mat-card-header {
     justify-content: flex-end;
     width: 100%;
 }
+
+.align-card-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

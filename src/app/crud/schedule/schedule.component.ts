@@ -193,7 +193,7 @@ export class ScheduleComponent implements OnInit {
       switch (statusCode) {
         case 200:
           this.listPDFContent = await response['content'];
-          this.openModal(this.listPDFContent)
+          this.openModal(this.listPDFContent, this.selectedFile.name)
           this.ngxService.stop('openModal');
           break;
       
@@ -203,12 +203,14 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  openModal(pdfContent: any) {
+  openModal(pdfContent: any, pdfName: string) {
       const dialogRef = this.dialog.open(PdfListCreateComponent, {
-        data: {pdfData: pdfContent},
+        data: {
+          pdfData: pdfContent,
+          pdfName: pdfName
+        },
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('resultado', result)
         if(result) {
           this.getClass();
         }
@@ -216,7 +218,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   // Dados do componente modal de aula
-  
+
   createClassInProgress() {
     if (this.classInProgressForm.valid) { 
       this.classesInProgressServices.createClassInProgress(this.classInProgressForm.value).subscribe((response: any) => {

@@ -21,7 +21,7 @@ export class ScheduleService {
 
   createClass(data: any) {
     return this.http.post(this.LOCAL_URL, data,
-      { headers: new HttpHeaders().set('Authorization', this.token) })
+      { headers: new HttpHeaders().set('Authorization', this.token) }).toPromise();
   }
 
   deleteClass(classId: number) {

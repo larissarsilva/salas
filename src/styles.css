@@ -114,3 +114,8 @@ mat-form-field {
     padding-right: 20px;
     margin-top: 20px;
 }
+
+.error-field {
+    color: red;
+    font-weight: bold;
+}

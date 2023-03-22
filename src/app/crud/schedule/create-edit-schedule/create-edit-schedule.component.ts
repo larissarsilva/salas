@@ -24,6 +24,7 @@ export class CreateEditScheduleComponent implements OnInit {
   listSubjects: SubjectClass[] = [];
   listRooms: Room[] = [];
   showClassButton!: boolean;
+  showErrorCode!: number;
 
   listDays = [
     { id: 0, alias: 'Segunda' },
@@ -115,17 +116,23 @@ export class CreateEditScheduleComponent implements OnInit {
 
   createClass() {
     if (this.classForm.valid) {
-      this.classesService.createClass(this.classForm.value).subscribe((response: any) => {
+      console.log('criado classe')
+      this.classesService.createClass(this.classForm.value).then((response: any) => {
+        console.log('o response', response);
         const statusCode = response['code'];
         switch (statusCode) {
           case 201:
             this.classForm.reset();
             this.refreshClass();
+            this.showErrorCode = statusCode;
             break;
 
-          default: console.log('validar');
+          default:
             break;
         }
+      }).catch((error: any) => {
+        const errorCode = error.code;
+        this.showErrorCode = errorCode;
       });
     }
   }

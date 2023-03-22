@@ -73,11 +73,14 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <div *ngIf="showErrorCode == 409" class="error-field">
+                    * Conflito de Sala/Horário
+                </div>
             </form>
             <div class="actions-field">
                 <div class="create-edit">
                     <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
-                        (click)="createClass()">CRIAR</button>
+                        (click)="createClass()" [disabled]="!classForm.valid">CRIAR</button>
                     <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
                         (click)="updateClass()">SALVAR</button>
                 </div>

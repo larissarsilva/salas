@@ -73,8 +73,14 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div *ngIf="showErrorCode == 409" class="error-field">
-                    * Conflito de Sala/Horário
+
+                <div [ngSwitch]="showErrorCode">
+                    <div *ngSwitchCase="409" class="error-field">
+                        * Conflito de Sala/Horário
+                    </div>
+                    <div *ngSwitchCase="422" class="error-field">
+                        * Horário de Término não pode ser maior que o de Início!
+                    </div>
                 </div>
             </form>
             <div class="actions-field">

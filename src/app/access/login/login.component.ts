@@ -10,12 +10,12 @@ import { User } from './login.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', Validators.required, Validators.email],
     password: ['', Validators.required]
   });
 
   private user: User = new User();
-
+  hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,

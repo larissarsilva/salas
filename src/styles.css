@@ -119,3 +119,7 @@ mat-form-field {
     color: red;
     font-weight: bold;
 }
+
+.default-color {
+    background-color: #123994 !important;
+}

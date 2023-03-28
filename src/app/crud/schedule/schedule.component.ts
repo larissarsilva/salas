@@ -46,6 +46,7 @@ export class ScheduleComponent implements OnInit {
   //Chegar se a chamada está vindo através do componente de criar aula
   @Input() isClass!: boolean;
   isInProgress: classInProgress | undefined;
+  disableButtons: boolean = false;
 
   constructor(
     private ngxService: NgxUiLoaderService,
@@ -105,11 +106,13 @@ export class ScheduleComponent implements OnInit {
   }
 
   createClass() {
+    this.disableButtons = true;
     this.showCreateClass = true;
     this.fieldType = 'create';
   }
 
   editClass(data: any) {
+    this.disableButtons = true;
     this.showCreateClass = true;
     this.fieldType = 'edit';
     this.sendClassValues = data;
@@ -180,6 +183,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   getShowCreateFieldValue(value: any) {
+    this.disableButtons = false;
     this.showCreateClass = value;
   }
 

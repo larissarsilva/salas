@@ -36,7 +36,7 @@ export class ScheduleService {
 
   editClass(data: any) {
     return this.http.put(this.LOCAL_URL, data,
-      { headers: new HttpHeaders().set('Authorization', this.token) })
+      { headers: new HttpHeaders().set('Authorization', this.token) }).toPromise();
   }
 
   uploadPDF(data: any) {

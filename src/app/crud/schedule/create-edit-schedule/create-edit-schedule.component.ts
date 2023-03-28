@@ -140,23 +140,33 @@ export class CreateEditScheduleComponent implements OnInit {
   updateClass() {
     this.classForm.value['id'] = this.classId;
     if (this.classForm.valid) {
-      this.classesService.editClass(this.classForm.value).subscribe((response: any) => {
+      this.classesService.editClass(this.classForm.value).then((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
           case 200:
             this.classForm.reset();
             this.refreshClass();
             this.cancelCreate();
+            this.showErrorCode = statusCode;
             break;
 
           default: console.log('validar');
             break;
         }
+      }).catch((error: any) => {
+        const errorCode = error.code;
+        this.showErrorCode = errorCode;
       });
     }
   }
 
   fillFields() {
+    const professorsIds = this.classValues.professors.map((value: any) => value.id);
+    const roomId =  this.classValues.room.id;
+    const subjectId = this.classValues.subject.id;
+    this.classForm.controls['subjectId'].setValue(subjectId);
+    this.classForm.controls['roomId'].setValue(roomId);
+    this.classForm.controls['professorsIds'].setValue(professorsIds);
     this.classForm.patchValue(this.classValues);
   }
 

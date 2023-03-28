@@ -2,6 +2,10 @@ table {
     width: 80%;
 }
 
+mat-card {
+    overflow: auto;
+}
+
 .status-card {
     border-radius: 10px;
     padding: 5px 15px;

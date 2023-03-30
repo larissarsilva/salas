@@ -75,6 +75,7 @@ export class ProfessorComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar o/a Professor(a): ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -91,7 +92,7 @@ export class ProfessorComponent implements OnInit {
               this.getProfessor();
               Swal.fire(
                 'Sucesso!',
-                'Professor(a) excluído(a)',
+                'Professor(a) excluído(a)!',
                 'success'
               );
               break;

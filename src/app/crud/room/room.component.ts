@@ -72,6 +72,7 @@ export class RoomComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar a sala: ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

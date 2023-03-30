@@ -17,7 +17,7 @@
                             <mat-label>Bloco</mat-label>
                             <mat-select formControlName="block">
                                 <mat-option *ngFor="let block of listBlocks" [value]="block.id">
-                                    {{block.alias}}
+                                   <span [innerHTML]="block.alias"></span>
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="roomForm.controls['block'].hasError('required')">
@@ -100,10 +100,6 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Observações</mat-label>
                             <textarea matInput formControlName="note" placeholder="Ex.: Quadro de giz"></textarea>
-                            <!-- <input matInput formControlName="note" placeholder="Ex.: Quadro de giz"> -->
-                            <!-- <mat-error *ngIf="roomForm.controls['note'].hasError('required')">
-                        Campo <strong> obrigatório</strong>
-                    </mat-error> -->
                         </mat-form-field>
                     </div>
                 </div>

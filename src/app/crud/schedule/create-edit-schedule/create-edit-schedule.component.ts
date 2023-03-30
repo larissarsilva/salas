@@ -5,6 +5,7 @@ import { ProfessorService } from '../../professor/professor.service';
 import { RoomService } from '../../room/room.service';
 import { SubjectService } from '../../subject/subject.service';
 import { ScheduleService } from '../schedule.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-edit-schedule',
@@ -140,6 +141,18 @@ export class CreateEditScheduleComponent implements OnInit {
   updateClass() {
     this.classForm.value['id'] = this.classId;
     if (this.classForm.valid) {
+      Swal.fire({
+        title: 'Tem certeza que gostaria de editar a reserva ?',
+        text: "Essa ação não poderá ser desfeita",
+        icon: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
       this.classesService.editClass(this.classForm.value).then((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
@@ -148,6 +161,11 @@ export class CreateEditScheduleComponent implements OnInit {
             this.refreshClass();
             this.cancelCreate();
             this.showErrorCode = statusCode;
+            Swal.fire(
+              'Sucesso!',
+              'Aula atualizada!',
+              'success'
+            );
             break;
 
           default: console.log('validar');
@@ -156,6 +174,8 @@ export class CreateEditScheduleComponent implements OnInit {
       }).catch((error: any) => {
         const errorCode = error.code;
         this.showErrorCode = errorCode;
+      });
+        }
       });
     }
   }

@@ -90,6 +90,7 @@ export class CreateEditRoomComponent implements OnInit {
         title: 'Tem certeza que gostaria de editar ' +  roomName + '?',
         text: "Essa ação não poderá ser desfeita",
         icon: 'warning',
+        showCloseButton: true,
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -104,6 +105,11 @@ export class CreateEditRoomComponent implements OnInit {
               case 200:
                 this.refreshRoom();
                 this.cancelCreate();
+                Swal.fire(
+                  'Sucesso!',
+                  'Sala atualizada!',
+                  'success'
+                );
                 break;
 
               default:

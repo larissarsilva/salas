@@ -102,6 +102,7 @@ export class CourseComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar o curso:' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -118,7 +119,7 @@ export class CourseComponent implements OnInit {
               this.getCourses();  
               Swal.fire(
               'Sucesso!',
-              'Curso excluído',
+              'Curso excluído!',
               'success'
               );
               break;

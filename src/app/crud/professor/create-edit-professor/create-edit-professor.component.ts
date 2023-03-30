@@ -76,6 +76,7 @@ export class CreateEditProfessorComponent implements OnInit {
         title: 'Tem certeza que gostaria de editar o/a Professor(a): ' +  professorName + '?',
         text: "Essa ação não poderá ser desfeita",
         icon: 'warning',
+        showCloseButton: true,
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -89,6 +90,11 @@ export class CreateEditProfessorComponent implements OnInit {
             case 200:
               this.refreshProfessor();
               this.cancelCreate();
+              Swal.fire(
+                'Sucesso!',
+                'Professor(a) atualizado(a)',
+                'success'
+              );
               break;
 
             default:

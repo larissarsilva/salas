@@ -123,6 +123,7 @@ export class ScheduleComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar ?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -137,6 +138,11 @@ export class ScheduleComponent implements OnInit {
           switch (statusCode) {
             case 200:
               this.getClass();
+              Swal.fire(
+                'Sucesso!',
+                'Aula excluída!',
+                'success'
+              );
               break;
 
             default:
@@ -152,6 +158,7 @@ export class ScheduleComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar todos os registros ?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -166,6 +173,11 @@ export class ScheduleComponent implements OnInit {
           switch (statusCode) {
             case 200:
               this.getClass();
+              Swal.fire(
+                'Sucesso!',
+                'Todas as aulas foram excluídas',
+                'success'
+              );
               break;
 
             default:

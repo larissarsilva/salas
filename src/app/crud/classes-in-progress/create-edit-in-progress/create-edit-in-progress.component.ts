@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -28,8 +28,6 @@ export class CreateEditInProgressComponent implements OnInit, AfterViewInit, OnD
   @Output() hasNewClassInProgress = new EventEmitter();
   showExtraFields: boolean = false;
 
-  // Filtrar seleção
-    // protected banks: classInProgress[] = [];
 
     public bankCtrl: FormControl = new FormControl();
   
@@ -80,7 +78,6 @@ export class CreateEditInProgressComponent implements OnInit, AfterViewInit, OnD
   }  
 
   ngAfterViewInit() {
-    // this.setInitialValue();
   }
 
   ngOnDestroy() {
@@ -110,33 +107,16 @@ export class CreateEditInProgressComponent implements OnInit, AfterViewInit, OnD
   }
 
   getSelectedClass(classValue: any) {
-    console.log('pegou', classValue)
-    // this.showExtraFields = true;
-    // console.log('clicou', classValue)
-    // this.classInProgressForm.controls['roomId'].setValue(classValue.room.id);
-    // this.classInProgressForm.controls['roomName'].setValue(classValue.room.name);
-    // this.classInProgressForm.controls['subjectName'].setValue(classValue.subject.name);
-    // this.classInProgressForm.controls['subjectCode'].setValue(classValue.subject.code);
-    // this.classInProgressForm.controls['subjectGroup'].setValue(classValue.subject.group);
-    // this.listProfessors = classValue.professors;
   }
 
-  getClass() {
+  async getClass() {
     this.ngxService.start('getClasses');
-    this.classesService.getClasses().subscribe((response: any) => {
+    await this.classesService.getClasses().subscribe((response: any) => {
       const statusCode = response['code'];
       this.ngxService.stop('getClasses');
       switch (statusCode) {
         case 200:
           this.listAllClasses = response['content'];
-          
-          this.filteredBanks.next(this.listAllClasses.slice());
-
-          this.bankFilterCtrl.valueChanges
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => {
-              this.filterBanks();
-            });
 
           break;
 

@@ -87,6 +87,7 @@ export class SubjectComponent implements OnInit {
       title: 'Tem certeza que gostaria de deletar a disciplina: ' + name + '?',
       text: "Essa ação não poderá ser desfeita",
       icon: 'warning',
+      showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -103,7 +104,7 @@ export class SubjectComponent implements OnInit {
               this.getSubjects();
               Swal.fire(
               'Sucesso!',
-              'Disciplina excluída',
+              'Disciplina excluída!',
               'success'
             );
               break;

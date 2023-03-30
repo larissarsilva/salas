@@ -60,3 +60,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 .row {
     margin-top: 10px;
 }
+
+.in-progress {
+    min-height: 400px;
+    height: 91vh;
+}

@@ -31,20 +31,4 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.user);
   }
-
-  // Verifica se a autenticação foi feita
-  // login() {
-  //   this.authService.login(this.user).subscribe((response: any) => {
-  //     const statusCode = response['code'];
-  //     console.log('logado?', response)
-  //     switch (statusCode) {
-  //       case 200:
-  //         this.authService.isLogged = true;
-  //         break;
-      
-  //       default:
-  //         break;
-  //     }
-  //   });
-  // }
 }

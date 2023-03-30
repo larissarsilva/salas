@@ -10,6 +10,7 @@ import { AccountService } from 'src/app/access/account.service';
 export class NavbarComponent {
 
   @Input() isLogged: boolean = false;
+  isAuthenticated: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -17,8 +18,8 @@ export class NavbarComponent {
     private accountService: AccountService  ) {}
 
   redirectToLogin(){
-    // remover a navbar
-    window.localStorage.setItem('token', '');
+    this.isAuthenticated =  this.accountService.isUserLoggedIn;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/access/account.service';
 
 @Component({
@@ -13,7 +13,6 @@ export class NavbarComponent {
   isAuthenticated: any;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService  ) {}
 

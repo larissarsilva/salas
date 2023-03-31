@@ -11,7 +11,12 @@ section {
 }
 
 .align-components {
-  width: 400px;
+    width: 400px;
+}
+
+.redirect-to-home {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .form-component {
@@ -63,12 +68,14 @@ section {
 .subtitle-text {
     font-size: 40px;
     margin-top: 20px;
+    line-height: initial;
 }
 
 .content-text {
     font-size: 24px;
     text-align: center;
-    margin-top: 55px;
+    margin-top: 20px;
+    line-height: initial;
 }
 
 .welcome-text, .subtitle-text, .content-text {

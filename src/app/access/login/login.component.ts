@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { User } from './login.interface';
 
@@ -19,12 +20,18 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AccountService) {
       this.user.email = 'user@example.com';
       this.user.password = 'string';
   }
 
   ngOnInit(): void {
+  }
+
+  redirectToHome() {
+    console.log("redirecionar")
+    // this.router.navigate(['/home']);
   }
 
 

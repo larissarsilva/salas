@@ -1,31 +1,37 @@
 <section>
     <mat-sidenav-container class="crud-container" autosize>
-        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true"  [ngStyle]="{'width': isExpanded ? '200px' : '100px'}">
+        <mat-sidenav #sidenav class="content-sidenav" mode="side" opened="true"
+            [ngStyle]="{'width': isExpanded ? '200px' : '100px'}">
             <div class="align-menu-bar">
                 <button mat-icon-button (click)="isExpanded = !isExpanded">
                     <img src="../../assets/crud/menu.png" alt="">
                 </button>
             </div>
             <mat-nav-list>
-                <mat-list-item [routerLink]="['aulas']" routerLinkActive="active" #classIsActive="routerLinkActive" 
-                [ngClass]="{'mini-nav': !isExpanded }">
-                    <div  class="align-title">
-                        <img src="{{!classIsActive.isActive ? '../../assets/crud/calendar.png' : '../../assets/crud/calendar.png'}}"
-                        alt="Aulas" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">EM ANDAMENTO</span>
-                    </div>
-                </mat-list-item>
-                <mat-list-item  [routerLink]="['horario']" routerLinkActive="active" #scheduleIsActive="routerLinkActive"
-                [ngClass]="{'mini-nav': !isExpanded }">
-                    <div class="align-title card-sidenav">
-                        <img src="{{!scheduleIsActive.isActive ? '../../assets/crud/clock.png' :'../../assets/crud/clock-selected.png'}}" 
-                        alt="Horário" class="icons-sidenav">
-                        <span class="full-width" *ngIf="isExpanded || isShowing">HORÁRIO</span>
-                    </div>
-                </mat-list-item>
-                <mat-list-item [routerLink]="['professor']"  [ngClass]="{'mini-nav': !isExpanded }">
+                <mat-list-item [routerLink]="['aulas']" routerLinkActive="active" #classIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
-                        <img src="../../assets/crud/professor.png" alt="Professores" class="icons-sidenav">
+                        <img src="{{!classIsActive.isActive ? '../../assets/crud/calendar.png' : '../../assets/crud/calendar-selected.png'}}"
+                            alt="Aulas" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing" style="text-align: center;">
+                            AULAS <br />
+                            EM ANDAMENTO
+                        </span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['horario']" routerLinkActive="active" #scheduleIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
+                    <div class="align-title card-sidenav">
+                        <img src="{{!scheduleIsActive.isActive ? '../../assets/crud/class.png' :'../../assets/crud/class-selected.png'}}"
+                            alt="Aulas" class="icons-sidenav">
+                        <span class="full-width" *ngIf="isExpanded || isShowing">AULAS</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['professor']" routerLinkActive="active" #professorIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
+                    <div class="align-title card-sidenav">
+                        <img src="{{!professorIsActive.isActive ? '../../assets/crud/professor.png' :'../../assets/crud/professor-selected.png'}}"
+                            alt="Professores" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing"> PROFESSORES </span>
                     </div>
                 </mat-list-item>
@@ -35,27 +41,27 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">ESTUDANTES</span>
                     </div>
                 </mat-list-item> -->
-                <mat-list-item [routerLink]="['curso']" routerLinkActive="active" #courseIsActive="routerLinkActive" 
-                [ngClass]="{'mini-nav': !isExpanded }">
+                <mat-list-item [routerLink]="['curso']" routerLinkActive="active" #courseIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="{{!courseIsActive.isActive ? '../../assets/crud/course.png' : '../../assets/crud/course-selected.png'}}"
-                        alt="Cursos" class="icons-sidenav">
+                            alt="Cursos" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">CURSOS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['disciplina']" routerLinkActive="active" #subjectIsActive="routerLinkActive"
-                [ngClass]="{'mini-nav': !isExpanded }">
-                    <div  class="align-title">
+                <mat-list-item [routerLink]="['disciplina']" routerLinkActive="active"
+                    #subjectIsActive="routerLinkActive" [ngClass]="{'mini-nav': !isExpanded }">
+                    <div class="align-title">
                         <img src="{{!subjectIsActive.isActive ? '../../assets/crud/subject.png' : '.../../assets/crud/subject-selected.png'}}"
-                        alt="" class="icons-sidenav">
+                            alt="" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">DISCIPLINAS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['sala']" routerLinkActive="active" #doorIsActive="routerLinkActive" 
-                [ngClass]="{'mini-nav': !isExpanded }">
-                    <div  class="align-title">
+                <mat-list-item [routerLink]="['sala']" routerLinkActive="active" #doorIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
+                    <div class="align-title">
                         <img src="{{!doorIsActive.isActive ? '../../assets/crud/door.png' : '../../assets/crud/door-selected.png'}}"
-                        alt="Salas" class="icons-sidenav">
+                            alt="Salas" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">SALAS</span>
                     </div>
                 </mat-list-item>
@@ -67,20 +73,20 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
                 </mat-list-item> -->
-                <mat-list-item [routerLink]="['usuarios']"  routerLinkActive="active" #userIsActive="routerLinkActive" 
-                [ngClass]="{'mini-nav': !isExpanded }">
-                    <div  class="align-title">
+                <mat-list-item [routerLink]="['usuarios']" routerLinkActive="active" #userIsActive="routerLinkActive"
+                    [ngClass]="{'mini-nav': !isExpanded }">
+                    <div class="align-title">
                         <img src="{{!userIsActive.isActive ? '../../assets/crud/user.png' : '../../assets/crud/user-selected.png'}}"
-                        alt="Usuários" class="icons-sidenav">
+                            alt="Usuários" class="icons-sidenav">
                         <span class="full-width" *ngIf="isExpanded || isShowing">USUÁRIOS</span>
                     </div>
                 </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-        
+
         <div class="sidenav-content">
             <router-outlet></router-outlet>
         </div>
-    
+
     </mat-sidenav-container>
 </section>

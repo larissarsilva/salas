@@ -1,148 +1,169 @@
 <section>
-    <app-card-title title="aulas em andamento" icon="calendar"></app-card-title>
-    <div class="card-position">
+  <app-card-title title="aulas em andamento" icon="calendar"></app-card-title>
+  <div class="card-position">
 
-      <mat-card *ngIf="this.disableButtons">
-        <mat-card-content>
-          <form [formGroup]="classInProgressForm">
-            <div class="row">
-              <div class="col-lg-4">
-                <mat-form-field appearance="outline">
-                    <mat-label>Professor(a) Responsável</mat-label>
-                    <input matInput [(ngModel)]="responsibleProfessorName" [ngModelOptions]="{standalone: true}" disabled>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Código</mat-label>
-                    <input matInput [(ngModel)]="subjectCode" [ngModelOptions]="{standalone: true}" disabled>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Disciplina</mat-label>
-                    <input matInput [(ngModel)]="subjectName" [ngModelOptions]="{standalone: true}" disabled>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-1">
-                <mat-form-field appearance="outline">
-                    <mat-label>Turma</mat-label>
-                    <input matInput [(ngModel)]="subjectGroup" [ngModelOptions]="{standalone: true}" disabled>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Sala</mat-label>
-                    <mat-select formControlName="roomId">
-                        <mat-option *ngFor="let room of listRooms" [value]="room.id">
-                          <span [innerHTML]="room.name"></span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="classInProgressForm.controls['roomId'].hasError('required')">
-                        Campo <strong> obrigatório</strong>
-                    </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-4">
-                <mat-form-field appearance="outline">
-                    <mat-label>Observações</mat-label>
-                    <textarea matInput formControlName="note" placeholder="Ex.: Quadro de giz"></textarea>
-                </mat-form-field>
+    <mat-card *ngIf="this.disableButtons">
+      <mat-card-content>
+        <form [formGroup]="classInProgressForm">
+          <div class="row">
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Professor(a) Responsável</mat-label>
+                <input matInput [(ngModel)]="responsibleProfessorName" [ngModelOptions]="{standalone: true}" disabled>
+              </mat-form-field>
             </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Código</mat-label>
+                <input matInput [(ngModel)]="subjectCode" [ngModelOptions]="{standalone: true}" disabled>
+              </mat-form-field>
             </div>
-          </form>
-          <div class="actions-field">
-            <div class="create-edit">
-                <button mat-raised-button color="primary" type="submit" [disabled]="classInProgressForm.invalid"
-                    (click)="confirmEdit()">SALVAR</button>
+            <div class="col-lg-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Disciplina</mat-label>
+                <input matInput [(ngModel)]="subjectName" [ngModelOptions]="{standalone: true}" disabled>
+              </mat-form-field>
             </div>
-            <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+            <div class="col-lg-1">
+              <mat-form-field appearance="outline">
+                <mat-label>Turma</mat-label>
+                <input matInput [(ngModel)]="subjectGroup" [ngModelOptions]="{standalone: true}" disabled>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Sala</mat-label>
+                <mat-select formControlName="roomId">
+                  <mat-option *ngFor="let room of listRooms" [value]="room.id">
+                    <span [innerHTML]="room.name"></span>
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="classInProgressForm.controls['roomId'].hasError('required')">
+                  Campo <strong> obrigatório</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Observações</mat-label>
+                <textarea matInput formControlName="note" placeholder="Ex.: Quadro de giz"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div class="actions-field">
+          <div class="create-edit">
+            <button mat-raised-button color="primary" type="submit" [disabled]="classInProgressForm.invalid"
+              (click)="confirmEdit()">SALVAR</button>
+          </div>
+          <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
         </div>
-        </mat-card-content>
-      </mat-card>
+      </mat-card-content>
+    </mat-card>
 
-        <div class="align-create-buttons" *ngIf="!this.disableButtons">
-            <button mat-raised-button (click)="openModal()">ADICIONAR</button>
-        </div>
-
-        <br />
-        <mat-card>
-            <mat-card-content>
-                <table mat-table [dataSource]="listClassesInProgress  | filter: filterClass | paginate: {itemsPerPage: 10, currentPage: p}">
-                
-                <ng-container matColumnDef="responsibleProfessorName">
-                    <th mat-header-cell *matHeaderCellDef> PROFESSOR(A) /<br /> RESPONSÁVEL </th>
-                    <td mat-cell *matCellDef="let element"> {{element.responsibleProfessorName}} </td>
-                </ng-container>    
-    
-                <ng-container matColumnDef="subjectName">
-                    <th mat-header-cell *matHeaderCellDef> RESERVA </th>
-                    <td mat-cell *matCellDef="let element"> {{element.subjectName}} </td>
-                </ng-container>
-        
-                <ng-container matColumnDef="subjectCode">
-                    <th mat-header-cell *matHeaderCellDef> CÓDIGO </th>
-                    <td mat-cell *matCellDef="let element"> {{element.subjectCode}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="roomBlock">
-                  <th mat-header-cell *matHeaderCellDef> BLOCO </th>
-                  <td mat-cell *matCellDef="let element"> 
-                    <div [ngSwitch]="element.block">
-                      <span *ngSwitchCase="0"> A </span>
-                      <span *ngSwitchCase="1"> B </span>
-                      <span *ngSwitchCase="2"> C </span>
-                      <span *ngSwitchCase="3"> D </span>
-                      <span *ngSwitchCase="4"> E </span>
-                      <span *ngSwitchCase="5"> F </span>
-                      <span *ngSwitchCase="6"> G </span>
-                      <span *ngSwitchCase="7"> H </span>
-                      <span *ngSwitchCase="8"> I </span>
-                      <span *ngSwitchCase="9"> J </span>
-                      <span  *ngSwitchDefault> K </span>
-                    </div>
-                  </td>
-                </ng-container>
-        
-                <ng-container matColumnDef="roomName">
-                    <th mat-header-cell *matHeaderCellDef> SALA </th>
-                    <td mat-cell *matCellDef="let element"> {{element.roomName}} </td>
-                </ng-container>
-                <ng-container matColumnDef="subjectGroup">
-                    <th mat-header-cell *matHeaderCellDef> TURMA </th>
-                    <td mat-cell *matCellDef="let element"> {{element.subjectGroup}} </td>
-                </ng-container>
-        
-                <ng-container matColumnDef="note">
-                    <th mat-header-cell *matHeaderCellDef> OBSERVAÇÃO </th>
-                    <td mat-cell *matCellDef="let element"> {{element.note}} </td>
-                </ng-container>
-    
-                <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
-                    <td mat-cell *matCellDef="let element">
-                      <div class="table-actions">
-                        <div>
-                            <button (click)="editClassInProgress(element)" mat-mini-fab color="primary" class="icons-crud" matTooltip="EDITAR"
-                              matTooltipPosition="below" [disabled]="this.disableButtons">
-                              <mat-icon>edit</mat-icon>
-                            </button>
-                          </div>
-                        <div class="delete-icon">
-                          <button (click)="deleteClassInProgress(element.id, element)" mat-mini-fab color="warn" class="icons-crud"
-                            matTooltip="LIBERAR SALA" matTooltipPosition="below">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </ng-container>
-                
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        
-                </table>
-            </mat-card-content>
-        </mat-card>
+    <div class="align-create-buttons" *ngIf="!this.disableButtons">
+      <button mat-raised-button (click)="openModal()">ADICIONAR</button>
     </div>
+
+    <br />
+    <mat-card>
+
+      <mat-card-header>
+        <div class="align-card-header">
+          <div class="search-field">
+            <div class="search-icon">
+              <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+            </div>
+            <input matInput type="text" [(ngModel)]="filterClass" placeholder="Ex.: Banco de dados" autocomplete="off">
+          </div>
+        </div>
+      </mat-card-header>
+
+      <br />
+
+      <div class="paginate">
+        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
+        </pagination-controls>
+      </div>
+
+
+      <mat-card-content>
+        <table mat-table
+          [dataSource]="listClassesInProgress  | filter: filterClass | paginate: {itemsPerPage: 10, currentPage: p}">
+
+          <ng-container matColumnDef="responsibleProfessorName">
+            <th mat-header-cell *matHeaderCellDef> PROFESSOR(A) /<br /> RESPONSÁVEL </th>
+            <td mat-cell *matCellDef="let element"> {{element.responsibleProfessorName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subjectName">
+            <th mat-header-cell *matHeaderCellDef> DISCIPLINA </th>
+            <td mat-cell *matCellDef="let element"> {{element.subjectName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subjectCode">
+            <th mat-header-cell *matHeaderCellDef> CÓDIGO </th>
+            <td mat-cell *matCellDef="let element"> {{element.subjectCode}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="roomBlock">
+            <th mat-header-cell *matHeaderCellDef> BLOCO </th>
+            <td mat-cell *matCellDef="let element">
+              <div [ngSwitch]="element.block">
+                <span *ngSwitchCase="0"> A </span>
+                <span *ngSwitchCase="1"> B </span>
+                <span *ngSwitchCase="2"> C </span>
+                <span *ngSwitchCase="3"> D </span>
+                <span *ngSwitchCase="4"> E </span>
+                <span *ngSwitchCase="5"> F </span>
+                <span *ngSwitchCase="6"> G </span>
+                <span *ngSwitchCase="7"> H </span>
+                <span *ngSwitchCase="8"> I </span>
+                <span *ngSwitchCase="9"> J </span>
+                <span *ngSwitchDefault> K </span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="roomName">
+            <th mat-header-cell *matHeaderCellDef> SALA </th>
+            <td mat-cell *matCellDef="let element"> {{element.roomName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="subjectGroup">
+            <th mat-header-cell *matHeaderCellDef> TURMA </th>
+            <td mat-cell *matCellDef="let element"> {{element.subjectGroup}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="note">
+            <th mat-header-cell *matHeaderCellDef> OBSERVAÇÕES </th>
+            <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="table-actions">
+                <div>
+                  <button (click)="editClassInProgress(element)" mat-mini-fab color="primary" class="icons-crud"
+                    matTooltip="EDITAR" matTooltipPosition="below" [disabled]="this.disableButtons">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                <div class="delete-icon">
+                  <button (click)="deleteClassInProgress(element.id, element)" mat-mini-fab color="warn"
+                    class="icons-crud" matTooltip="LIBERAR SALA" matTooltipPosition="below">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </section>

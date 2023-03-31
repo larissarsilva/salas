@@ -72,5 +72,13 @@ export interface classInProgress {
     subjectGroup: string;
     responsibleProfessorName: string;
     note: string;
-  }
+}
+
+export interface Users {
+    id: number;
+    name: string;
+    surname: string;
+    email: string;
+    role: number;
+}
 

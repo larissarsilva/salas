@@ -6,6 +6,7 @@ import { RoomService } from '../../room/room.service';
 import { SubjectService } from '../../subject/subject.service';
 import { ScheduleService } from '../schedule.service';
 import Swal from 'sweetalert2';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-create-edit-schedule',
@@ -42,6 +43,7 @@ export class CreateEditScheduleComponent implements OnInit {
     private roomService: RoomService,
     private classesService: ScheduleService,
     private subjectService: SubjectService,
+    private ngxService: NgxUiLoaderService,
     private professorService: ProfessorService
   ) {
     this.classForm = this.formBuilder.group({
@@ -118,8 +120,8 @@ export class CreateEditScheduleComponent implements OnInit {
   createClass() {
     if (this.classForm.valid) {
       console.log('criado classe')
+      this.ngxService.start('createClass');
       this.classesService.createClass(this.classForm.value).then((response: any) => {
-        console.log('o response', response);
         const statusCode = response['code'];
         switch (statusCode) {
           case 201:
@@ -134,6 +136,8 @@ export class CreateEditScheduleComponent implements OnInit {
       }).catch((error: any) => {
         const errorCode = error.code;
         this.showErrorCode = errorCode;
+      }).finally(() => {
+        this.ngxService.stop('createClass');
       });
     }
   }
@@ -153,6 +157,7 @@ export class CreateEditScheduleComponent implements OnInit {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
+      this.ngxService.start('updateClass');
       this.classesService.editClass(this.classForm.value).then((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
@@ -174,8 +179,10 @@ export class CreateEditScheduleComponent implements OnInit {
       }).catch((error: any) => {
         const errorCode = error.code;
         this.showErrorCode = errorCode;
+      }).finally(() => {
+        this.ngxService.stop('updateClass');
       });
-        }
+    }
       });
     }
   }

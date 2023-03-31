@@ -1,0 +1,59 @@
+<section>
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="userForm">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput type="text" formControlName="name">
+                            <mat-error *ngIf="userForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sobrenome</mat-label>
+                            <input matInput type="text" formControlName="surname">
+                            <mat-error *ngIf="userForm.controls['surname'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email">
+                            <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tipo</mat-label>
+                            <mat-select formControlName="role">
+                                <mat-option *ngFor="let role of listOfRoles" [value]="role.id">
+                                    <span [innerHTML]="role.name"></span>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="userForm.controls['role'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createUser()" [disabled]="userForm.invalid">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="updateUser()">SALVAR</button>
+                </div>
+                <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</section>

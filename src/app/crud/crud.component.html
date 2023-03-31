@@ -67,7 +67,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
                 </mat-list-item> -->
-                <mat-list-item [routerLink]="['aviso']"  routerLinkActive="active" #userIsActive="routerLinkActive" 
+                <mat-list-item [routerLink]="['usuarios']"  routerLinkActive="active" #userIsActive="routerLinkActive" 
                 [ngClass]="{'mini-nav': !isExpanded }">
                     <div  class="align-title">
                         <img src="{{!userIsActive.isActive ? '../../assets/crud/user.png' : '../../assets/crud/user-selected.png'}}"

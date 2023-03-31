@@ -1,0 +1,111 @@
+<section>
+    <app-card-title title="usuários" icon="user"></app-card-title>
+    <br />
+    <div  class="card-position">
+
+        <div *ngIf="!showCreateUser">
+            <button mat-raised-button (click)="createUser()">ADICIONAR</button>
+        </div> <br />
+
+        <div>
+            <div [ngSwitch]="showCreateUser">
+                <span *ngSwitchCase="true">
+                    <app-create-edit-user [fieldType]="fieldType" [userValues]="sendUser"
+                    (hasNewUser)="refreshGetUsers($event)"
+                    (showCreateField)="cancelCreate($event)"></app-create-edit-user>
+                </span>
+                <span *ngSwitchCase="false"></span>
+            </div>
+        </div>
+    
+        <br /> 
+        <mat-card>
+            <mat-card-header>
+                <div class="search-field">
+                    <div class="search-icon">
+                        <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+                    </div>
+                    <input type="text" [(ngModel)]="filterUser" placeholder="Pesquise por Nome ou Email" autocomplete="off">
+                </div>
+            </mat-card-header>
+    
+            <div class="paginate">
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
+                </pagination-controls>
+            </div>
+
+            <table mat-table
+                [dataSource]="listUsers | filter: filterUser | paginate: {itemsPerPage: 10, currentPage: p}"
+                multiTemplateDataRows class="mat-elevation-z8">
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> NOME </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <span [innerHTML]="element.name"></span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="surname">
+                    <th mat-header-cell *matHeaderCellDef> SOBRENOME </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <span [innerHTML]="element.surname"></span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <span [innerHTML]="element.email"></span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="hasValidEmail">
+                    <th mat-header-cell *matHeaderCellDef> EMAIL VALIDADO </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div [ngSwitch]="element.hasValidEmail">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actionsDetails">
+                    <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="table-actions">
+                            <div>
+                                <button (click)="editUser(element)" mat-mini-fab color="primary" class="icons-crud"
+                                    matTooltip="Editar" matTooltipPosition="below" [disabled]="this.disableButtons">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                            <div class="delete-icon">
+                                <button (click)="deleteUser(element.id, element.name, element.surname)" mat-mini-fab color="warn"
+                                    class="icons-crud" matTooltip="Apagar" matTooltipPosition="below" [disabled]="this.disableButtons">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> TIPO </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div [ngSwitch]="element.role">
+                            <span *ngSwitchCase="1">
+                                FUNCIONÁRIO
+                            </span>
+                            <span *ngSwitchCase="2">
+                                ADMINISTRADOR
+                            </span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </mat-card>
+    </div>
+</section>

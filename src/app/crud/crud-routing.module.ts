@@ -8,6 +8,7 @@ import { RoomComponent } from './room/room.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { StudentComponent } from './student/student.component';
 import { SubjectComponent } from './subject/subject.component';
+import { UsersComponent } from './users/users.component';
 import { WarningComponent } from './warning/warning.component';
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     {path: 'curso', component: CourseComponent},
     {path: 'disciplina', component: SubjectComponent},
     {path: 'sala', component: RoomComponent},
-    {path: 'aviso', component: WarningComponent}
+    {path: 'aviso', component: WarningComponent},
+    {path: 'usuarios', component: UsersComponent},
   ]}
 ];
 

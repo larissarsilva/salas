@@ -131,9 +131,6 @@ export class CreateEditRoomComponent implements OnInit {
 
   //Preenche os campos com os valores que foram passados ao clicar em editar
   fillFields() {
-    console.log('valores', this.roomValues)
-    console.log('valores', this.roomValues['available'])
-
     this.roomForm.patchValue(this.roomValues);
   }
 

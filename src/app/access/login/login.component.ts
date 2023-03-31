@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
+import { FirstAccessComponent } from '../first-access/first-access.component';
 import { User } from './login.interface';
 
 @Component({
@@ -21,9 +23,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AccountService) {
-      this.user.email = 'user@example.com';
-      this.user.password = 'string';
+    private authService: AccountService,
+    public dialog: MatDialog
+    ) {
+    this.user.email = 'user@example.com';
+    this.user.password = 'string';
   }
 
   ngOnInit(): void {
@@ -34,8 +38,13 @@ export class LoginComponent implements OnInit {
     // this.router.navigate(['/home']);
   }
 
-
   login() {
     this.authService.login(this.user);
+  }
+
+  firstAccess() {
+    console.log('chamando console.log')
+    const dialogRef = this.dialog.open(FirstAccessComponent, {
+    });
   }
 }

@@ -21,11 +21,13 @@ import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import { FirstAccessComponent } from './access/first-access/first-access.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        FirstAccessComponent,
     ],
     providers: [AccountService, AuthGuardService, httpInterceptorProviders],
     bootstrap: [AppComponent],

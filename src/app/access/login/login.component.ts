@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToHome() {
-    console.log("redirecionar")
-    // this.router.navigate(['/home']);
+    this.router.navigate(['']);
   }
 
   login() {
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   firstAccess() {
-    console.log('chamando console.log')
     const dialogRef = this.dialog.open(FirstAccessComponent, {
     });
   }

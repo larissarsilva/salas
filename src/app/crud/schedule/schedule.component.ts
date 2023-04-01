@@ -47,6 +47,7 @@ export class ScheduleComponent implements OnInit {
   @Input() isClass!: boolean;
   isInProgress: classInProgress | undefined;
   disableButtons: boolean = false;
+  showErrorCodePDF!: number;
 
   constructor(
     private ngxService: NgxUiLoaderService,
@@ -204,18 +205,23 @@ export class ScheduleComponent implements OnInit {
     this.selectedFile = event.target.files[0];
     const formdata = new FormData();
     formdata.append('file', this.selectedFile);
-    this.classesService.uploadPDF(formdata).subscribe(async (response: any) => {
+    this.classesService.uploadPDF(formdata).then(async (response: any) => {
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
           this.listPDFContent = await response['content'];
           this.openModal(this.listPDFContent, this.selectedFile.name)
-          this.ngxService.stop('openModal');
           break;
       
         default:
           break;
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCodePDF = errorCode;
+      console.log('codigo do erro',this.showErrorCodePDF);
+    }).finally(() => {
+      this.ngxService.stop('openModal');
     });
   }
 

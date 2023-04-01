@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
@@ -11,26 +11,25 @@ import { User } from './login.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  loginForm = this.fb.group({
-    email: ['', Validators.required, Validators.email],
-    password: ['', Validators.required]
-  });
+export class LoginComponent {
 
   private user: User = new User();
   hide: boolean = true;
+  loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AccountService,
     public dialog: MatDialog
-    ) {
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+
     this.user.email = 'user@example.com';
     this.user.password = 'string';
-  }
-
-  ngOnInit(): void {
   }
 
   redirectToHome() {

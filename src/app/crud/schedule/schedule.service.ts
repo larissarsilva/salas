@@ -7,7 +7,7 @@ import { envorinment } from 'src/app/environments/environment';
 })
 export class ScheduleService {
   LOCAL_URL = envorinment.apiURL + 'Classes';
-  PDF_URL = envorinment.apiURL + 'Document/extract/classes';
+  PDF_URL = envorinment.apiURL + 'Documents/extract/classes';
   token: any
 
   constructor(private http: HttpClient) {
@@ -41,7 +41,7 @@ export class ScheduleService {
 
   uploadPDF(data: any) {
     return this.http.post(this.PDF_URL, data,
-      { headers: new HttpHeaders().set('Authorization', this.token) })
+      { headers: new HttpHeaders().set('Authorization', this.token) }).toPromise();
   }
 
   multipleClasses(data:any) {

@@ -123,3 +123,11 @@ mat-form-field {
 .default-color {
     background-color: #123994 !important;
 }
+
+
+@media (max-width: 790px) {
+    th,
+    td {
+        font-size: 10px !important;
+    }
+}

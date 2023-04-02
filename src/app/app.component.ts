@@ -7,11 +7,10 @@ import { AccountService } from './access/account.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'SAL@';
+  title = 'SAL@S';
 
   showMenu: boolean = false;
   isAuthenticated: boolean = false;
-  // O AuthService tem escorpo global
   constructor(private accountService: AccountService) {
   }
 

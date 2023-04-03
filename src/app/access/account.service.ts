@@ -16,7 +16,7 @@ export class AccountService {
   showNavbarEmitter = new EventEmitter<boolean>;
   LOCAL_URL = envorinment.apiURL + 'Authentications';
   token!: string;
-  
+
   constructor(
     private router: Router,
     private http: HttpClient
@@ -24,31 +24,31 @@ export class AccountService {
   }
 
   async login(user: User) {
-  this.http.post(this.LOCAL_URL , user).subscribe((response: any) => {
-    const statusCode = response['code'];
-        switch (statusCode) {
-          case 200:
-            this.isAuthenticated = true;
-            this.token = response['content'];
-            this.isLogged.emit(true);
-            this.showNavbarEmitter.emit(true);
-            this.router.navigate(['/listagem']);
-            this.autenticar(this.token);
-            break;
-        
-          default:
-            this.isAuthenticated = false;
-            this.showNavbarEmitter.emit(false);
-            break;
-        }
-  });
+    this.http.post(this.LOCAL_URL, user).subscribe((response: any) => {
+      const statusCode = response['code'];
+          switch (statusCode) {
+            case 200:
+              this.isAuthenticated = true;
+              this.token = response['content'];
+              this.isLogged.emit(true);
+              this.showNavbarEmitter.emit(true);
+              this.router.navigate(['/listagem/aulas']);
+              this.autenticar(this.token);
+              break;
+
+            default:
+              this.isAuthenticated = false;
+              this.showNavbarEmitter.emit(false);
+              break;
+          }
+    });
   }
 
   autenticar(value: any) {
     window.localStorage.setItem('token', value);
   }
 
-  getAuth(){
+  getAuth() {
     return window.localStorage.getItem('token');
   }
 
@@ -62,7 +62,7 @@ export class AccountService {
     return token;
   }
 
-  getTokenExpirationDate(token: string): Date  {
+  getTokenExpirationDate(token: string): Date {
     const decoded: any = jwt_decode(token);
 
     if (decoded.exp === undefined) {
@@ -95,7 +95,7 @@ export class AccountService {
   isFirstAccess(): string {
     const token = this.getAuthorizationToken();
     let role;
-    if(token != undefined) {
+    if (token != undefined) {
       role = this.getTokenRole(token);
     }
     return role;

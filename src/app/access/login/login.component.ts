@@ -27,9 +27,6 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-
-    this.user.email = 'user@example.com';
-    this.user.password = 'string';
   }
 
   redirectToHome() {
@@ -37,7 +34,9 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.user);
+    if(this.loginForm.valid) {
+      this.authService.login(this.loginForm.value);
+    }
   }
 
   firstAccess() {

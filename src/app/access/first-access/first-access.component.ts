@@ -49,7 +49,7 @@ export class FirstAccessComponent {
         switch (statusCode) {
           case 200:
             window.localStorage.setItem('token', token);
-            this.router.navigate(['/listagem']);
+            this.router.navigate(['/listagem/aulas']);
             this.closeModal();
             console.log('response', response);
             Swal.fire(

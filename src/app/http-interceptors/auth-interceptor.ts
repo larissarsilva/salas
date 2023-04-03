@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@a
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AccountService } from '../access/account.service';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -39,6 +40,14 @@ export class AuthInterceptor implements HttpInterceptor {
         `Código do erro ${error.error.code}, ` +
         // `Conteudo ${error.error.content}, ` +
         `Erro: ${JSON.stringify(error.error.message)}`);
+        const erroMsg = JSON.stringify(error.error.message);
+        if(erroMsg == '"Invalid email address or password."'){
+          Swal.fire(
+            'Email e/ou senha inválido(s)',
+            'Tente novamente!',
+            'warning'
+          );
+        }
     }
     // retornar um observable com uma mensagem amigavel.
     return throwError({'code':statusCode});

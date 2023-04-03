@@ -47,6 +47,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CardTitleComponent } from '../components/card-title/card-title.component';
 import { UsersComponent } from './users/users.component';
 import { CreateEditUserComponent } from './users/create-edit-user/create-edit-user.component';
+import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { CreateEditUserComponent } from './users/create-edit-user/create-edit-us
     CreateEditInProgressComponent,
     CardTitleComponent,
     UsersComponent,
-    CreateEditUserComponent
+    CreateEditUserComponent,
+    SetNewPasswordComponent
   ],
   imports: [
     NgxPaginationModule,

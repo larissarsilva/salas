@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { classInProgress, Room } from '../crud.interface';
@@ -8,19 +8,20 @@ import Swal from 'sweetalert2';
 import { AccountService } from 'src/app/access/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoomService } from '../room/room.service';
+import { SetNewPasswordComponent } from '../set-new-password/set-new-password.component';
 
 @Component({
   selector: 'app-classes-in-progress',
   templateUrl: './classes-in-progress.component.html',
   styleUrls: ['./classes-in-progress.component.css']
 })
-export class ClassesInProgressComponent implements OnInit {
+export class ClassesInProgressComponent implements OnInit, AfterViewInit {
 
   // Exibição na tabela
-  displayedColumns: string[] = ['responsibleProfessorName','subjectName', 'subjectCode', 'roomBlock', 'roomName', 
-  'subjectGroup','note', 'actions'];
+  displayedColumns: string[] = ['responsibleProfessorName', 'subjectName', 'subjectCode', 'roomBlock', 'roomName',
+    'subjectGroup', 'note', 'actions'];
   listClassesInProgress: classInProgress[] = [];
-  
+
   // Filtro e paginação
   filterClass = '';
   p: number = 1;
@@ -38,38 +39,49 @@ export class ClassesInProgressComponent implements OnInit {
   subjectCode!: string;
   subjectName!: string;
   subjectGroup!: string;
+  getRole!: string;
 
   constructor(
     private formBuilder: FormBuilder,
+    private accountService: AccountService,
     private classesServices: ClassesInProgressService,
     private ngxService: NgxUiLoaderService,
     private roomService: RoomService,
     public dialog: MatDialog
-  ) { 
+  ) {
     this.classInProgressForm = this.formBuilder.group({
       roomId: [null, Validators.required],
       note: [null],
     });
   }
-
+  
   ngOnInit() {
     this.getClassesInProgress();
+    this.isFirstAccess();
+  }
+  ngAfterViewInit(): void {
+    if (this.getRole == 'FirstAccess') {
+      const name = window.localStorage.getItem('name');
+      const surname = window.localStorage.getItem('surname');
+      const email = window.localStorage.getItem('email');
+      this.newPasswordModal(name, surname, email);
+    }
   }
 
   getClassesInProgress() {
     this.ngxService.start('getClass');
     this.classesServices.getClassesInProgress().subscribe((response: any) => {
-    this.ngxService.stop('getClass');
-    const statusCode = response['code'];
-    switch (statusCode) {
-      case 200:
-        this.listClassesInProgress = response['content'];
-        console.log('response', response);
-        break;
-    
-      default:
-        break;
-    }
+      this.ngxService.stop('getClass');
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listClassesInProgress = response['content'];
+          console.log('response', response);
+          break;
+
+        default:
+          break;
+      }
     });
   }
 
@@ -106,7 +118,7 @@ export class ClassesInProgressComponent implements OnInit {
     this.responsibleProfessorName = this.classInProgressValues.responsibleProfessorName;
     this.subjectGroup = this.classInProgressValues.subjectGroup;
     this.subjectName = this.classInProgressValues.subjectName;
-    this.subjectCode = this.classInProgressValues.subjectCode; 
+    this.subjectCode = this.classInProgressValues.subjectCode;
   }
 
   deleteClassInProgress(classId: number, values: any) {
@@ -133,7 +145,7 @@ export class ClassesInProgressComponent implements OnInit {
                 'success'
               );
               break;
-          
+
             default:
               break;
           }
@@ -149,7 +161,7 @@ export class ClassesInProgressComponent implements OnInit {
 
   confirmEdit() {
     this.classInProgressForm.value['id'] = this.classInProgressValues.classId;
-    if(this.classInProgressForm.valid) {
+    if (this.classInProgressForm.valid) {
       Swal.fire({
         title: 'Tem certeza que gostaria de editar a aula de: ' + this.responsibleProfessorName + ' ?',
         text: "Essa ação não poderá ser desfeita",
@@ -163,22 +175,22 @@ export class ClassesInProgressComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.classesServices.editClassInProgress(this.classInProgressForm.value).subscribe((response: any) => {
-          const statusCode = response['code'];
-          switch (statusCode) {
-            case 200:
-              this.classInProgressForm.reset();
-              this.disableButtons = false;
-              this.getClassesInProgress();
-              Swal.fire(
-                'Sucesso!',
-                'Aula em andamento atualizada!',
-                'success'
-              );
-              break;
-          
-            default:
-              break;
-          }
+            const statusCode = response['code'];
+            switch (statusCode) {
+              case 200:
+                this.classInProgressForm.reset();
+                this.disableButtons = false;
+                this.getClassesInProgress();
+                Swal.fire(
+                  'Sucesso!',
+                  'Aula em andamento atualizada!',
+                  'success'
+                );
+                break;
+
+              default:
+                break;
+            }
           });
         }
       });
@@ -186,7 +198,7 @@ export class ClassesInProgressComponent implements OnInit {
   }
 
   refreshClassInProgress(value: any) {
-    if(value) {
+    if (value) {
       this.getClassesInProgress();
     }
   }
@@ -199,6 +211,25 @@ export class ClassesInProgressComponent implements OnInit {
   openModal() {
     const dialogRef = this.dialog.open(CreateEditInProgressComponent, {
     });
-}
+  }
+
+  newPasswordModal(name:any, surname:any, email:any) {
+    const dialogRef = this.dialog.open(SetNewPasswordComponent, {
+      data: {
+        name: name,
+        surname: surname,
+        email: email
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        this.newPasswordModal(name, surname, email);
+      }
+    });
+  }
+
+  isFirstAccess() {
+   this.getRole = this.accountService.isFirstAccess();
+  }
 
 }

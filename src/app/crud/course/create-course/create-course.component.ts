@@ -121,7 +121,6 @@ export class CreateCourseComponent implements OnInit {
 
 
   fillFields() {
-    console.log('this.coursesValues', this.coursesValues)
     let shiftValue = this.coursesValues.shift.toLowerCase();
     switch (shiftValue) {
       case 'manhã':

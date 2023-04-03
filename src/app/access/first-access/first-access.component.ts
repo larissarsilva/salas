@@ -1,11 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DialogData } from 'src/app/crud/schedule/pdf-list-create/pdf-list-create.component';
 import { FirstAccessService } from './first-access.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { SetNewPasswordComponent } from 'src/app/crud/set-new-password/set-new-password.component';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FirstAccessComponent {
     private router: Router,
     private firstAccessService: FirstAccessService,
     private ngxService: NgxUiLoaderService,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<FirstAccessComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
@@ -43,6 +45,7 @@ export class FirstAccessComponent {
       this.firstAccessService.firstAccess(this.userForm.value).then((response: any) => {
         const statusCode = response['code'];
         const token = response['content']['token'];
+        const userContent = response['content']['user'];
         switch (statusCode) {
           case 200:
             window.localStorage.setItem('token', token);
@@ -51,9 +54,10 @@ export class FirstAccessComponent {
             console.log('response', response);
             Swal.fire(
               'Email validado com sucesso',
-              'Acesse a página de usuários para trocar a senha',
+              'Você será redirecionado para criar uma nova senha!',
               'success'
             );
+            this.newPasswordModal(userContent);
             break;
 
           default:
@@ -67,6 +71,24 @@ export class FirstAccessComponent {
         this.ngxService.stop('validateAccess');
       });
     }
+  }
+
+  newPasswordModal(userContent: any) {
+    window.localStorage.setItem('name', userContent.name);
+    window.localStorage.setItem('surname', userContent.surname);
+    window.localStorage.setItem('email', userContent.email);
+    const dialogRef = this.dialog.open(SetNewPasswordComponent, {
+      data: {
+        name: userContent.name,
+        surname: userContent.surname,
+        email: userContent.email
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        this.newPasswordModal(userContent);
+      }
+    });
   }
 
 }

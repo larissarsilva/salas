@@ -87,6 +87,20 @@ export class AccountService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
+  getTokenRole(token: string) {
+    const decoded: any = jwt_decode(token);
+    return decoded.role;
+  }
+
+  isFirstAccess(): string {
+    const token = this.getAuthorizationToken();
+    let role;
+    if(token != undefined) {
+      role = this.getTokenRole(token);
+    }
+    return role;
+  }
+
   isUserLoggedIn(): boolean {
     const token = this.getAuthorizationToken();
     if (!token) {

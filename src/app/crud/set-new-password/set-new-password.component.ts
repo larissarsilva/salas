@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SetNewPasswordService } from './set-new-password.service';
+import Swal from 'sweetalert2';
+import { ErrorsModalService } from 'src/app/components/errors-modal/errors-modal.service';
 
 export interface DialogData {
   name: string;
@@ -30,6 +32,7 @@ export class SetNewPasswordComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private formBuilder: FormBuilder,
     private newPasswordService: SetNewPasswordService,
+    private errorModal: ErrorsModalService,
     public dialogRef: MatDialogRef<SetNewPasswordComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
@@ -67,6 +70,7 @@ export class SetNewPasswordComponent implements OnInit {
       if (!validatePasswordRegex.exec(password)) {
         this.showErrorCode = 2;
       } else {
+        this.ngxService.start('validateAccess');
         this.newPasswordService.setNewPassword(this.setNewPasswordForm.value).then((response: any) => {
           const statusCode = response['code'];
           switch (statusCode) {
@@ -82,7 +86,7 @@ export class SetNewPasswordComponent implements OnInit {
         }).catch((error: any) => {
           const errorCode = error.code;
           this.showErrorCode = errorCode;
-          console.log('codigo do erro', this.showErrorCode)
+          this.errorModal.errorModal('Erro!', 'Entre em contato com o administrador do sistema!', 'warning');
         }).finally(() => {
           this.ngxService.stop('validateAccess');
           this.setNewPasswordForm.controls['password'].reset();

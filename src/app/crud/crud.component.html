@@ -27,7 +27,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">AULAS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['professor']" routerLinkActive="active" #professorIsActive="routerLinkActive"
+                <mat-list-item *ngIf="getRole == 'Administrator'" [routerLink]="['professor']" routerLinkActive="active" #professorIsActive="routerLinkActive"
                     [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title card-sidenav">
                         <img src="{{!professorIsActive.isActive ? '../../assets/crud/professor.png' :'../../assets/crud/professor-selected.png'}}"
@@ -41,7 +41,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">ESTUDANTES</span>
                     </div>
                 </mat-list-item> -->
-                <mat-list-item [routerLink]="['curso']" routerLinkActive="active" #courseIsActive="routerLinkActive"
+                <mat-list-item *ngIf="getRole == 'Administrator'" [routerLink]="['curso']" routerLinkActive="active" #courseIsActive="routerLinkActive"
                     [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="{{!courseIsActive.isActive ? '../../assets/crud/course.png' : '../../assets/crud/course-selected.png'}}"
@@ -49,7 +49,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">CURSOS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['disciplina']" routerLinkActive="active"
+                <mat-list-item *ngIf="getRole == 'Administrator'" [routerLink]="['disciplina']" routerLinkActive="active"
                     #subjectIsActive="routerLinkActive" [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="{{!subjectIsActive.isActive ? '../../assets/crud/subject.png' : '.../../assets/crud/subject-selected.png'}}"
@@ -57,7 +57,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">DISCIPLINAS</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['sala']" routerLinkActive="active" #doorIsActive="routerLinkActive"
+                <mat-list-item *ngIf="getRole == 'Administrator'" [routerLink]="['sala']" routerLinkActive="active" #doorIsActive="routerLinkActive"
                     [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="{{!doorIsActive.isActive ? '../../assets/crud/door.png' : '../../assets/crud/door-selected.png'}}"
@@ -73,7 +73,7 @@
                         <span class="full-width" *ngIf="isExpanded || isShowing">AVISOS</span>
                     </div>
                 </mat-list-item> -->
-                <mat-list-item [routerLink]="['usuarios']" routerLinkActive="active" #userIsActive="routerLinkActive"
+                <mat-list-item *ngIf="getRole == 'Administrator'" [routerLink]="['usuarios']" routerLinkActive="active" #userIsActive="routerLinkActive"
                     [ngClass]="{'mini-nav': !isExpanded }">
                     <div class="align-title">
                         <img src="{{!userIsActive.isActive ? '../../assets/crud/user.png' : '../../assets/crud/user-selected.png'}}"

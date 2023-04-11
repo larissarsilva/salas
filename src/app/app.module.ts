@@ -22,6 +22,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import { FirstAccessComponent } from './access/first-access/first-access.component';
+import { AdmGuardGuard } from './guards/adm-guard.service';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,7 @@ import { FirstAccessComponent } from './access/first-access/first-access.compone
         LoginComponent,
         FirstAccessComponent,
     ],
-    providers: [AccountService, AuthGuardService, httpInterceptorProviders],
+    providers: [AccountService, AuthGuardService, httpInterceptorProviders, AdmGuardGuard],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CrudService } from './crud.service';
+import { AccountService } from '../access/account.service';
 
 @Component({
   selector: 'app-crud',
@@ -9,11 +10,14 @@ import { CrudService } from './crud.service';
 })
 export class CrudComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
+  getRole: any;
   constructor(
-    private courses: CrudService
+    private courses: CrudService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit() {
+    this.getAuth();
     // this.courses.getCourses().subscribe(value => console.log('valor',value));
   }
 
@@ -24,6 +28,11 @@ export class CrudComponent implements OnInit {
     if (!this.isExpanded) {
       this.isShowing = true;
     }
+  }
+
+  async getAuth() {
+    const token: any = window.localStorage.getItem('token');
+    this.getRole = await this.accountService.getTokenRole(token);
   }
 
 }

@@ -26,7 +26,8 @@ const routes: Routes = [
     {path: 'disciplina', component: SubjectComponent},
     {path: 'sala', component: RoomComponent},
     {path: 'aviso', component: WarningComponent},
-    {path: 'usuarios', component: UsersComponent},
+    {path: 'usuarios', 
+    component: UsersComponent},
   ]}
 ];
 

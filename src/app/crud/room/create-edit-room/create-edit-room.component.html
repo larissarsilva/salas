@@ -1,0 +1,120 @@
+<section class="create-box">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="roomForm">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: LIP 07">
+                            <mat-error *ngIf="roomForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bloco</mat-label>
+                            <mat-select formControlName="block">
+                                <mat-option *ngFor="let block of listBlocks" [value]="block.id">
+                                   <span [innerHTML]="block.alias"></span>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['block'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Acessível</mat-label>
+                            <mat-select formControlName="isAcessible">
+                                <mat-option [value]=false>Não</mat-option>
+                                <mat-option [value]=true>Sim</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['isAcessible'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ar Condicionado</mat-label>
+                            <mat-select formControlName="hasAirConditioner">
+                                <mat-option [value]=false>Não</mat-option>
+                                <mat-option [value]=true>Sim</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['hasAirConditioner'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ventilador</mat-label>
+                            <mat-select formControlName="hasFan">
+                                <mat-option [value]=false>Não</mat-option>
+                                <mat-option [value]=true>Sim</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['hasFan'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Projetor</mat-label>
+                            <mat-select formControlName="hasProjector">
+                                <mat-option [value]=false>Não</mat-option>
+                                <mat-option [value]=true>Sim</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['hasProjector'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Capacidade</mat-label>
+                            <input matInput formControlName="capacity" placeholder="Ex.: 30">
+                            <mat-error *ngIf="roomForm.controls['capacity'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Disponível</mat-label>
+                            <mat-select formControlName="available">
+                                <mat-option [value]=false>Não</mat-option>
+                                <mat-option [value]=true>Sim</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="roomForm.controls['available'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Observações</mat-label>
+                            <textarea matInput formControlName="note" placeholder="Ex.: Quadro de giz"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createRoom()">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="updateRoom()">SALVAR</button>
+                </div>
+                <div>
+                    <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</section>

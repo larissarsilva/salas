@@ -1,0 +1,11 @@
+<div class="align-card">
+    <div class="card-title">
+        <div class="align-title">
+            <img src="../../assets/crud/{{icon}}.png" alt="{{title}}" class="icons-sidenav"
+            [ngClass]="{'icon-space-subject': icon == 'subject',
+            'icon-space': icon != 'subject'  }">
+            <span class="full-width">{{title  | uppercase }}</span>
+        </div>
+    </div>
+</div>
+<!-- || icon == 'professor' -->

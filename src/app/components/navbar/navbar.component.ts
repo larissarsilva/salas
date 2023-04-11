@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/access/auth.service';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from 'src/app/access/account.service';
 
 @Component({
   selector: 'navbar',
@@ -9,14 +9,16 @@ import { AuthService } from 'src/app/access/auth.service';
 })
 export class NavbarComponent {
 
+  @Input() isLogged: boolean = false;
+  isAuthenticated: any;
+
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService  ) {}
+    private accountService: AccountService  ) {}
 
-    
-  logout(){
-
+  redirectToLogin(){
+    this.isAuthenticated =  this.accountService.isUserLoggedIn;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

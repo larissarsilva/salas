@@ -1,0 +1,10 @@
+mat-card-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+button {
+    width: 100%;
+}

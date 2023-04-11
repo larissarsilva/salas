@@ -1,0 +1,38 @@
+<section>
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="professorForm">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: Fulano da Silva">
+                            <mat-error *ngIf="professorForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Curso</mat-label>
+                            <mat-select formControlName="courseId">
+                                <mat-option *ngFor="let course of listCourses" [value]="course.id">
+                                    <span [innerHTML]="course.name"></span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button color="primary" type="submit" *ngIf="showCreateButton"
+                        (click)="createProfessor()">CRIAR</button>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="!showCreateButton"
+                        (click)="updateProfessor()">SALVAR</button>
+                </div>
+                <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</section>

@@ -6,8 +6,9 @@ section {
   display: flex;
   justify-content: center;
 }
+
 .icons-sidenav {
-  width: 40px ;
+  width: 40px;
 }
 
 .card-sidenav {
@@ -15,7 +16,7 @@ section {
   padding: 10px;
 }
 
-mat-list-item:hover{
+mat-list-item:hover {
   box-shadow: rgba(15, 15, 15, 0.24) 0px 3px 8px;
   background-color: #0e3389;
 }
@@ -23,9 +24,9 @@ mat-list-item:hover{
 .mini-nav {
   box-shadow: none;
   margin-top: 0px;
-    height: 85px !important;
-    width: 85px;
-    border-radius: 50%;
+  height: 85px !important;
+  width: 85px;
+  border-radius: 50%;
 }
 
 .mini-nav:hover {
@@ -37,9 +38,9 @@ mat-list-item:hover{
 
 mat-list-item {
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
-    width: 80%;
-    border-radius: 10px;
-    margin-top: 10px;
+  width: 80%;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 .full-width {
@@ -66,20 +67,31 @@ mat-nav-list {
 }
 
 .crud-container {
-    height: 100%;
-  }
+  height: 100%;
+}
 
 .sidenav-content {
   padding: 90px 20px;
   /* width: 80%; */
-    /* display: flex;
+  /* display: flex;
     height: 100%;
     align-items: center;
     justify-content: center; */
-  }
+}
 
 .content-sidenav {
-    user-select: none;
-    background-color: #123994;
-    padding-top: 80px;
+  user-select: none;
+  background-color: #123994;
+  padding-top: 80px;
+}
+
+
+/* Responsividade para telas menores que 750px */
+
+@media (max-width: 790px) {
+  .sidenav-content {
+    /* border: 1px solid red; */
+    /* margin-left: 0px; */
+  }
+
 }

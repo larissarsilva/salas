@@ -13,16 +13,24 @@ import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './access/login/login.component';
 import { ComponentsModule } from "./components/components.module";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
-import { AuthService } from './access/auth.service';
+import { AccountService } from './access/account.service';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { HomeModule } from './home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './http-interceptors/interceptorindex';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { MatSelectModule } from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import { FirstAccessComponent } from './access/first-access/first-access.component';
+import { AdmGuardGuard } from './guards/adm-guard.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        FirstAccessComponent,
     ],
-    providers: [AuthService, AuthGuardService],
+    providers: [AccountService, AuthGuardService, httpInterceptorProviders, AdmGuardGuard],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
@@ -35,7 +43,11 @@ import { HomeModule } from './home/home.module';
         MatInputModule,
         ReactiveFormsModule,
         ComponentsModule,
-        HomeModule
+        HomeModule,
+        HttpClientModule,
+        NgxUiLoaderModule,
+        MatSelectModule,
+        MatIconModule
     ]
 })
 export class AppModule { }

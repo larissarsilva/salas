@@ -1,0 +1,36 @@
+.align-card {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #123994;
+}
+
+.align-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title {
+    width: 100%;
+    height: 81px;
+    display: flex;
+    justify-content: center;
+    /* background-color: #123994; */
+}
+
+.full-width {
+    color: white;
+    font-size: 25px;
+}
+
+.icon-space-subject {
+    margin-bottom: 15px;
+}
+
+.icon-space-subject, .icon-space {
+    margin-right: 8px;
+    width: 55px;
+    height: 55px;
+}
+

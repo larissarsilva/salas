@@ -2,8 +2,66 @@ table {
     width: 80%;
 }
 
+mat-card {
+    overflow: auto;
+}
+
 .status-card {
     border-radius: 10px;
     padding: 5px 15px;
-    width: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.align-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.align-create-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.align-create-buttons > button {
+    margin-right: 16px;
+}
+
+/* Expansão da tabela */
+tr.example-detail-row {
+    height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+}
+
+.addClass {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.row {
+    margin-top: 10px;
+}
+
+.in-progress {
+    min-height: 400px;
+    height: 91vh;
 }

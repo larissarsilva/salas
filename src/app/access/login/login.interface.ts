@@ -1,5 +1,9 @@
 export class User {
-    name!: string;
+    email!: string;
     password!: string;
-    type!: number;
+}
+
+export interface ValidateUser {
+    email: string;
+    code: string;
 }

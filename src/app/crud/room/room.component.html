@@ -1,125 +1,149 @@
 <section>
-    <div class="align-card">
-        <div class="card-title">
-            <div class="align-title">
-                <img src="../../assets/crud/door.png"
-                alt="Salas" class="icons-sidenav">
-                <span class="full-width">SALAS</span>
+    <app-card-title title="salas" icon="door"></app-card-title>
+
+    <div class="card-position">
+        <div class="create-div">
+            <div *ngIf="!showCreateRoom">
+                <button mat-raised-button (click)="createRoom()">ADICIONAR</button>
+            </div>
+    
+            <div *ngIf="showCreateRoom">
+                <create-edit-room [fieldType]="fieldType" [roomValues]="sendRoomValues" (hasNewRoom)="refreshRoom($event)"
+                    (showCreateField)="getShowCreateFieldValue($event)">
+                </create-edit-room>
             </div>
         </div>
+    
+        <br />
+        <mat-card>
+            <mat-card-header>
+                <div class="search-field">
+                    <div class="search-icon">
+                        <img src="../../../assets/crud/search-icon.png" alt="Pesquisar" width="16px">
+                    </div>
+                    <input matInput type="text" [(ngModel)]="filterRoom" placeholder="Ex.: LIP 07" autocomplete="off">
+                </div>
+            </mat-card-header>
+
+            <div class="paginate">
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo">
+                </pagination-controls>
+            </div>
+    
+            <table mat-table [dataSource]="listRooms | filter: filterRoom | paginate: {itemsPerPage: 10, currentPage: p}">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> SALA </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="block">
+                    <th mat-header-cell *matHeaderCellDef> BLOCO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.block">
+                            <span *ngSwitchCase="0"> A </span>
+                            <span *ngSwitchCase="1"> B </span>
+                            <span *ngSwitchCase="2"> C </span>
+                            <span *ngSwitchCase="3"> D </span>
+                            <span *ngSwitchCase="4"> E </span>
+                            <span *ngSwitchCase="5"> F </span>
+                            <span *ngSwitchCase="6"> G </span>
+                            <span *ngSwitchCase="7"> H </span>
+                            <span *ngSwitchCase="8"> I </span>
+                            <span *ngSwitchCase="9"> J </span>
+                            <span  *ngSwitchDefault> K </span>
+                        </div>
+                </ng-container>
+    
+                <ng-container matColumnDef="isAcessible">
+                    <th mat-header-cell *matHeaderCellDef> ACESSIBILIDADE </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.isAcessible">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="hasAirConditioner">
+                    <th mat-header-cell *matHeaderCellDef> AR CONDICIONADO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.hasAirConditioner">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="hasFan">
+                    <th mat-header-cell *matHeaderCellDef> VENTILADOR </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.hasFan">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="hasProjector">
+                    <th mat-header-cell *matHeaderCellDef> PROJETOR </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.hasProjector">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="capacity">
+                    <th mat-header-cell *matHeaderCellDef> CAPACIDADE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
+                </ng-container>
+    
+                <!-- <ng-container matColumnDef="key">
+                    <th mat-header-cell *matHeaderCellDef> CHAVE  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+                </ng-container> -->
+    
+                <ng-container matColumnDef="available">
+                    <th mat-header-cell *matHeaderCellDef> DISPONÍVEL </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="element.available">
+                            <span *ngSwitchCase="true">SIM</span>
+                            <span *ngSwitchCase="false">NÃO</span>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="note">
+                    <th mat-header-cell *matHeaderCellDef> OBSERVAÇÕES </th>
+                    <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="table-actions">
+                            <div>
+                                <button (click)="editRoom(element)" mat-mini-fab color="primary" class="icons-crud"
+                                    matTooltip="Editar" matTooltipPosition="below" [disabled]="this.disableButtons">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                            <div class="delete-icon">
+                                <button (click)="deleteRoom(element.id, element.name)" mat-mini-fab color="warn"
+                                    class="icons-crud" matTooltip="Apagar" matTooltipPosition="below" [disabled]="this.disableButtons">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                </tr>
+            </table>
+        </mat-card>
     </div>
 
-    <div>
-        <button mat-raised-button>ADICIONAR</button>
-    </div> 
-
-    <br />
-
-    <mat-card>
-        <mat-card-header>
-            <mat-form-field class="example-form-field">
-                <mat-label>Pesquisar</mat-label>
-                <input matInput type="text">
-                <button matSuffix mat-icon-button aria-label="Clear">
-                <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
-        </mat-card-header>
-
-        <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> SALA </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="block">
-                <th mat-header-cell *matHeaderCellDef> BLOCK </th>
-                <td mat-cell *matCellDef="let element"> {{element.block}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="isAcessible">
-                <th mat-header-cell *matHeaderCellDef> ACESSIBILIDADE  </th>
-                <td mat-cell *matCellDef="let element">
-                    <div [ngSwitch]="element.isAcessible">
-                        <span *ngSwitchCase="true">SIM</span>
-                        <span *ngSwitchCase="false">NÃO</span>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="hasAirConditioner">
-                <th mat-header-cell *matHeaderCellDef> AR CONDICIONADO  </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <div [ngSwitch]="element.hasAirConditioner">
-                        <span *ngSwitchCase="true">SIM</span>
-                        <span *ngSwitchCase="false">NÃO</span>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="hasFan">
-                <th mat-header-cell *matHeaderCellDef> VENTILADOR  </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <div [ngSwitch]="element.hasFan">
-                        <span *ngSwitchCase="true">SIM</span>
-                        <span *ngSwitchCase="false">NÃO</span>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="hasProjector">
-                <th mat-header-cell *matHeaderCellDef> PROJETOR  </th>
-                <td mat-cell *matCellDef="let element">
-                    <div [ngSwitch]="element.hasProjector">
-                        <span *ngSwitchCase="true">SIM</span>
-                        <span *ngSwitchCase="false">NÃO</span>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="capacity">
-                <th mat-header-cell *matHeaderCellDef> CAPACIDADE  </th>
-                <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="key">
-                <th mat-header-cell *matHeaderCellDef> CHAVE  </th>
-                <td mat-cell *matCellDef="let element"> {{element.key}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="available">
-                <th mat-header-cell *matHeaderCellDef> DISPONÍVEL  </th>
-                <td mat-cell *matCellDef="let element">
-                    <div [ngSwitch]="element.available">
-                        <span *ngSwitchCase="true">SIM</span>
-                        <span *ngSwitchCase="false">NÃO</span>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="note">
-                <th mat-header-cell *matHeaderCellDef> NOTAS  </th>
-                <td mat-cell *matCellDef="let element"> {{element.note}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <div class="actions">
-                        <button mat-mini-fab color="primary" style="width: 32px; height: 32px;">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-mini-fab color="warn" style="width: 32px; height: 32px;">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    </div>
-                </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-    </mat-card>
-    
 </section>

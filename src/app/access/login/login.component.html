@@ -1,19 +1,56 @@
 <section>
-    <div class="box-component">
-        <div class="align-components">
-            <img src="../../../assets/Logo-upe-site.png" alt="" width="100px">
-        <form [formGroup]="loginForm" class="form-component">
-            <mat-form-field>
-                <mat-label>Nome:</mat-label>
-                <input matInput formControlName="name">
-            </mat-form-field> <br />
-            <mat-form-field>
-                <mat-label>Senha:</mat-label>
-                <input matInput formControlName="password">
-            </mat-form-field> <br />
-        </form>
-        <button mat-raised-button color="primary" type="submit" (click)="login()">Entrar</button>
-       </div>
+    <div class="blue-size">
+        <div class="home-text">
+            <div>
+                <img class="sala-logo" src="../../../assets/crud/logo.png" alt="logo-salas">
+            </div>
+            <h1 class="welcome-text">Bem-vinda(o) ao</h1>
+            <h1 class="subtitle-text">sal@s !</h1>
+            <div class="content-text">
+                <div>
+                    <span>Sistema de Apoio à Logística de Aulas e Salas. Faça login ou </span>
+                    <span class="redirect-to-home" (click)="redirectToHome()">clique aqui</span>
+                    <span> para visualizar as aulas em andamento! </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="white-size">
+        <div class="box-component">
+            <div class="align-components">
+                <h1 class="login">login</h1>
+                <form [formGroup]="loginForm" class="form-component">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                            * Campo <strong> obrigatório</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="margin-top: 6px">
+                        <mat-label>Senha:</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                            * Campo <strong> obrigatório</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="first-access" (click)="firstAccess()">
+                        Primeiro acesso
+                    </div>
+                </form>
+                <div style="margin-top: 16px">
+                    <button mat-raised-button color="primary"
+                        [ngStyle]="{'background-color': loginForm.invalid ? '#e0e0e0' : '#123994' }" type="submit"
+                        (click)="login()" [disabled]="loginForm.invalid">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="upe-logo">
+        <img src="../../../assets/upe-logo.png" alt="" width="64px">
     </div>
 </section>
-

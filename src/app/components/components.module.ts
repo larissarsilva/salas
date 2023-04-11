@@ -7,13 +7,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidenavComponent } from './sidenav/sidenav.component';
-
-
+import { ErrorsModalComponent } from './errors-modal/errors-modal.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidenavComponent,
+    ErrorsModalComponent,
   ],
   imports: [
     CommonModule,

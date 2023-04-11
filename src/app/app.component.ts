@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './access/auth.service';
+import { AccountService } from './access/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +7,23 @@ import { AuthService } from './access/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'SAL@';
+  title = 'SAL@S';
 
   showMenu: boolean = false;
-  // O AuthService tem escorpo global
-  constructor(private authService: AuthService) {
+  isAuthenticated: boolean = false;
+  constructor(private accountService: AccountService) {
   }
 
   ngOnInit(): void {
-    this.authService.showNavbarEmitter.subscribe(
+    this.accountService.showNavbarEmitter.subscribe(
       value => this.showMenu = value
     );
+
+    this.accountService.isLogged.subscribe(
+      value => this.isAuthenticated = value
+    );
+
+    console.log = function():void{}; 
+
   }
 }

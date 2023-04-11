@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AccountService } from '../account.service';
+import { FirstAccessComponent } from '../first-access/first-access.component';
 import { User } from './login.interface';
 
 @Component({
@@ -8,29 +11,36 @@ import { User } from './login.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  loginForm = this.fb.group({
-    name: ['', Validators.required],
-    password: ['', Validators.required]
-  });
+export class LoginComponent {
 
   private user: User = new User();
-
+  hide: boolean = true;
+  loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService) {
-      this.user.name = 'larissa';
-      this.user.password = 'silva';
-      this.user.type = 1;
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AccountService,
+    public dialog: MatDialog
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
-  ngOnInit(): void {
-
+  redirectToHome() {
+    this.router.navigate(['']);
   }
 
   login() {
-    console.log('usuario', this.user)
-    this.authService.login(this.user);
+    if(this.loginForm.valid) {
+      this.authService.login(this.loginForm.value);
+    }
+  }
+
+  firstAccess() {
+    const dialogRef = this.dialog.open(FirstAccessComponent, {
+    });
   }
 }

@@ -1,51 +1,53 @@
 <section>
     <mat-card>
-        <form [formGroup]="coursesForm">
-           <div class="create-fields">
-                <div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Curso</mat-label>
-                        <input matInput formControlName="name"
-                        placeholder="Ex.: Engenharia da Computação">
-                        <mat-error *ngIf="coursesForm.controls['name'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Turno</mat-label>
-                <mat-select formControlName="shift">
-                    <mat-option *ngFor="let shift of shifts" [value]="shift.value">
-                        <span [innerHTML]="shift.alias"></span>
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="coursesForm.controls['shift'].hasError('required')">
-                    Campo <strong> obrigatório</strong>
-                </mat-error>
-                </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Matérias</mat-label>
-                        <mat-select formControlName="subjectsIds" multiple>
-                            <mat-option *ngFor="let subject of listSubjects" [value]="subject.id">
-                               <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="coursesForm.controls['subjectsIds'].hasError('required')">
-                            Campo <strong> obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+        <mat-card-content>
+            <form [formGroup]="coursesForm">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Curso</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: Engenharia da Computação">
+                            <mat-error *ngIf="coursesForm.controls['name'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Turno</mat-label>
+                            <mat-select formControlName="shift">
+                                <mat-option *ngFor="let shift of shifts" [value]="shift.value">
+                                    <span [innerHTML]="shift.alias"></span>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="coursesForm.controls['shift'].hasError('required')">
+                                Campo <strong> obrigatório</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Matérias</mat-label>
+                            <mat-select formControlName="subjectsIds" multiple>
+                                <mat-option *ngFor="let subject of listSubjects" [value]="subject.id">
+                                    <span [innerHTML]="subject.code"></span> | <span [innerHTML]="subject.name"></span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
+                </div>
+            </form>
+            <div class="actions-field">
+                <div class="create-edit">
+                    <button mat-raised-button *ngIf="showCreateButton" color="primary" type="submit"
+                        (click)="createCourse()">ADICIONAR</button>
+                    <button mat-raised-button color="primary" type="submit" (click)="updateCourse()"
+                        *ngIf="!showCreateButton">SALVAR</button>
+                </div>
+                <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
             </div>
-        </form>
-        <div class="create-cancel">
-            <button mat-raised-button *ngIf="showCreateButton" color="primary" type="submit" (click)="createCourse()">ADICIONAR</button>
-            <button mat-raised-button color="primary" type="submit" (click)="updateCourse()"
-            *ngIf="!showCreateButton">SALVAR</button>
-            <button mat-raised-button color="warn" (click)="cancelCreate()">CANCELAR</button>
-        </div>
+        </mat-card-content>
+
     </mat-card>
 </section>

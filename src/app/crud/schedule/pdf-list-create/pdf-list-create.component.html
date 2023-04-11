@@ -1,0 +1,143 @@
+<section>
+    <div class="card-size">
+        <mat-card>
+            <mat-card-header>
+                <div class="align-card-header">
+                    <div class="align-header">
+                        <mat-card-title>CADASTRAR</mat-card-title>
+                        <div class="align-header-buttons">
+                            <div class="example-button-container" (click)="closeModal">
+                                <button mat-mini-fab color="warn">
+                                <mat-icon>close</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" disabled [value]="pdfName">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-header>
+            <mat-card-content class="content-size">
+                    <form [formGroup]="classesForm">
+                        <div formArrayName="classes">
+                            <div *ngFor="let classForm of classes.controls; let index = index">
+                                <div [formGroupName]="index">
+                                  <div class="row" style="margin-top:10px">
+                                    <!-- <div class="col-lg-2">
+                                        <mat-checkbox
+                                        (change)="onChange($event.checked, index)"
+                                        [checked]="allClasses[index].isSelected" 
+                                        class="example-margin">Selecionar</mat-checkbox>
+                                    </div> -->
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sala</mat-label>
+                                            <input #roomName matInput formControlName="roomName">
+                                            <!-- <mat-error *ngIf="pdfForm.controls['roomId'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Professor(es)</mat-label>
+                                            <input matInput formControlName="professors" />
+                                            <!-- <mat-select formControlName="professors" multiple>
+                                                <mat-option *ngFor="let professor of listProfessors" [value]="professor.id">
+                                                   <span [innerHTML]="professor.name"></span>
+                                                </mat-option>
+                                            </mat-select> -->
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Código</mat-label>
+                                            <input matInput formControlName="subjectCode">
+                                            <!-- <mat-error *ngIf="pdfForm.controls['roomId'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Grupo</mat-label>
+                                            <input matInput formControlName="subjectGroup">
+                                            <!-- <mat-error *ngIf="pdfForm.controls['roomId'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    
+    
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dia</mat-label>
+                                            <mat-select formControlName="day">
+                                                <mat-option *ngFor="let day of listDays" [value]="day.id">{{day.alias}}</mat-option>
+                                            </mat-select>
+                                            <!-- <mat-error *ngIf="classForm.controls['day'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Horário de Início</mat-label>
+                                            <input matInput type="time" formControlName="startTime">
+                                            <!-- <mat-error *ngIf="classForm.controls['startTime'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Horário de Término</mat-label>
+                                            <input matInput type="time" formControlName="endTime" placeholder="Ex.: 10:30">
+                                            <!-- <mat-error *ngIf="classForm.controls['endTime'].hasError('required')">
+                                                Campo <strong> obrigatório</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2">
+                                    <button *ngIf="!classForm.enabled"  mat-mini-fab color="primary" class="icons-crud" matTooltip="Editar"
+                                    (click)="enableEdit(index)"    
+                                    matTooltipPosition="below">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+
+                                      <button *ngIf="classForm.enabled" 
+                                        (click)="confirmEdit(index, classForm)" mat-mini-fab color="primary" class="icons-crud" matTooltip="Atualizar"
+                                        matTooltipPosition="below">
+                                        <mat-icon>check</mat-icon>
+                                      </button>
+
+                                      <button *ngIf="classForm.enabled"  (click)="cancelEdit(index)"
+                                       mat-mini-fab color="warn" class="icons-crud" matTooltip="Cancelar edição"
+                                        matTooltipPosition="below">
+                                        <mat-icon>cancel</mat-icon>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+            </mat-card-content>
+    
+        </mat-card>
+    </div>
+    <div class="save-button">
+            <button mat-raised-button color="primary" 
+            (click)="createSelectedClasses()" [disabled]="!showEdit">SALVAR</button>
+    </div>
+</section>

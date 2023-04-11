@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import {MatTableModule} from '@angular/material/table';
 import { ComponentsModule } from '../components/components.module';
+import { CrudModule } from '../crud/crud.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     HomeRoutingModule,
     MatTableModule,
-    ComponentsModule
+    ComponentsModule,
+    CrudModule
   ]
 })
 export class HomeModule { }

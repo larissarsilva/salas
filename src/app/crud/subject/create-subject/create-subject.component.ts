@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
 import { SubjectService } from '../subject.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-subject',
@@ -62,21 +63,38 @@ export class CreateSubjectComponent implements OnInit {
   editSubject() {
     this.subjectsForm.value['id'] = this.subjectId;
     if (this.subjectsForm.valid) {
-      this.subjectService.putSubject(this.subjectsForm.value).subscribe((response: any) => {
-        const statusCode = response['code'];
-        switch (statusCode) {
-          case 200:
-            this.clearFields();
-            this.refreshSubjects();
-            this.cancelCreate();
-            break;
+      Swal.fire({
+        title: 'Tem certeza que gostaria de editar a Disciplina : ' + this.subjectsForm.value['name'] + '?',
+        text: "Essa ação não poderá ser desfeita",
+        icon: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.subjectService.putSubject(this.subjectsForm.value).subscribe((response: any) => {
+            const statusCode = response['code'];
+            switch (statusCode) {
+              case 200:
+                this.clearFields();
+                this.refreshSubjects();
+                this.cancelCreate();
+                Swal.fire(
+                  'Sucesso!',
+                  'Disciplina atualizada!',
+                  'success'
+                );
+                break;
 
-          default:
-            break;
+              default:
+                break;
+            }
+          });
         }
       });
-    } else {
-      //exibição de erro
     }
   }
 

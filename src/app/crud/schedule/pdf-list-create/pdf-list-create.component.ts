@@ -5,6 +5,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { pdfClass, Professors } from '../../crud.interface';
 import { ProfessorService } from '../../professor/professor.service';
 import { ScheduleService } from '../schedule.service';
+import Swal from 'sweetalert2';
 
 export interface DialogData {
   pdfData: any;
@@ -24,6 +25,7 @@ export class PdfListCreateComponent implements OnInit {
   enableSave: boolean = false;
   showEdit: boolean = true;
   pdfName: string;
+  feedback: boolean = false;
 
   listDays = [
     { id: 0, alias: 'Segunda' },
@@ -50,7 +52,6 @@ export class PdfListCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fillFields();
     this.addClasses();
     this.getProfessor();
   }
@@ -95,13 +96,6 @@ export class PdfListCreateComponent implements OnInit {
     }
   }
 
-  fillFields() {
-    // console.log('antes de preencher', this.classesForm)
-    // this.classesForm.patchValue(this.allClasses);
-    // console.log('depois de preencher', this.classesForm)
-    // this.multipleForm.patchValue(this.allClasses);
-  }
-
   onChange(event: boolean, row: any) {
     this.allClasses[row].isSelected = event;
     this.countSelectedClass();
@@ -130,10 +124,21 @@ export class PdfListCreateComponent implements OnInit {
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
-          this.closeModal(true)
+          Swal.fire(
+            'Sucesso!',
+            'Aulas cadastradas com sucesso!',
+            'success'
+          );
+          this.closeModal(true);
+          this.feedback = false;
+          break;
+
+          case 207:
+            this.feedback = true;
           break;
 
         default:
+          this.feedback = false;
           break;
       }
     });

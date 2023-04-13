@@ -6,7 +6,7 @@
                     <div class="align-header">
                         <mat-card-title>CADASTRAR</mat-card-title>
                         <div class="align-header-buttons">
-                            <div class="example-button-container" (click)="closeModal">
+                            <div class="example-button-container" (click)="closeModal(true)">
                                 <button mat-mini-fab color="warn">
                                 <mat-icon>close</mat-icon>
                                 </button>
@@ -22,25 +22,16 @@
                     </div>
                 </div>
             </mat-card-header>
-            <mat-card-content class="content-size">
+            <mat-card-content class="content-size" *ngIf="!feedback">
                     <form [formGroup]="classesForm">
                         <div formArrayName="classes">
                             <div *ngFor="let classForm of classes.controls; let index = index">
                                 <div [formGroupName]="index">
                                   <div class="row" style="margin-top:10px">
-                                    <!-- <div class="col-lg-2">
-                                        <mat-checkbox
-                                        (change)="onChange($event.checked, index)"
-                                        [checked]="allClasses[index].isSelected" 
-                                        class="example-margin">Selecionar</mat-checkbox>
-                                    </div> -->
                                     <div class="col-lg-3">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Sala</mat-label>
                                             <input #roomName matInput formControlName="roomName">
-                                            <!-- <mat-error *ngIf="pdfForm.controls['roomId'].hasError('required')">
-                                                Campo <strong> obrigatório</strong>
-                                            </mat-error> -->
                                         </mat-form-field>
                                     </div>
 
@@ -132,6 +123,9 @@
                             </div>
                         </div>
                     </form>
+            </mat-card-content>
+            <mat-card-content *ngIf="feedback">
+                Alguns dados não foram encontrados!
             </mat-card-content>
     
         </mat-card>

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SubjectService } from '../../subject/subject.service';
 import { CourseService } from '../course.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-course',
@@ -88,25 +89,43 @@ export class CreateCourseComponent implements OnInit {
     }
     this.coursesForm.value['id'] = this.courseId;
     if (this.coursesForm.valid) {
-      this.ngxService.start('updateCourse');
-      this.coursesService.putCourse(this.coursesForm.value).then((response: any) => {
-        const statusCode = response['code'];
-        switch (statusCode) {
-          case 200:
-            this.cancelCreate();
-            this.refreshCourses();
-            this.coursesForm.reset();
-            break;
+      Swal.fire({
+        title: 'Tem certeza que gostaria de editar o Curso: ' + this.coursesForm.value['name'] + '?',
+        text: "Essa ação não poderá ser desfeita",
+        icon: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.ngxService.start('updateCourse');
+          this.coursesService.putCourse(this.coursesForm.value).then((response: any) => {
+            const statusCode = response['code'];
+            switch (statusCode) {
+              case 200:
+                this.cancelCreate();
+                this.refreshCourses();
+                this.coursesForm.reset();
+                Swal.fire(
+                  'Sucesso!',
+                  'Curso atualizado!',
+                  'success'
+                );
+                break;
 
-          default:
-            break;
+              default:
+                break;
+            }
+          }).catch((error: any) => {
+            const errorCode = error.code;
+            this.showErrorCode = errorCode;
+          }).finally(() => {
+            this.ngxService.stop('updateCourse');
+          });
         }
-      }).catch((error: any) => {
-        const errorCode = error.code;
-        this.showErrorCode = errorCode;
-        console.log('codigo do erro', this.showErrorCode)
-      }).finally(() => {
-        this.ngxService.stop('updateCourse');
       });
     }
   }

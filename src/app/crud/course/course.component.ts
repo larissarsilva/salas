@@ -34,6 +34,7 @@ export class CourseComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'actionsDetails'];
   fieldType!: string;
   sendCourse: any;
+  showErrorCode!: number;
 
   constructor(
     private coursesService: CourseService,
@@ -46,7 +47,7 @@ export class CourseComponent implements OnInit {
 
   getCourses() {
     this.ngxService.start('getCourse');
-    this.coursesService.getCourses().subscribe((response: any) => {
+    this.coursesService.getCourses().then((response: any) => {
       this.ngxService.stop('getCourse');
       const statusCode = response['code'];
       if (statusCode == 200) {
@@ -67,12 +68,17 @@ export class CourseComponent implements OnInit {
       } else {
         console.log("exibir erro");
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCode = errorCode;
+    }).finally(() => {
+      this.ngxService.stop('updateCourse');
     });
   }
 
   getCourseDetails(courseId: number) {
     this.ngxService.start('getCourseDetails');
-    this.coursesService.getCourseById(courseId).subscribe((response: any) => {
+    this.coursesService.getCourseById(courseId).then((response: any) => {
       this.ngxService.stop('getCourseDetails');
       const statusCode = response['code'];
       switch (statusCode) {
@@ -80,9 +86,14 @@ export class CourseComponent implements OnInit {
           this.listCourseDetails = response.content;
           break;
 
-        default: console.log('erro');
+        default:
           break;
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCode = errorCode;
+    }).finally(() => {
+      this.ngxService.stop('updateCourse');
     });
   }
 
@@ -111,7 +122,7 @@ export class CourseComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.ngxService.start('deleteCourse');
-        this.coursesService.deleteCourse(id).subscribe((response: any) => {
+        this.coursesService.deleteCourse(id).then((response: any) => {
           const statusCode = response['code'];
           this.ngxService.stop('deleteCourse');
           switch (statusCode) {
@@ -127,6 +138,11 @@ export class CourseComponent implements OnInit {
             default:
               break;
           }
+        }).catch((error: any) => {
+          const errorCode = error.code;
+          this.showErrorCode = errorCode;
+        }).finally(() => {
+          this.ngxService.stop('deleteCourse');
         });
       }
     });

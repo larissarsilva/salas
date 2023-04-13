@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from '../../subject/subject.service';
 import { CourseService } from '../course.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-create-course',
@@ -25,12 +26,14 @@ export class CreateCourseComponent implements OnInit {
     { value: 1, alias: 'Tarde' },
     { value: 2, alias: 'Noite' }
   ];
+  showErrorCode!: number;
 
 
   constructor(
     private formBuilder: FormBuilder,
     private coursesService: CourseService,
-    private subjectServices: SubjectService
+    private subjectServices: SubjectService,
+    private ngxService: NgxUiLoaderService,
   ) {
     this.coursesForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -55,19 +58,26 @@ export class CreateCourseComponent implements OnInit {
       this.coursesForm.removeControl('subjectsIds');
     }
     if (this.coursesForm.valid) {
-      this.coursesService.postCourse(this.coursesForm.value).subscribe((response: any) => {
-        const statusCode = response['code'];
-        switch (statusCode) {
-          case 201:
-            this.refreshCourses();
-            this.coursesForm.reset();
-            break;
+      this.ngxService.start('createCourse');
+      this.coursesService.postCourse(this.coursesForm.value)
+        .then((response: any) => {
+          const statusCode = response['code'];
+          switch (statusCode) {
+            case 201:
+              this.refreshCourses();
+              this.coursesForm.reset();
+              break;
 
-          default: console.log('CRIAÇÃO NÃO VÁLIDA')
-
-            break;
-        }
-      });
+            default:
+              break;
+          }
+        }).catch((error: any) => {
+          const errorCode = error.code;
+          this.showErrorCode = errorCode;
+          console.log('codigo do erro', this.showErrorCode)
+        }).finally(() => {
+          this.ngxService.stop('createCourse');
+        });
     }
   }
 
@@ -78,7 +88,8 @@ export class CreateCourseComponent implements OnInit {
     }
     this.coursesForm.value['id'] = this.courseId;
     if (this.coursesForm.valid) {
-      this.coursesService.putCourse(this.coursesForm.value).subscribe((response: any) => {
+      this.ngxService.start('updateCourse');
+      this.coursesService.putCourse(this.coursesForm.value).then((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
           case 200:
@@ -90,9 +101,13 @@ export class CreateCourseComponent implements OnInit {
           default:
             break;
         }
+      }).catch((error: any) => {
+        const errorCode = error.code;
+        this.showErrorCode = errorCode;
+        console.log('codigo do erro', this.showErrorCode)
+      }).finally(() => {
+        this.ngxService.stop('updateCourse');
       });
-    } else {
-      console.log('validar mensagens de erro');
     }
   }
 

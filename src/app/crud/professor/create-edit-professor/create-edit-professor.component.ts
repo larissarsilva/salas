@@ -22,6 +22,7 @@ export class CreateEditProfessorComponent implements OnInit {
   showCreateButton: boolean = true;
   professorId!: number;
   disableSubjectField: boolean = false;
+  showErrorCode: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +56,7 @@ export class CreateEditProfessorComponent implements OnInit {
   }
 
   getCourses() {
-    this.coursesService.getCourses().subscribe((response: any) => {
+    this.coursesService.getCourses().then((response: any) => {
       const statusCode = response['code'];
       switch (statusCode) {
         case 200:
@@ -65,6 +66,9 @@ export class CreateEditProfessorComponent implements OnInit {
         default:
           break;
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCode = errorCode;
     });
   }
 

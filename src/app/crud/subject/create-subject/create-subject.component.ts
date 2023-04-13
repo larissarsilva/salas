@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../course/course.service';
 import { SubjectService } from '../subject.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-create-subject',
@@ -22,11 +23,13 @@ export class CreateSubjectComponent implements OnInit {
   listworkload = [15, 30, 45, 60, 75, 90, 180];
   showCreateButton: boolean = true;
   disableCourse!: boolean;
+  showErrorCode: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private coursesService: CourseService,
+    private ngxService: NgxUiLoaderService
   ) {
     this.subjectsForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -79,8 +82,10 @@ export class CreateSubjectComponent implements OnInit {
 
   createSubject() {
     if (this.subjectsForm.valid) {
+      this.ngxService.start('createSubject');
       this.subjectService.postSubject(this.subjectsForm.value).subscribe((response: any) => {
         const statusCode = response['code'];
+        this.ngxService.stop('createSubject');
         switch (statusCode) {
           case 201:
             this.clearFields();
@@ -101,7 +106,7 @@ export class CreateSubjectComponent implements OnInit {
   }
 
   getCourses() {
-    this.coursesService.getCourses().subscribe((response: any) => {
+    this.coursesService.getCourses().then((response: any) => {
       const statusCode = response['code'];
       if (statusCode == 200) {
         this.listCourses = response['content'];
@@ -113,6 +118,9 @@ export class CreateSubjectComponent implements OnInit {
       } else {
         //validar erro
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCode = errorCode;
     });
   }
 

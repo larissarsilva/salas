@@ -124,6 +124,9 @@ mat-form-field {
     background-color: #123994 !important;
 }
 
+body.mat-typography.swal2-shown.swal2-height-auto {
+    height: 100vh !important;
+}
 
 @media (max-width: 790px) {
     th,

@@ -61,7 +61,7 @@
       </mat-card-content>
     </mat-card>
 
-    <div class="align-create-buttons" *ngIf="!this.disableButtons">
+    <div class="align-create-buttons" *ngIf="!this.disableButtons && this.isLoggedIn">
       <button mat-raised-button (click)="openModal()">ADICIONAR</button>
     </div>
 
@@ -140,9 +140,9 @@
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
-            <td mat-cell *matCellDef="let element">
-              <div class="table-actions">
+            <th mat-header-cell *matHeaderCellDef  [hidden]="!isLoggedIn"> AÇÕES </th>
+            <td mat-cell *matCellDef="let element"  [hidden]="!isLoggedIn">
+              <div class="table-actions" *ngIf="this.isLoggedIn">
                 <div>
                   <button (click)="editClassInProgress(element)" mat-mini-fab color="primary" class="icons-crud"
                     matTooltip="EDITAR" matTooltipPosition="below" [disabled]="this.disableButtons">

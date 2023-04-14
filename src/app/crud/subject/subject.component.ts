@@ -33,6 +33,7 @@ export class SubjectComponent implements OnInit {
   sendSubject: any;
   listSubjectDetails: any;
   disableButtons: boolean = false;
+  showErrorCode: any;
 
   constructor(
     private subjectServices: SubjectService,
@@ -103,12 +104,12 @@ export class SubjectComponent implements OnInit {
             case 200:
               this.getSubjects();
               Swal.fire(
-              'Sucesso!',
-              'Disciplina excluída!',
-              'success'
-            );
+                'Sucesso!',
+                'Disciplina excluída!',
+                'success'
+              );
               break;
-          
+
             default:
               break;
           }
@@ -138,7 +139,7 @@ export class SubjectComponent implements OnInit {
   getCourseById(subject: any) {
     const coursesId = subject['coursesIds'];
     this.listCourses = [];
-    this.courseServices.getCourses().subscribe(response => {
+    this.courseServices.getCourses().then(response => {
       this.listAllCourses = response;
       for (let index = 0; index < coursesId.length; index++) {
         const subjectId = coursesId[index];
@@ -147,6 +148,11 @@ export class SubjectComponent implements OnInit {
           this.listCourses.push(this.listAllCourses[hasId])
         }
       }
+    }).catch((error: any) => {
+      const errorCode = error.code;
+      this.showErrorCode = errorCode;
+    }).finally(() => {
+      this.ngxService.stop('coursesIds');
     });
   }
 

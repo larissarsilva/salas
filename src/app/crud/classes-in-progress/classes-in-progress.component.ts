@@ -40,6 +40,7 @@ export class ClassesInProgressComponent implements OnInit, AfterViewInit {
   subjectName!: string;
   subjectGroup!: string;
   getRole!: string;
+  isLoggedIn;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +54,7 @@ export class ClassesInProgressComponent implements OnInit, AfterViewInit {
       roomId: [null, Validators.required],
       note: [null],
     });
+    this.isLoggedIn =  this.accountService.isUserLoggedIn();
   }
   
   ngOnInit() {

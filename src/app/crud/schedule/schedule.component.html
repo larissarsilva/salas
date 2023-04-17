@@ -85,12 +85,7 @@
           <ng-container matColumnDef="day">
             <th mat-header-cell *matHeaderCellDef> DIA </th>
             <td mat-cell *matCellDef="let element"> 
-              <span *ngIf="element.day == 0"> Segunda </span>
-              <span *ngIf="element.day == 1"> Terça </span>
-              <span *ngIf="element.day == 2"> Quarta </span>
-              <span *ngIf="element.day == 3"> Quinta </span>
-              <span *ngIf="element.day == 4"> Sexta </span>
-              <span *ngIf="element.day == 5"> Sábado </span>
+              <span [innerHTML]="element.day"> </span>
           </td>
           </ng-container>
   

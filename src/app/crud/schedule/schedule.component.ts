@@ -30,19 +30,19 @@ export class ScheduleComponent implements OnInit {
   fieldType!: string;
   sendClassValues!: any;
 
-  displayedColumns: string[] = ['professors', 'subjectCode' ,'subject', 'subjectGroup' ,'room', 'day', 'startTime', 'endTime', 'action'];
+  displayedColumns: string[] = ['professors', 'subjectCode', 'subject', 'subjectGroup', 'room', 'day', 'startTime', 'endTime', 'action'];
   ELEMENT_DATA = [];
   listClasses: any;
   selectedFile: any;
   listPDFContent: any;
-  
+
   // Modal de classe
   expandedElement: any;
   columnsToDisplayWithExpand!: string[];
   classInProgressForm: FormGroup;
   listProfessors: Professors[] = [];
   listClassesInProgress: classInProgress[] = [];
-  
+
   //Chegar se a chamada está vindo através do componente de criar aula
   @Input() isClass!: boolean;
   isInProgress: classInProgress | undefined;
@@ -67,12 +67,12 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.getClass();
-    if(this.isClass == undefined) {
+    if (this.isClass == undefined) {
       this.isClass = false;
     } else if (this.isClass == true) {
       this.getClassesInProgress();
       this.displayedColumns.pop();
-      this.displayedColumns.splice(8,0,'status');
+      this.displayedColumns.splice(8, 0, 'status');
       this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
     }
   }
@@ -85,6 +85,30 @@ export class ScheduleComponent implements OnInit {
       switch (statusCode) {
         case 200:
           this.listClasses = response['content'];
+          this.listClasses.forEach((element: any) => {
+            const getDay = element['day'];
+            switch (getDay) {
+              case 0:
+                element['day'] = 'Segunda';
+                break;
+              case 1:
+                element['day'] = 'Terça';
+                break;
+              case 2:
+                element['day'] = 'Quarta';
+                break;
+              case 3:
+                element['day'] = 'Quinta';
+                break;
+              case 4:
+                element['day'] = 'Sexta';
+                break;
+
+              default:
+                element['day'] = 'Sábado';
+                break;
+            }
+          });
           this.getClassStatus();
           break;
 
@@ -95,9 +119,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   getClassStatus() {
-    for (let index = 0; index <  this.listClasses.length; index++) {
-      const element =  this.listClasses[index].id;
-      const status = this.listClassesInProgress.findIndex((value: any) => value.classId === element );
+    for (let index = 0; index < this.listClasses.length; index++) {
+      const element = this.listClasses[index].id;
+      const status = this.listClassesInProgress.findIndex((value: any) => value.classId === element);
       if (status != -1) {
         this.listClasses[index]['status'] = 'OCUPADA';
       } else {
@@ -153,7 +177,7 @@ export class ScheduleComponent implements OnInit {
       }
     });
   }
-  
+
   deleteAllClasses() {
     Swal.fire({
       title: 'Tem certeza que gostaria de deletar todos os registros ?',
@@ -212,37 +236,37 @@ export class ScheduleComponent implements OnInit {
           this.listPDFContent = await response['content'];
           this.openModal(this.listPDFContent, this.selectedFile.name)
           break;
-      
+
         default:
           break;
       }
     }).catch((error: any) => {
       const errorCode = error.code;
       this.showErrorCodePDF = errorCode;
-      console.log('codigo do erro',this.showErrorCodePDF);
+      console.log('codigo do erro', this.showErrorCodePDF);
     }).finally(() => {
       this.ngxService.stop('openModal');
     });
   }
 
   openModal(pdfContent: any, pdfName: string) {
-      const dialogRef = this.dialog.open(PdfListCreateComponent, {
-        data: {
-          pdfData: pdfContent,
-          pdfName: pdfName
-        },
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-          this.getClass();
-        }
-      });
+    const dialogRef = this.dialog.open(PdfListCreateComponent, {
+      data: {
+        pdfData: pdfContent,
+        pdfName: pdfName
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getClass();
+      }
+    });
   }
 
   // Dados do componente modal de aula
 
   createClassInProgress() {
-    if (this.classInProgressForm.valid) { 
+    if (this.classInProgressForm.valid) {
       this.classesInProgressServices.createClassInProgress(this.classInProgressForm.value).subscribe((response: any) => {
         const statusCode = response['code'];
         switch (statusCode) {
@@ -264,7 +288,7 @@ export class ScheduleComponent implements OnInit {
     this.classInProgressForm.controls['roomId'].setValue(classValue.room.id);
     this.listProfessors = classValue.professors;
     this.isInProgress = this.listClassesInProgress.find((value: any) => value.classId === classValue.id);
-    if(this.isInProgress) {
+    if (this.isInProgress) {
       this.classInProgressForm.controls['note'].disable();
       this.classInProgressForm.controls['classStatus'].setValue('OCUPADA');
       this.classInProgressForm.controls['note'].setValue(this.isInProgress.note);
@@ -282,19 +306,19 @@ export class ScheduleComponent implements OnInit {
   getClassesInProgress() {
     this.ngxService.start('getClass');
     this.classesInProgressServices.getClassesInProgress().subscribe((response: any) => {
-    this.ngxService.stop('getClass');
-    const statusCode = response['code'];
-    switch (statusCode) {
-      case 200:
-        this.listClassesInProgress = response['content'];
-        break;
-    
-      default:
-        break;
-    }
+      this.ngxService.stop('getClass');
+      const statusCode = response['code'];
+      switch (statusCode) {
+        case 200:
+          this.listClassesInProgress = response['content'];
+          break;
+
+        default:
+          break;
+      }
     });
   }
-  
+
   cancelClassInProgress() {
     this.classInProgressForm.controls['responsibleProfessorId'].reset();
     this.classInProgressForm.controls['note'].reset();

@@ -48,17 +48,16 @@ export class SubjectComponent implements OnInit {
 
   getSubjects() {
     this.ngxService.start('getSubject');
-    this.subjectServices.getSubjects().subscribe((response: any) => {
-      this.ngxService.stop('getSubject');
-      const statusCode = response['code'];
-      switch (statusCode) {
-        case 200:
-          this.listSubject = response.content;
-          this.expandedElement = this.listSubject;
-          break;
-
-        default: console.log('erro');
-          break;
+    this.subjectServices.getSubjects().subscribe({
+      next: (response) => {
+        this.listSubject = response;
+      },
+      error: (error) => {
+        console.log('erro', error);
+        this.ngxService.stop('getSubject');
+      },
+      complete: () => {
+        this.ngxService.stop('getSubject');
       }
     });
   }

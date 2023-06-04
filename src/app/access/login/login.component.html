@@ -21,9 +21,9 @@
                 <h1 class="login">login</h1>
                 <form [formGroup]="loginForm" class="form-component">
                     <mat-form-field appearance="outline">
-                        <mat-label>Email:</mat-label>
-                        <input matInput formControlName="email">
-                        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                        <mat-label>Usuário:</mat-label>
+                        <input matInput formControlName="username">
+                        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
                             * Campo <strong> obrigatório</strong>
                         </mat-error>
                     </mat-form-field>

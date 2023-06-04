@@ -13,12 +13,13 @@ export class AdmGuardGuard implements CanActivateChild {
   ) { }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const role = this.accountService.isFirstAccess();
-    if(role == 'Administrator') {
-      return true;
-    } else {
-      return false;
-    }
+    // const role = this.accountService.isFirstAccess();
+    // if(role == 'Administrator') {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
   
 }

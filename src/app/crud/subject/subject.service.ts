@@ -1,21 +1,30 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, map, tap, throwError } from 'rxjs';
 import { envorinment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
-  LOCAL_URL = envorinment.apiURL + 'Subjects';
-  token: string;
+  LOCAL_URL = envorinment.apiURL + 'subjects';
+  token: any;
 
   constructor(private http: HttpClient) {
-    this.token = 'bearer' + window.localStorage.getItem('token');
+    this.token = window.localStorage.getItem('token');
   }
 
   getSubjects() {
     return this.http.get(this.LOCAL_URL,
-      { headers: new HttpHeaders().set('Authorization', this.token) });
+      { headers: new HttpHeaders().set('Authorization', this.token), observe: 'response' }).pipe(
+        map((response: HttpResponse<any>) => {
+          return response.body
+        }),
+        catchError(error => {
+          console.log('tratamento de erro');
+          return throwError(() => error);
+        })
+      )
   }
 
   deleteSubject(id: number) {

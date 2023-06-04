@@ -14,12 +14,13 @@ export class AuthGuardService implements CanActivate{
   ) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.accountService.isUserLoggedIn()) {
-      return true;
-    } else {
-      this.router.navigate(['login']);
-      return false;
-    }
+    return true;
+    // if (this.accountService.isUserLoggedIn()) {
+    //   return true;
+    // } else {
+    //   this.router.navigate(['login']);
+    //   return false;
+    // }
   }
 
 }

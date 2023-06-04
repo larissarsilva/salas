@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
       value => this.isAuthenticated = value
     );
 
-    console.log = function():void{}; 
+    // console.log = function():void{}; 
 
   }
 }

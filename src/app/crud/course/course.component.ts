@@ -26,7 +26,7 @@ export class CourseComponent implements OnInit {
   listCourses: any;
   listCourseDetails: any;
   disableButtons: boolean = false;
-  
+
   // Table
   expandedElement: any;
   dataSource: Course[] = [];
@@ -47,34 +47,54 @@ export class CourseComponent implements OnInit {
 
   getCourses() {
     this.ngxService.start('getCourse');
-    this.coursesService.getCourses().then((response: any) => {
-      this.ngxService.stop('getCourse');
-      const statusCode = response['code'];
-      if (statusCode == 200) {
-        this.listCourses = response['content'];
+    this.coursesService.getCourses1().subscribe({
+      next: (response) => {
+        console.log('response', response)
+        this.listCourses = response;
         this.dataSource = this.listCourses;
-        for (let index = 0; index < this.listCourses.length; index++) {
-          const element = this.listCourses[index];
-          element['index'] = index;
-          if (element['shift'] == 0) {
-            element['shift'] = 'MANHÃ'
-          } else if (element['shift'] == 1) {
-            element['shift'] = 'TARDE'
-          } else if (element['shift'] == 2) {
-            element['shift'] = 'NOITE'
-          }
-        }
-        this.expandedElement = this.dataSource;
-      } else {
-        console.log("exibir erro");
+      },
+      error: (error) => {
+        this.ngxService.stop('getCourse');
+        console.log('Pode ser feito um tratamento a mais do erro que não foi feito no service', error);
+      },
+      complete: () => {
+        this.ngxService.stop('getCourse');
+        console.log('A execução foi concluída com sucesso');
       }
-    }).catch((error: any) => {
-      const errorCode = error.code;
-      this.showErrorCode = errorCode;
-    }).finally(() => {
-      this.ngxService.stop('updateCourse');
     });
   }
+
+  // getCourses() {
+  //   this.ngxService.start('getCourse');
+  //   this.coursesService.getCourses().then((response: any) => {
+  //     console.log('retornou', response)
+  //     this.ngxService.stop('getCourse');
+  //     const statusCode = response['code'];
+  //     if (statusCode == 200) {
+  //       this.listCourses = response['content'];
+  //       this.dataSource = this.listCourses;
+  //       for (let index = 0; index < this.listCourses.length; index++) {
+  //         const element = this.listCourses[index];
+  //         element['index'] = index;
+  //         if (element['shift'] == 0) {
+  //           element['shift'] = 'MANHÃ'
+  //         } else if (element['shift'] == 1) {
+  //           element['shift'] = 'TARDE'
+  //         } else if (element['shift'] == 2) {
+  //           element['shift'] = 'NOITE'
+  //         }
+  //       }
+  //       this.expandedElement = this.dataSource;
+  //     } else {
+  //       console.log("exibir erro");
+  //     }
+  //   }).catch((error: any) => {
+  //     const errorCode = error.code;
+  //     this.showErrorCode = errorCode;
+  //   }).finally(() => {
+  //     this.ngxService.stop('updateCourse');
+  //   });
+  // }
 
   getCourseDetails(courseId: number) {
     this.ngxService.start('getCourseDetails');
@@ -127,14 +147,14 @@ export class CourseComponent implements OnInit {
           this.ngxService.stop('deleteCourse');
           switch (statusCode) {
             case 200:
-              this.getCourses();  
+              this.getCourses();
               Swal.fire(
-              'Sucesso!',
-              'Curso excluído!',
-              'success'
+                'Sucesso!',
+                'Curso excluído!',
+                'success'
               );
               break;
-          
+
             default:
               break;
           }

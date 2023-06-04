@@ -24,7 +24,7 @@ export class LoginComponent {
     public dialog: MatDialog
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', Validators.required]
     });
   }
@@ -35,7 +35,7 @@ export class LoginComponent {
 
   login() {
     if(this.loginForm.valid) {
-      this.authService.login(this.loginForm.value);
+      this.authService.login(this.loginForm.value)
     }
   }
 

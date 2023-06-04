@@ -13,12 +13,11 @@ export class AuthInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-
     const token = this.accountService.getAuth();
     let request: HttpRequest<any> = req;
     if (token && !this.accountService.isTokenExpired(token)) {
       request = req.clone({
-        headers: req.headers.set('Authorization', `bearer ${token}`)
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
       });
     }
 
@@ -34,12 +33,13 @@ export class AuthInterceptor implements HttpInterceptor {
       // Erro de client-side ou de rede
       console.error('Ocorreu um erro:', error.error.message);
     } else {
-      statusCode = error.error.code;
+      statusCode = error.status;
+      // statusCode = error.error.code;
       // Erro retornando pelo backend
       console.error(
-        `Código do erro ${error.error.code}, ` +
+        `Código do erro ${error.status}, ` +
         // `Conteudo ${error.error.content}, ` +
-        `Erro: ${JSON.stringify(error.error.message)}`);
+        `Erro: ${JSON.stringify(error.statusText)}`);
         const erroMsg = JSON.stringify(error.error.message);
         if(erroMsg == '"Invalid email address or password."'){
           Swal.fire(
@@ -50,6 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
     }
     // retornar um observable com uma mensagem amigavel.
-    return throwError({'code':statusCode});
+    // return throwError({'code':statusCode});
+    return throwError(() => error);
   }
 }

@@ -37,22 +37,32 @@ export class RoomComponent implements OnInit {
   }
 
   getRoom() {
-    this.ngxService.start('getRoom');
-    this.roomService.getRoom().subscribe((response: any) => {
-      this.ngxService.stop('getRoom');
-      const statusCode = response['code'];
-      switch (statusCode) {
-        case 200:
-          this.listRooms = response.content;
-          break;
-        case 204:
-          console.log('NO CONTENT');
-          break
-        default: console.log('erro')
-          break;
-      }
+    this.roomService.getRoom1().subscribe((response:any) => {
+      this.listRooms = response;
     });
   }
+  // this.roomService.getRoom1().subscribe((response: any) => {
+  //   this.listRooms = response;
+  // });
+
+
+  // getRoom() {
+  //   this.ngxService.start('getRoom');
+  //   this.roomService.getRoom().subscribe((response: any) => {
+  //     this.ngxService.stop('getRoom');
+  //     const statusCode = response['code'];
+  //     switch (statusCode) {
+  //       case 200:
+  //         this.listRooms = response.content;
+  //         break;
+  //       case 204:
+  //         console.log('NO CONTENT');
+  //         break
+  //       default: console.log('erro')
+  //         break;
+  //     }
+  //   });
+  // }
 
   createRoom() {
     this.disableButtons = true;

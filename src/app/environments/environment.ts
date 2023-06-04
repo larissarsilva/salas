@@ -1,4 +1,5 @@
 export const envorinment: any = {
     production: false,
-    apiURL: 'https://salaapi.azurewebsites.net/'
+    apiURL: 'http://localhost:8000/'
+    // apiURL: 'https://salaapi.azurewebsites.net/'
 };

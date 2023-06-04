@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { User } from './login/login.interface';
 import { envorinment } from '../environments/environment';
 import jwt_decode from "jwt-decode";
@@ -14,7 +14,7 @@ export class AccountService {
   private isAuthenticated: boolean = false;
   isLogged = new EventEmitter<boolean>;
   showNavbarEmitter = new EventEmitter<boolean>;
-  LOCAL_URL = envorinment.apiURL + 'Authentications';
+  LOCAL_URL = envorinment.apiURL + 'authentications';
   token!: string;
 
   constructor(
@@ -23,24 +23,37 @@ export class AccountService {
   ) {
   }
 
+  // public login(user: User) {
+  //   console.log('chamou')
+  //   return this.http.post(this.LOCAL_URL, user).pipe(
+  //     map((response: any) => response.body),
+  //     catchError(error => {
+  //       console.log('deu algum erro :(', error)
+  //       return throwError(error);
+  //     })
+  //   );
+  // }
+
+
   async login(user: User) {
     this.http.post(this.LOCAL_URL, user).subscribe((response: any) => {
       const statusCode = response['code'];
-          switch (statusCode) {
-            case 200:
+      console.log('resposta do login', response)
+          // switch (statusCode) {
+          //   case 200:
               this.isAuthenticated = true;
-              this.token = response['content'];
+              this.token = response['access'];
               this.isLogged.emit(true);
               this.showNavbarEmitter.emit(true);
               this.router.navigate(['/listagem/aulas']);
               this.autenticar(this.token);
-              break;
+              // break;
 
-            default:
-              this.isAuthenticated = false;
-              this.showNavbarEmitter.emit(false);
-              break;
-          }
+            // default:
+            //   this.isAuthenticated = false;
+            //   this.showNavbarEmitter.emit(false);
+            //   break;
+          // }
     });
   }
 

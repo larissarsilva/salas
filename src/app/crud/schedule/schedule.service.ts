@@ -11,12 +11,12 @@ export class ScheduleService {
   token: any
 
   constructor(private http: HttpClient) {
-    this.token = 'bearer' + window.localStorage.getItem('token');
+    // this.token = 'bearer' + window.localStorage.getItem('token');
+    this.token = '';
   }
 
   getClasses() {
-    return this.http.get(this.LOCAL_URL,
-      { headers: new HttpHeaders().set('Authorization', this.token) })
+    return this.http.get(this.LOCAL_URL);
   }
 
   createClass(data: any) {
